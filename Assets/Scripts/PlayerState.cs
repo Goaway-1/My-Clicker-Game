@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerState : MonoBehaviour
+{
+    //싱글톤;; 하지말고 DataManager에서만 접근가능하게 하자
+
+    //States
+    [HideInInspector]
+    public int power;   //힘
+    [HideInInspector]
+    public int gold;   //돈
+    [HideInInspector]
+    public float strikePer; //치명타 확률
+    [HideInInspector]
+    public float strikePow; //치명타배수
+    [HideInInspector]
+    public int stage;
+
+    private void Awake()
+    {
+        power = PlayerPrefs.GetInt("Power", 1);
+        gold = PlayerPrefs.GetInt("gold", 0);
+        strikePer = PlayerPrefs.GetFloat("strikePer", 10f);
+        strikePow = PlayerPrefs.GetFloat("strikePow", 1.42f);
+        stage = PlayerPrefs.GetInt("stage",1);
+    }
+}
