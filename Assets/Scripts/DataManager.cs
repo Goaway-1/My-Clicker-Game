@@ -23,12 +23,46 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public PlayerState p; //PlayerState를 불러온다.(싱글톤X)
 
+    //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    public void LoadC_Button(CriticlaButton criticlaButton) //power업글 불러오기
+    {
+        string key = criticlaButton.upgradeName;
+
+        criticlaButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticlaButton.startCurrentCost);
+        criticlaButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+    }
+
+    public void SaveC_Button(CriticlaButton criticlaButton) //power업글 저장하기
+    {
+        string key = criticlaButton.upgradeName;
+
+        PlayerPrefs.SetInt(key + "_cost", criticlaButton.currentCost);
+        PlayerPrefs.SetInt(key + "_level", criticlaButton.level);
+    }
+    public void increasedCritical (float startPower, float costPow, int level) //power 증가
+    {
+        p.power += startPower * Mathf.Pow(costPow, level);
+        SetPower(p.power);
+    }
+
+    public void SetCritical(float p) //power저장
+    {
+        PlayerPrefs.SetFloat("Critical", p);
+    }
+
+    public float GetCritical() //power 불러오기
+    {
+        return p.power;
+    }
+    //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadItemButton(ItemButton itemButton) //power업글 불러오기
     {
         string key = itemButton.upgradeName;
 
         itemButton.currentCost = PlayerPrefs.GetInt(key + "_cost", itemButton.startCurrentCost);
-        itemButton.level = PlayerPrefs.GetInt(key + "_level",1);
+        itemButton.level = PlayerPrefs.GetInt(key + "_level", 1);
     }
 
     public void SaveitemButton(ItemButton itemButton) //power업글 저장하기
@@ -39,19 +73,18 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         PlayerPrefs.SetInt(key + "_level", itemButton.level);
     }
 
-    //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    
-    public void increasedPower() //power 증가
+    public void increasedPower(float startPower,float costPow,int level) //power 증가
     {
-        SetPower(++p.power);
+        p.power += startPower * Mathf.Pow(costPow,level);
+        SetPower(p.power);
     }
 
-    public void SetPower(int p) //power저장
+    public void SetPower(float p) //power저장
     {
-        PlayerPrefs.SetInt("Power",p);
+        PlayerPrefs.SetFloat("Power",p);
     }
 
-    public int GetPower() //power 불러오기
+    public float GetPower() //power 불러오기
     {
         return p.power;
     }
@@ -62,6 +95,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
 
     }
+
     public void SetStrikePow()
     {
 
@@ -69,12 +103,12 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public float GetStrikePer() //퍼센트
     {
-        return p.strikePer;
+        return p.criticalPer;
     }
 
     public float GetStrikePow() //배수
     {
-        return p.strikePow;
+        return p.criticalPow;
     }
 
     //크리티컬관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

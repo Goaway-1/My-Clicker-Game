@@ -14,7 +14,8 @@ public class ItemButton : MonoBehaviour
     public int startCurrentCost = 1;
 
     //¾÷±Û Á¦°ö
-    public float costPow = 1.14f;
+    public float costPow = 1.08f;
+    public float startPower = 1f;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class ItemButton : MonoBehaviour
         {
             DataManager.GetInstance().SubGold(currentCost);
             level++;
-            DataManager.GetInstance().increasedPower();
+            DataManager.GetInstance().increasedPower(startPower, costPow, level);
             DataManager.GetInstance().SaveitemButton(this);
             UpdateItem();
             UpdateUI();

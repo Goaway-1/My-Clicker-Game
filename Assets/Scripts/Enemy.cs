@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
         Debug.Log(m_HP);
     }
 
-    public void decreased(int power) //체력 감소
+    public void decreased(float power) //체력 감소
     {
         m_HP -= power;
         if (m_HP <= 0 && EnemyManager.isExist)

@@ -8,22 +8,22 @@ public class PlayerState : MonoBehaviour
 
     //States
     [HideInInspector]
-    public int power;   //Èû
+    public float power;   //Èû
     [HideInInspector]
     public int gold;   //µ·
     [HideInInspector]
-    public float strikePer; //Ä¡¸íÅ¸ È®·ü
+    public float criticalPer; //Ä¡¸íÅ¸ È®·ü
     [HideInInspector]
-    public float strikePow; //Ä¡¸íÅ¸¹è¼ö
+    public float criticalPow; //Ä¡¸íÅ¸¹è¼ö
     [HideInInspector]
     public int stage;
 
     private void Awake()
     {
-        power = PlayerPrefs.GetInt("Power", 1);
+        power = PlayerPrefs.GetFloat("Power", 1f);
         gold = PlayerPrefs.GetInt("gold", 0);
-        strikePer = PlayerPrefs.GetFloat("strikePer", 10f);
-        strikePow = PlayerPrefs.GetFloat("strikePow", 1.42f);
+        criticalPer = PlayerPrefs.GetFloat("criticalPer", 10f);
+        criticalPow = PlayerPrefs.GetFloat("criticalPow", 1.42f);
         stage = PlayerPrefs.GetInt("stage",1);
     }
 }

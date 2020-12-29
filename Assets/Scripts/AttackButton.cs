@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class AttackButton : MonoBehaviour
 {
-    //크리티컬 보류
-    int t_power; //totalPower
-    int power;  //power
-    float per;  //percent
-    int c_pow;  //Critical Pow
-
 	//애니관련
 	public bool ispunch = false;
 
@@ -18,7 +12,7 @@ public class AttackButton : MonoBehaviour
         if (EnemyManager.isExist)
         {
 			ispunch = true;
-            int power = DataManager.GetInstance().GetPower();
+            float power = DataManager.GetInstance().GetPower();
 			float strikePer = DataManager.GetInstance().GetStrikePer();
 			float strikePow = DataManager.GetInstance().GetStrikePow();
 
@@ -57,7 +51,7 @@ public class AttackButton : MonoBehaviour
 
 			if (strikePer >= rand)
             {
-				power = (int)Mathf.Pow(power, strikePow); //int../..?
+				power = Mathf.Pow(power, strikePow); 
 				Debug.Log("Critical : " + rand + " @@@@");
             }
 
