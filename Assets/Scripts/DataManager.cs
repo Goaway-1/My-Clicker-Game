@@ -24,35 +24,50 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     public PlayerState p; //PlayerState를 불러온다.(싱글톤X)
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadC_Button(CriticlaButton criticlaButton) //power업글 불러오기
+    public void LoadC_Button(CriticalButton criticalButton) //power업글 불러오기
     {
-        string key = criticlaButton.upgradeName;
+        string key = criticalButton.upgradeName;
 
-        criticlaButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticlaButton.startCurrentCost);
-        criticlaButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        criticalButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticalButton.startCurrentCost);
+        criticalButton.level = PlayerPrefs.GetInt(key + "_level", 1);
     }
 
-    public void SaveC_Button(CriticlaButton criticlaButton) //power업글 저장하기
+    public void SaveC_Button(CriticalButton criticalButton) //power업글 저장하기
     {
-        string key = criticlaButton.upgradeName;
+        string key = criticalButton.upgradeName;
 
-        PlayerPrefs.SetInt(key + "_cost", criticlaButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", criticlaButton.level);
+        PlayerPrefs.SetInt(key + "_cost", criticalButton.currentCost);
+        PlayerPrefs.SetInt(key + "_level", criticalButton.level);
     }
-    public void increasedCritical (float startPower, float costPow, int level) //power 증가
+    public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
+    { 
+        p.criticalPow += startPow * Mathf.Pow(costPow, level);
+        SetCritical(p.criticalPow);
+    }
+    public void increasedCriticalPer(float startPer, float costPow, int level) //CriticalPer 증가(수정)
     {
-        p.power += startPower * Mathf.Pow(costPow, level);
-        SetPower(p.power);
+        p.criticalPer += startPer * Mathf.Pow(costPow, level);
+        SetCriticalPer(p.criticalPer);
     }
 
-    public void SetCritical(float p) //power저장
+    public void SetCritical(float p) //CriticalPow 저장
     {
-        PlayerPrefs.SetFloat("Critical", p);
+        PlayerPrefs.SetFloat("CriticalPow", p);
     }
 
-    public float GetCritical() //power 불러오기
+    public float GetCritical() //CriticalPow 불러오기
     {
-        return p.power;
+        return p.criticalPow;
+    }
+
+    public void SetCriticalPer(float p) //CriticalPer 저장
+    {
+        PlayerPrefs.SetFloat("CriticalPer", p);
+    }
+
+    public float GetCriticalPer()  //CriticalPer 불러오기
+    {
+        return p.criticalPer;
     }
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -89,30 +104,6 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         return p.power;
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    //크리티컬관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void SetStrikePer()
-    {
-
-    }
-
-    public void SetStrikePow()
-    {
-
-    }
-
-    public float GetStrikePer() //퍼센트
-    {
-        return p.criticalPer;
-    }
-
-    public float GetStrikePow() //배수
-    {
-        return p.criticalPow;
-    }
-
-    //크리티컬관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 
     //골드 관련@@@@@@@@@@@@@@@@@@@@@@@@ 시작
     public void SetGold(int nGold) //불러와 저장
