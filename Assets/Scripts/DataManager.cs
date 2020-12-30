@@ -24,7 +24,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     public PlayerState p; //PlayerState를 불러온다.(싱글톤X)
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadC_Button(CriticalButton criticalButton) //power업글 불러오기
+    public void LoadC_Button(CriticalButton criticalButton) //critical업글 불러오기
     {
         string key = criticalButton.upgradeName;
 
@@ -32,13 +32,30 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         criticalButton.level = PlayerPrefs.GetInt(key + "_level", 1);
     }
 
-    public void SaveC_Button(CriticalButton criticalButton) //power업글 저장하기
+    public void SaveC_Button(CriticalButton criticalButton) //critical업글 저장하기
     {
         string key = criticalButton.upgradeName;
 
         PlayerPrefs.SetInt(key + "_cost", criticalButton.currentCost);
         PlayerPrefs.SetInt(key + "_level", criticalButton.level);
     }
+
+    public void LoadC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 불러오기
+    {
+        string key = criticalPerButton.upgradeName;
+
+        criticalPerButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticalPerButton.startCurrentCost);
+        criticalPerButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+    }
+
+    public void SaveC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 저장하기
+    {
+        string key = criticalPerButton.upgradeName;
+
+        PlayerPrefs.SetInt(key + "_cost", criticalPerButton.currentCost);
+        PlayerPrefs.SetInt(key + "_level", criticalPerButton.level);
+    }
+
     public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
     { 
         p.criticalPow += startPow * Mathf.Pow(costPow, level);
@@ -52,7 +69,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public void SetCritical(float p) //CriticalPow 저장
     {
-        PlayerPrefs.SetFloat("CriticalPow", p);
+        PlayerPrefs.SetFloat("criticalPow", p);
     }
 
     public float GetCritical() //CriticalPow 불러오기
@@ -62,7 +79,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public void SetCriticalPer(float p) //CriticalPer 저장
     {
-        PlayerPrefs.SetFloat("CriticalPer", p);
+        PlayerPrefs.SetFloat("criticalPer", p);
     }
 
     public float GetCriticalPer()  //CriticalPer 불러오기

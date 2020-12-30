@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ItemButton : MonoBehaviour
 {
-    public string upgradeName;
+    public string upgradeName = "Power";
     public Text upgradeDisplay;
     public int level = 1;
 

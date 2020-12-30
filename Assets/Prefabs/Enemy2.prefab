@@ -95,4 +95,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276e4db7dc9bcef429c881cd602885f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyManager: {fileID: 427701296448619476, guid: 1e0ddcf74e69b11409895f5be7122f0e, type: 3}
+  spawnPos: {x: 0, y: -1}

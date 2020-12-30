@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@
 
     private float m_HP;
+    public Vector2 spawnPos = new Vector2(0,-1);  //도착 포지션
 
     int dropGold = 100;
 
@@ -31,13 +32,23 @@ public class Enemy : MonoBehaviour
         Debug.Log(m_HP);
     }
 
-    public void decreased(float power) //체력 감소
+    public void Update()
     {
-        m_HP -= power;
+        Move();
         if (m_HP <= 0 && EnemyManager.isExist)
         {
             ifdead();
         }
+    }
+
+    public void Move()
+    {
+        this.transform.position = Vector2.MoveTowards(transform.position, spawnPos,0.1f); //수정
+    }
+
+    public void decreased(float power) //체력 감소
+    {
+        m_HP -= power;
     }
     
     public void ifdead()

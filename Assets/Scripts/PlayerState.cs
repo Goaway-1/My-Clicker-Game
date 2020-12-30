@@ -7,15 +7,15 @@ public class PlayerState : MonoBehaviour
     //싱글톤;; 하지말고 DataManager에서만 접근가능하게 하자
 
     //States
-    [HideInInspector]
+   // [HideInInspector]
     public float power;   //힘
-    [HideInInspector]
+   // [HideInInspector]
     public int gold;   //돈
-    [HideInInspector]
+    //[HideInInspector]
     public float criticalPer; //치명타 확률
-    [HideInInspector]
+   // [HideInInspector]
     public float criticalPow; //치명타배수
-    [HideInInspector]
+   // [HideInInspector]
     public int stage;
 
     private void Awake()

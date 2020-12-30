@@ -13,8 +13,8 @@ public class AttackButton : MonoBehaviour
         {
 			ispunch = true;
             float power = DataManager.GetInstance().GetPower();
-			float strikePer = DataManager.GetInstance().GetStrikePer();
-			float strikePow = DataManager.GetInstance().GetStrikePow();
+			float strikePer = DataManager.GetInstance().GetCriticalPer();
+			float strikePow = DataManager.GetInstance().GetCritical();
 
 			//1번 시안 (시작)  @@@@@@@@@@@@@@@@@@@@@@@ 나중에 전역 변수로 돌리자
 			//float num1 = Random.Range(0, 1000);
@@ -51,11 +51,14 @@ public class AttackButton : MonoBehaviour
 
 			if (strikePer >= rand)
             {
-				power = Mathf.Pow(power, strikePow); 
-				Debug.Log("Critical : " + rand + " @@@@");
+				power = power * strikePow;  //대안생각하기
+				Debug.Log("크리티컬 공격 : " + power);
             }
+            else
+            {
+				Debug.Log("공격 : " + power);
+			}
 
-			Debug.Log("공격 : " + power);
             Enemy.GetInstance().decreased(power); //추후 수정 -> 싱글톤 삭제하자
 
 			StartCoroutine(Wait());

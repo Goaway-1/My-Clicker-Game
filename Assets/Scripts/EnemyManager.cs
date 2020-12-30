@@ -21,7 +21,9 @@ public class EnemyManager : MonoBehaviour
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@
 
-    public Transform spawnPos;
+    //[HideInInspector]
+    public Vector2 startPos;    //시작 포지션-->추후 수정
+    public Quaternion quaternion = Quaternion.identity;
     public GameObject[] enemys;
     public static bool isExist = false;
     private float curTime;
@@ -31,7 +33,10 @@ public class EnemyManager : MonoBehaviour
     private float startHp = 10f; //초기 HP
     private float HpPow = 2f; //제곱비
 
-
+    private void Start()
+    {
+        startPos = new Vector2(4, -1);
+    }
     void Update()
     {
         reSpawn();
@@ -53,12 +58,13 @@ public class EnemyManager : MonoBehaviour
         {
             isExist = true;
             curTime = 0;
-            Instantiate(enemys[randomEnemy()], spawnPos);
+            //Instantiate<T>(T original, Vector3 position, Quaternion rotation) where T : Object;
+            Instantiate(enemys[randomEnemy()], startPos, quaternion);
         }
     }
     public int randomEnemy() //랜덤번호 지정
     {
-        int a = Random.Range(0, 2);
+        int a = Random.Range(0, enemys.Length);
         return a;
     }
 }
