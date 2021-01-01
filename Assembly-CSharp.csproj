@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\ItemButton.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\CriticalPerButton.cs" />
+    <Compile Include="Assets\Scripts\PleaseDeleted.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
