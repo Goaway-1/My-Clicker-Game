@@ -3,44 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemButton : MonoBehaviour
+public class ItemButton : Buttons
 {
-    public string upgradeName = "Power";
-    public Text upgradeDisplay;
-    public int level = 1;
-
-    //업그레이드 비용
-    public int currentCost;
-    public int startCurrentCost = 1;
-
-    //업글 제곱
-    public float costPow = 1.08f;
-    public float startPower = 1f;
 
     private void Start()
     {
+        upgradeName = "Power";
+
+        startCurrentCost = 1;
+
+        //업글 제곱
+        costPow = 1.08f;
+        startState = 1f; //시작크리티컬
+
         DataManager.GetInstance().LoadItemButton(this);
         UpdateUI();
     }
 
-    public void PurchaseUpgrade()
+    public override void PurchaseUpgrade()
     {
         //if구문->돈빼고(자동저장)
         if (DataManager.GetInstance().GetGold() >= currentCost)
         {
             DataManager.GetInstance().SubGold(currentCost);
             level++;
-            DataManager.GetInstance().increasedPower(startPower, costPow, level);
+            DataManager.GetInstance().increasedPower(startState, costPow, level);
             DataManager.GetInstance().SaveitemButton(this);
             UpdateItem();
             UpdateUI();
         }
     }
-    public void UpdateItem()
+    public override void UpdateItem()
     {
         currentCost = startCurrentCost * (int)Mathf.Pow(costPow, level);
     }
-    public void UpdateUI()
+    public override void UpdateUI()
     {
         upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nPower : " + DataManager.GetInstance().GetPower() + "\nCost" + currentCost;
     }

@@ -135,3 +135,108 @@ ___
  - Dev Story 작성 및 수정
 > **<h3>Realization</h3>**
  - NULL
+
+___
+## __1.2__
+> **<h3>Today Dev Stroy</h3>**
+- 모니터 와서 못했엉.
+> **<h3>Realization</h3>**
+ - NULL
+___
+## __1.3__
+> **<h3>Today Dev Stroy</h3>**
+- 몬스터 다가 올때만 배경 추가 및 움직임 구현
+- EnemyManager에서 Instantiate사용시 0.7초간 이동하게 만듬 <ins>(추후 수정)</ins>
+- 한번만 이동하고 다시 이동하지 않는다. <ins>(추후 수정)</ins>
+ 
+  ```c#
+  void Update()
+	{
+        if (EnemyManager.GetInstance().isMove)
+        {
+			Move();
+		}
+
+		if (currentTime >= MoveTime) //MoveTime ==0.7f;
+		{
+			currentTime = 0;
+			EnemyManager.GetInstance().isMove = false;
+		}
+	}
+  ```
+
+- 10stage마다 boss출현 (제한 시간내에 잡지 못하면 다시 n번째 스테이지로 돌아간다.)
+
+
+> **<h3>Realization</h3>**
+ - 배경을 움직이는 방법 2가지
+ 1. n개의 배경을 만들어 놓고 transform.postion을 이동시켜 교차하면서 사용하기
+```c#
+public class MoveBackground : MonoBehaviour {
+
+	public float speed;
+	private float x;
+	public float PontoDeDestino;
+	public float PontoOriginal;
+
+	void Start () {
+		//PontoOriginal = transform.position.x;
+	}
+	
+	void Update () {
+		x = transform.position.x;
+		x += speed * Time.deltaTime;
+		transform.position = new Vector3 (x, transform.position.y, transform.position.z);
+
+		if (x <= PontoDeDestino){
+			x = PontoOriginal;
+			transform.position = new Vector3 (x, transform.position.y, transform.position.z);
+		}
+	}
+}
+```
+2. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
+ 
+```c#
+[System.Serializable]
+public class BGScrollData
+{
+    public Renderer RenderForScroll;
+    public float Speed;
+    public float OffsetX;
+}
+
+public class BGScroller : MonoBehaviour
+{
+    [SerializeField]
+    BGScrollData[] ScrollDatas;
+
+    void Update()
+    {
+        updateScroll();
+    }
+
+    void updateScroll()
+    {
+        for (int i = 0; i < ScrollDatas.Length; i++)
+        {
+            SetTextureOffset(ScrollDatas[i]);
+        }
+    }
+
+    void SetTextureOffset(BGScrollData scrollData)
+    {
+        //값들을 증가 시킨다.
+        scrollData.OffsetX += (float)(scrollData.Speed) * Time.deltaTime;
+        if(scrollData.OffsetX > 1)
+        {
+            scrollData.OffsetX = scrollData.OffsetX % 1.0f;
+        }
+        Vector2 offset = new Vector2(scrollData.OffsetX, 0);
+
+        //텍스쳐 이동
+        scrollData.RenderForScroll.material.SetTextureOffset("_MainTex", offset);
+    }
+}
+```
+- 나는 1번안을 통해서 사용했다. (이유 : )

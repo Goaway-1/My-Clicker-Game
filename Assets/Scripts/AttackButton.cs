@@ -59,7 +59,7 @@ public class AttackButton : MonoBehaviour
 				Debug.Log("공격 : " + power);
 			}
 
-            Enemy.GetInstance().decreased(power); //추후 수정 -> 싱글톤 삭제하자
+			Enemy.GetInstance().decreased(power); //추후 수정 --> 싱글톤 삭제하자!
 
 			StartCoroutine(Wait());
 		}

@@ -9,6 +9,6 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        goldDisplay.text = "Gold : " + DataManager.GetInstance().GetGold() + "\nStage : " +DataManager.GetInstance().GetStage();
+        goldDisplay.text = "Gold : " + DataManager.GetInstance().GetGold() + "\tStage : " +DataManager.GetInstance().GetStage();
     }
 }

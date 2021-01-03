@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //½Ì±ÛÅæ@@@@@@@@@@@@@@@@@@@@@@@
+    //@@@@@@@@@@@@@@@@@@½Ì±ÛÅæ
     private static Enemy instance;
     public static Enemy GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = FindObjectOfType<Enemy>();
-            if(instance == null)
+            if (instance == null)
             {
                 GameObject container = new GameObject("Enemy");
                 instance = container.AddComponent<Enemy>();
@@ -19,10 +19,11 @@ public class Enemy : MonoBehaviour
         }
         return instance;
     }
-    //½Ì±ÛÅæ@@@@@@@@@@@@@@@@@@@@@@@
+    //@@@@@@@@@@@@@@@@@@½Ì±ÛÅæ
 
     private float m_HP;
-    public Vector2 spawnPos = new Vector2(0,-1);  //µµÂø Æ÷Áö¼Ç
+
+    public Vector3 spawnPos = new Vector3(0,1.7f,-5);  //µµÂø Æ÷Áö¼Ç (ÃßÈÄ ¼öÁ¤)
 
     int dropGold = 100;
 
@@ -34,7 +35,11 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        Move();
+        if(this.transform.position != spawnPos)
+        {
+            Move();
+        }
+
         if (m_HP <= 0 && EnemyManager.isExist)
         {
             ifdead();
@@ -43,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        this.transform.position = Vector2.MoveTowards(transform.position, spawnPos,0.1f); //¼öÁ¤
+        this.transform.position = Vector3.MoveTowards(transform.position, spawnPos,0.1f); //¼öÁ¤
     }
 
     public void decreased(float power) //Ã¼·Â °¨¼Ò

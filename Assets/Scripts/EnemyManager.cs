@@ -22,10 +22,11 @@ public class EnemyManager : MonoBehaviour
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@
 
     //[HideInInspector]
-    public Vector2 startPos;    //시작 포지션-->추후 수정
+    public Vector3 startPos;    //시작 포지션-->추후 수정
     public Quaternion quaternion = Quaternion.identity;
     public GameObject[] enemys;
     public static bool isExist = false;
+    public bool isMove = false; //배경의 움직임
     private float curTime;
     private float spawnTime = 2f;
 
@@ -35,7 +36,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        startPos = new Vector2(4, -1);
+        startPos = new Vector3(4, 1.7f,-5); //추후 수정
     }
     void Update()
     {
@@ -44,7 +45,15 @@ public class EnemyManager : MonoBehaviour
 
     public float defineHp()
     {
-        Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
+        if(DataManager.GetInstance().GetStage() % 10 == 0)  //10단위 stage라면
+        {
+            Debug.Log("@@@@@Boss 출현@@@@@");
+            Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
+        }
+        else
+        {
+            Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
+        }
         return Hp;
     }
     
@@ -60,6 +69,7 @@ public class EnemyManager : MonoBehaviour
             curTime = 0;
             //Instantiate<T>(T original, Vector3 position, Quaternion rotation) where T : Object;
             Instantiate(enemys[randomEnemy()], startPos, quaternion);
+            isMove = true;
         }
     }
     public int randomEnemy() //랜덤번호 지정
