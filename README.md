@@ -152,10 +152,10 @@ ___
   ```c#
   void Update()
 	{
-        if (EnemyManager.GetInstance().isMove)
-        {
-			Move();
-		}
+      if (EnemyManager.GetInstance().isMove)
+      {
+			  Move();
+		  }
 
 		if (currentTime >= MoveTime) //MoveTime ==0.7f;
 		{
@@ -165,7 +165,29 @@ ___
 	}
   ```
 
-- 10stage마다 boss출현 (제한 시간내에 잡지 못하면 다시 n번째 스테이지로 돌아간다.)
+- boss 출현시 timer 작동(EnemyManager에서 UIManager의 DecreaseTime()호출) <ins>(추후 수정)</ins>
+```c#
+    public void DecreaseTime()  //시간 감소
+    {
+        Slider.SetActive(true);
+        StartCoroutine(wait());
+    }
+    public IEnumerator wait()
+    {
+        while (currentTime >= 0)
+        {
+            currentTime -= Time.deltaTime;
+            timeSlider.value = currentTime / MaxTime; //출력
+            yield return new WaitForFixedUpdate();
+            Debug.Log(currentTime);
+        }
+        if(currentTime <= 0)
+        {
+            Slider.SetActive(false);  //비활성화
+        }
+    }
+```
+- 10stage마다 boss출현 (제한 시간내에 잡지 못하면 다시 n번째 스테이지로 돌아간다.) <ins>(추후 수정)</ins>
 
 
 > **<h3>Realization</h3>**
@@ -239,4 +261,10 @@ public class BGScroller : MonoBehaviour
     }
 }
 ```
-- 나는 1번안을 통해서 사용했다. (이유 : )
+- 나는 1번안을 통해서 사용했다. (이유 : 이미지의 offsetX값을 수정하기엔 이미지가 이상있어서)
+___
+## __1.4__
+> **<h3>Today Dev Stroy</h3>**
+ - 
+> **<h3>Realization</h3>**
+ - NULL

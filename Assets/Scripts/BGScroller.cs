@@ -14,21 +14,19 @@ public class BGScroller : MonoBehaviour
 
     void Update()
 	{
-        if (EnemyManager.GetInstance().isMove)
+        if (EnemyManager.GetInstance().isMove)	//isMove가 true일때만 배경을 움직인다.
         {
-			Debug.Log("배경이동 ");
-			Move();
+			bgMove();
 		}
 
-		if (currentTime >= MoveTime)
+		if (currentTime >= MoveTime && EnemyManager.GetInstance().isMove)
 		{
-			Debug.Log("배경이동22222 ");
 			EnemyManager.GetInstance().isMove = false;
 			currentTime = 0;
 		}
 	}
 
-    void Move()
+    void bgMove()
     {
 		currentTime += Time.deltaTime;
 		x = transform.position.x;
@@ -40,5 +38,6 @@ public class BGScroller : MonoBehaviour
 			x = PontoOriginal;
 			transform.position = new Vector3(x, transform.position.y, transform.position.z);
 		}
+		Debug.Log("움직였어");
 	}
 }

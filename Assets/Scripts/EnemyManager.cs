@@ -34,26 +34,33 @@ public class EnemyManager : MonoBehaviour
     private float startHp = 10f; //초기 HP
     private float HpPow = 2f; //제곱비
 
+
+    //보스생성시 사용
+    public UIManager ui; //UI매니저 호출
+    public bool isBoss = false;
+
     private void Start()
     {
         startPos = new Vector3(4, 1.7f,-5); //추후 수정
     }
     void Update()
     {
+        if (isBoss)            //타이머를 실행
+        {
+            isBoss = false;
+            ui.DecreaseTime(); //시간 감소
+        }
         reSpawn();
     }
 
     public float defineHp()
     {
-        if(DataManager.GetInstance().GetStage() % 10 == 0)  //10단위 stage라면
+        if(DataManager.GetInstance().GetStage() % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
         {
+            isBoss = true;
             Debug.Log("@@@@@Boss 출현@@@@@");
-            Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
         }
-        else
-        {
-            Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
-        }
+        Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
         return Hp;
     }
     
@@ -65,11 +72,11 @@ public class EnemyManager : MonoBehaviour
         }
         if (curTime >= spawnTime && !isExist)
         {
-            isExist = true;
+            isExist = true; //몬스터가 존재한다.
+            isMove = true;  //배경 움직여라
             curTime = 0;
             //Instantiate<T>(T original, Vector3 position, Quaternion rotation) where T : Object;
             Instantiate(enemys[randomEnemy()], startPos, quaternion);
-            isMove = true;
         }
     }
     public int randomEnemy() //랜덤번호 지정
