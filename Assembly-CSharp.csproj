@@ -56,21 +56,25 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AttackButton.cs" />
+    <Compile Include="Assets\Scripts\Button\AttackButton.cs" />
     <Compile Include="Assets\Free Pixel Art Hills\Demo\MoveBackground.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\ObjectPoolingManager.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\BGScroller.cs" />
-    <Compile Include="Assets\Scripts\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Button\Buttons.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\EffectManager.cs" />
     <Compile Include="Assets\Scripts\PlayerState.cs" />
-    <Compile Include="Assets\Scripts\CriticalButton.cs" />
-    <Compile Include="Assets\Scripts\ResetButton.cs" />
+    <Compile Include="Assets\Scripts\Button\CriticalButton.cs" />
+    <Compile Include="Assets\Scripts\Effect.cs" />
+    <Compile Include="Assets\Scripts\Button\ResetButton.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\ItemButton.cs" />
+    <Compile Include="Assets\Scripts\Button\ItemButton.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
-    <Compile Include="Assets\Scripts\CriticalPerButton.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
+    <Compile Include="Assets\Scripts\Button\ShowButton.cs" />
+    <Compile Include="Assets\Scripts\Button\MaterButton.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Free Pixel Art Hills\contact.txt" />

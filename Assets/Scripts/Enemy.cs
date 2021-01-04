@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -21,26 +22,31 @@ public class Enemy : MonoBehaviour
     }
     //@@@@@@@@@@@@@@@@@@싱글톤
 
-    private float m_HP;
+    private float maxHP;
+    private float currentHP;
 
-    public Vector3 spawnPos = new Vector3(0,1.7f,-5);  //도착 포지션 (추후 수정)
-
+    private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
     int dropGold = 100;
+
+    //hp 슬라이더 관련
+    public Slider hpSlider;
+    public GameObject Slider;
 
     public void Start()
     {
-        m_HP = EnemyManager.GetInstance().defineHp();
-        Debug.Log(m_HP);
+        maxHP = EnemyManager.GetInstance().defineHp();
+        currentHP = maxHP;
+        Debug.Log("HP:"+maxHP);
     }
 
     public void Update()
     {
-        if(this.transform.position != spawnPos)
+        if (this.transform.position != spawnPos)
         {
             Move();
         }
 
-        if (m_HP <= 0 && EnemyManager.isExist)
+        if (currentHP <= 0 && EnemyManager.GetInstance().getExist())
         {
             ifdead();
         }
@@ -53,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     public void decreased(float power) //체력 감소
     {
-        m_HP -= power;
+        currentHP -= power;
     }
     
     public void ifdead()
@@ -61,7 +67,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("사망");
         DataManager.GetInstance().AddGold(dropGold);
         DataManager.GetInstance().AddStage();
-        EnemyManager.isExist = false;
+        EnemyManager.GetInstance().setExist(false);
         Destroy(this.gameObject);
     }
 }

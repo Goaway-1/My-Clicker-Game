@@ -25,7 +25,7 @@ public class EnemyManager : MonoBehaviour
     public Vector3 startPos;    //시작 포지션-->추후 수정
     public Quaternion quaternion = Quaternion.identity;
     public GameObject[] enemys;
-    public static bool isExist = false;
+    private bool isExist = false;
     public bool isMove = false; //배경의 움직임
     private float curTime;
     private float spawnTime = 2f;
@@ -36,12 +36,12 @@ public class EnemyManager : MonoBehaviour
 
 
     //보스생성시 사용
-    public UIManager ui; //UI매니저 호출
-    public bool isBoss = false;
+    public UIManager ui;                //UI매니저 호출
+    public bool isBoss = false;         //보스가 생성되냐?
 
     private void Start()
     {
-        startPos = new Vector3(4, 1.7f,-5); //추후 수정
+        startPos = new Vector3(4, 1.7f,-1f); //추후 수정
     }
     void Update()
     {
@@ -72,7 +72,7 @@ public class EnemyManager : MonoBehaviour
         }
         if (curTime >= spawnTime && !isExist)
         {
-            isExist = true; //몬스터가 존재한다.
+            setExist(true); //몬스터가 존재한다.
             isMove = true;  //배경 움직여라
             curTime = 0;
             //Instantiate<T>(T original, Vector3 position, Quaternion rotation) where T : Object;
@@ -83,5 +83,14 @@ public class EnemyManager : MonoBehaviour
     {
         int a = Random.Range(0, enemys.Length);
         return a;
+    }
+
+    public bool getExist()
+    {
+        return isExist;
+    }
+    public void setExist(bool isbool)
+    {
+        isExist = isbool;
     }
 }

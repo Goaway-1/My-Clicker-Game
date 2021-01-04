@@ -146,20 +146,22 @@ ___
 ## __1.3__
 > **<h3>Today Dev Stroy</h3>**
 - 몬스터 다가 올때만 배경 추가 및 움직임 구현
-- EnemyManager에서 Instantiate사용시 0.7초간 이동하게 만듬 <ins>(추후 수정)</ins>
-- 한번만 이동하고 다시 이동하지 않는다. <ins>(추후 수정)</ins>
- 
+- EnemyManager에서 Instantiate사용시 0.85초간 이동하게 만듬 <ins>(추후 수정)</ins>
+- 한번만 이동하고 다시 이동하지 않는다. ~~<ins>(추후 수정)</ins>~~
   ```c#
   void Update()
 	{
-      if (EnemyManager.GetInstance().isMove)
-      {
-			  Move();
-		  }
-
-		if (currentTime >= MoveTime) //MoveTime ==0.7f;
+    if (EnemyManager.GetInstance().isMove)  //isMove가 true일때만 배경을 움직인다.
 		{
+			Move();
+		}
+        else
+        {
 			currentTime = 0;
+        }
+
+		if (currentTime >= MoveTime && EnemyManager.GetInstance().isMove)	//일정 시간이 지나면 배경을 정지한다. 
+		{
 			EnemyManager.GetInstance().isMove = false;
 		}
 	}
@@ -193,9 +195,12 @@ ___
 > **<h3>Realization</h3>**
  - 배경을 움직이는 방법 2가지
  1. n개의 배경을 만들어 놓고 transform.postion을 이동시켜 교차하면서 사용하기
-```c#
-public class MoveBackground : MonoBehaviour {
+> 결과
+<img src = "Capture/bg_Move.gif">
 
+```c#
+public class MoveBackground : MonoBehaviour 
+{
 	public float speed;
 	private float x;
 	public float PontoDeDestino;
@@ -217,8 +222,15 @@ public class MoveBackground : MonoBehaviour {
 	}
 }
 ```
+
 2. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
- 
+
+> Material 설정방법
+<img src="Capture/Material_1.gif">
+
+> 결과
+<img src="Capture/Material_2.gif">
+
 ```c#
 [System.Serializable]
 public class BGScrollData
@@ -265,6 +277,121 @@ public class BGScroller : MonoBehaviour
 ___
 ## __1.4__
 > **<h3>Today Dev Stroy</h3>**
- - 
+ - 배경 이동 속도 및 한번만 이동하는 오류 수정.
+ - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
+ - 타이머할때만 slider.setative 활성화
+<img src= "Capture/BossTimer.gif">
+```c#
+ public void DecreaseTime()  //시간 감소
+    {
+        Slider.SetActive(true);
+        StartCoroutine(wait());
+    }
+    IEnumerator wait()   //시간 감소를 위한 대기시간을 위해 만듦
+    {
+        while (currentTime >= 0)
+        {
+            currentTime -= Time.deltaTime;
+            timeSlider.value = currentTime / MaxTime; //출력
+            yield return new WaitForFixedUpdate();  //프레임 대기
+            if (!EnemyManager.GetInstance().getExist()) //몬스터 뒤짐
+            {
+                break;
+            }
+        }
+        if (EnemyManager.GetInstance().getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
+        {   
+            Enemy.GetInstance().ifdead();
+            DataManager.GetInstance().DecreaseStage();
+        }
+        Slider.SetActive(false);
+        currentTime = 10f;
+    }
+```
+ - 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
+ - 동시에 오브젝트 풀링을 사용해서 최적화
+<img src = "Capture/ObjectPooling.gif">
+```c#
+  ///ObjectPooling 기획
+  public static ObjectPoolingManager instance;
+
+  public GameObject m_goPrefab = null;    //여기에 텍스트가 들어간다.
+  public Queue<GameObject> m_queue = new Queue<GameObject>(); //저장시킬 큐(장소)
+
+  void Start()
+  {
+    instance = this;
+
+    for (int i = 0; i < 100; i++)
+    {
+      GameObject t_object = Instantiate(m_goPrefab, Vector3.zero, Quaternion.identity);   //프리펩을 게임내의 객체로 생성한뒤 큐에 저장
+      m_queue.Enqueue(t_object);
+      t_object.SetActive(false);
+    }
+  }
+
+  public void InsertQueue(GameObject p_object) //사용한 객체를 풀에 반납하는 함수
+  {
+    m_queue.Enqueue(p_object);
+    p_object.SetActive(false);
+  }
+
+  public GameObject GetQueue()    //풀에서 객체를 불러와 사용하는 함수
+  {
+    GameObject t_object = m_queue.Dequeue();
+    t_object.SetActive(true);
+    return t_object;
+  }
+```
+```c#
+//effect Manager
+ public static EffectManager instance;
+
+  private void Start()
+  {
+    instance = this;
+  }
+
+  public void attckShow()
+  {
+    GameObject t_object = ObjectPoolingManager.instance.GetQueue();
+    t_object.transform.position = Vector3.zero;
+  }
+```
+```c#
+//Effect
+  Rigidbody m_myrigid = null;
+  public TextMesh tt = null;
+
+  private void OnEnable() //활성화 될때마다
+  {
+    if (m_myrigid == null)
+    {
+      m_myrigid = GetComponent<Rigidbody>();
+    }
+
+    m_myrigid.velocity = Vector3.zero; //초기화 필수
+    m_myrigid.AddExplosionForce(100, transform.position, 1f);
+    StartCoroutine(DestoryCube());
+  }
+
+  IEnumerator DestoryCube()
+  {
+    yield return new WaitForSeconds(3f);
+    ObjectPoolingManager.instance.InsertQueue(gameObject);
+  }
+
+  public void setPower(float power)
+  {
+    tt.text = "" + power;
+  }
+```
+ - show버튼을 제작해 인터페이스창의 비/활성화 구현
+<img src= "Capture/ShowState.gif">
+ - Master버튼을 제작해 몬스터를 죽이고,돈을 무한으로 변경(이미지)
 > **<h3>Realization</h3>**
- - NULL
+ - 오브젝트 폴링에 대한 학습했다. 이는 기존 오브젝트를 생성하고 파괴하는 방식이 아닌 일정한 수많큼 오브젝트를 <mark>**생성해 놓고 돌려쓰는**</mark> 개념이다.
+ - 순서를 정리하자면 pooling 클래스를 싱글톤화 한 후/ Queue 저장공간할당/ 시작과 동시에 오브젝트들을 생성한다.
+ - 썻던 오브젝트를 재사용하는 것이기 때문에 사용후에는 초기화가 필수로 필요하다.
+ - 오브젝트 파괴(Destory함수) 대신에 Enqueue(GameObject)를 통해서 반환하고, 생성시 DeQueue()를 통해서 미사용중인 오브젝트를 불러온다. 
+ - 이는 총알같은 오브젝트에서 자주 사용하며 최적화에 도움을 준다.

@@ -152,6 +152,11 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         p.stage++;
         SaveStage(p.stage);
     }
+    public void DecreaseStage()
+    {
+        p.stage -= 10;
+        SaveStage(p.stage);
+    }
 
     public void SaveStage(int num) //PlayerPrefabs에 저장한다.
     {
