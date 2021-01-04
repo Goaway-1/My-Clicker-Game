@@ -196,7 +196,7 @@ ___
  - 배경을 움직이는 방법 2가지
  1. n개의 배경을 만들어 놓고 transform.postion을 이동시켜 교차하면서 사용하기
 > 결과
-<img src = "Capture/bg_Move.gif">
+<img src = "Capture/bg_Move.gif" width="400">
 
 ```c#
 public class MoveBackground : MonoBehaviour 
@@ -223,13 +223,13 @@ public class MoveBackground : MonoBehaviour
 }
 ```
 
-2. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
+1. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
 
 > Material 설정방법
-<img src="Capture/Material_1.gif">
+<img src="Capture/Material_1.gif" width="350">
 
 > 결과
-<img src="Capture/Material_2.gif">
+<img src="Capture/Material_2.gif" width="350">
 
 ```c#
 [System.Serializable]
@@ -280,7 +280,7 @@ ___
  - 배경 이동 속도 및 한번만 이동하는 오류 수정.
  - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
  - 타이머할때만 slider.setative 활성화
-<img src= "Capture/BossTimer.gif">
+<img src= "Capture/BossTimer.gif" width="350">
 ```c#
  public void DecreaseTime()  //시간 감소
     {
@@ -310,7 +310,7 @@ ___
 ```
  - 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
  - 동시에 오브젝트 풀링을 사용해서 최적화
-<img src = "Capture/ObjectPooling.gif">
+<img src = "Capture/ObjectPooling.gif" width="350">
 ```c#
   ///ObjectPooling 기획
   public static ObjectPoolingManager instance;
@@ -387,7 +387,7 @@ ___
   }
 ```
  - show버튼을 제작해 인터페이스창의 비/활성화 구현
-<img src= "Capture/ShowState.gif">
+<img src= "Capture/ShowState.gif" width="350">
  - Master버튼을 제작해 몬스터를 죽이고,돈을 무한으로 변경(이미지)
 > **<h3>Realization</h3>**
  - 오브젝트 폴링에 대한 학습했다. 이는 기존 오브젝트를 생성하고 파괴하는 방식이 아닌 일정한 수많큼 오브젝트를 <mark>**생성해 놓고 돌려쓰는**</mark> 개념이다.
