@@ -5,8 +5,10 @@ using UnityEngine;
 public class Effect : MonoBehaviour
 {
     Rigidbody m_myrigid = null;
-    public TextMesh tt = null;
+    public TextMesh m_text = null;
     private float transparency = 1f; //투명도
+
+    public bool isChange = false; //DamageText를 한번 바꿀때 사용
 
     private void OnEnable() //활성화 될때마다
     {
@@ -14,9 +16,8 @@ public class Effect : MonoBehaviour
         {
             m_myrigid = GetComponent<Rigidbody>();
         }
-
         transparency = 1f;
-        tt.color = new Color(0, 0, 0, 1f);
+        m_text.color = new Color(0, 0, 0, 1f);
         m_myrigid.velocity = Vector3.zero; //초기화 필수(속도값)
         m_myrigid.AddExplosionForce(100, transform.position, 1f);
         StartCoroutine(DestoryCube());
@@ -24,8 +25,13 @@ public class Effect : MonoBehaviour
 
     public void Update()
     {
+        if (isChange)
+        {
+            setPower(AttackButton.damText());
+            isChange = false;
+        }
         transparency -= Time.deltaTime;
-        tt.color = new Color(0, 0, 0, transparency);
+        m_text.color = new Color(0, 0, 0, transparency);
     }
 
     IEnumerator DestoryCube()
@@ -36,6 +42,6 @@ public class Effect : MonoBehaviour
 
     public void setPower(float power)
     {
-        tt.text = "" + power;
+        m_text.text = "" + power;
     }
 }

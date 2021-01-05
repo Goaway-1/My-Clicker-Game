@@ -10,11 +10,11 @@ public class BGScroller : MonoBehaviour
 	public float PontoOriginal;
 
 	private float currentTime = 0;
-	private float MoveTime = 0.85f;	//배경이 움직이는 시간
+	private float MoveTime = 0.6f;	//배경이 움직이는 시간
 
     void Update()
 	{
-		if (EnemyManager.GetInstance().isMove)  //isMove가 true일때만 배경을 움직인다.
+		if (EnemyManager.Instance.isMove)  //isMove가 true일때만 배경을 움직인다.
 		{
 			Move();
 		}
@@ -23,9 +23,9 @@ public class BGScroller : MonoBehaviour
 			currentTime = 0;
         }
 
-		if (currentTime >= MoveTime && EnemyManager.GetInstance().isMove)	//일정 시간이 지나면 배경을 정지한다. 
+		if (currentTime >= MoveTime && EnemyManager.Instance.isMove)	//일정 시간이 지나면 배경을 정지한다. 
 		{
-			EnemyManager.GetInstance().isMove = false;
+			EnemyManager.Instance.isMove = false;
 		}
 	}
 

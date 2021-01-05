@@ -14,19 +14,19 @@ public class CriticalButton : Buttons
         costPow = 1.02f;
         startState = 1f; //시작크리티컬
 
-        DataManager.GetInstance().LoadC_Button(this);
+        DataManager.Instance.LoadC_Button(this);
         UpdateUI();
     }
 
     public override void PurchaseUpgrade() // pow
     {
         //if구문->돈빼고(자동저장)
-        if (DataManager.GetInstance().GetGold() >= currentCost)
+        if (DataManager.Instance.gold >= currentCost)
         {
-            DataManager.GetInstance().SubGold(currentCost);
+            DataManager.Instance.gold -= currentCost;
             level++;
-            DataManager.GetInstance().increasedCritical(startState, costPow, level);
-            DataManager.GetInstance().SaveC_Button(this);
+            DataManager.Instance.increasedCritical(startState, costPow, level);
+            DataManager.Instance.SaveC_Button(this);
             UpdateItem();
             UpdateUI();
         }
@@ -39,6 +39,6 @@ public class CriticalButton : Buttons
 
     public override void UpdateUI()
     {
-        upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nCriticalPow : " + DataManager.GetInstance().GetCritical() + "\nCost" + currentCost;
+        upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nCriticalPow : " + DataManager.Instance.criticalPow + "\nCost" + currentCost;
     }
 }

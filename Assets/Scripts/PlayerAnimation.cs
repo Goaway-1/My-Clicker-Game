@@ -16,13 +16,31 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Update()
     {
+        AttackAction();
+        RunAction();
+    }
+
+    private void AttackAction()
+    {
         if (!attackButton.ispunch) //안친다.
         {
-            animator.SetBool("attack", false);
+            animator.SetBool("Attack", false);
         }
-        else if(attackButton.ispunch)
+        else
         {
-            animator.SetBool("attack", true);
+            animator.SetBool("Attack", true);
+        }
+    }
+
+    private void RunAction()
+    {
+        if (!EnemyManager.Instance.isMove) //안친다.
+        {
+            animator.SetBool("Run", false);
+        }
+        else
+        {
+            animator.SetBool("Run", true);
         }
     }
 }

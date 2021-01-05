@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     public void GoldStageDisplay() //골드와 stage를 화면 상에 출력한다.
     {
-        goldDisplay.text = "Gold : " + DataManager.GetInstance().GetGold() + "\tStage : " + DataManager.GetInstance().GetStage();
+        goldDisplay.text = "Gold : " + DataManager.Instance.gold + "\tStage : " + DataManager.Instance.stage;
         currentDisplay.text = (int)currentTime + "초";
     }
     
@@ -44,15 +44,15 @@ public class UIManager : MonoBehaviour
             currentTime -= Time.deltaTime;
             timeSlider.value = currentTime / MaxTime; //출력
             yield return new WaitForFixedUpdate();  //프레임 대기
-            if (!EnemyManager.GetInstance().getExist()) //몬스터 뒤짐
+            if (!EnemyManager.Instance.getExist()) //몬스터 뒤짐
             {
                 break;
             }
         }
-        if (EnemyManager.GetInstance().getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
+        if (EnemyManager.Instance.getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
         {   
-            Enemy.GetInstance().ifdead();
-            DataManager.GetInstance().DecreaseStage();
+            Enemy.Instance.ifdead();
+            DataManager.Instance.DecreaseStage();
         }
         Slider.SetActive(false);
         currentTime = 10f;  //다시 초기화 해준다.

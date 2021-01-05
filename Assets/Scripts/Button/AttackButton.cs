@@ -10,28 +10,20 @@ public class AttackButton : MonoBehaviour
 	//데미지 효과
 	public Effect effect;
 
-    public void OnClick() //클릭시 Manager에서 불러옴
+	static float n_power;
+	float strikePer;
+	float strikePow;
+
+	public void OnClick() //클릭시 Manager에서 불러옴
     {
-        if (EnemyManager.GetInstance().getExist())
+        if (EnemyManager.Instance.getExist())
         {
 			ispunch = true;
-            float power = DataManager.GetInstance().GetPower();
-			float strikePer = DataManager.GetInstance().GetCriticalPer();
-			float strikePow = DataManager.GetInstance().GetCritical();
+            n_power = DataManager.Instance.power;
+			strikePer = DataManager.Instance.criticalPer;
+			strikePow = DataManager.Instance.criticalPow;
 
-			//1번 시안 (시작)  @@@@@@@@@@@@@@@@@@@@@@@ 나중에 전역 변수로 돌리자
-			//float num1 = Random.Range(0, 1000);
-			////float num1 = GetRandom(Random.Range(0, 1000), Random.Range(0, 1000)); -->대안
-			//Debug.Log("num1 : " + num1);
-			//float num2 = Random.Range(10,100);
-			////float num2 = GetRandom(Random.Range(10, 100), Random.Range(10, 100)); -->대안
-			//Debug.Log("num2 : " + num2);
-			//float rand = num1/num2;
-			//Debug.Log("rand : " + rand);
-
-			//1번 시안 (종료)  @@@@@@@@@@@@@@@@@@@@@@@
-
-			//2번 시안 (시작)  @@@@@@@@@@@@@@@@@@@@@@@ 나중에 전역 변수로 돌리자
+			//나중에 전역 변수로 돌리자
 			float num1 = Random.Range(0, 100);	//정수 ->(int형 쓸까?)
 			float num2 = Random.Range(0, 100);  //소수
 			string num_str = num2.ToString();
@@ -50,27 +42,25 @@ public class AttackButton : MonoBehaviour
             }
 
             float rand = num1 + num2;
-			//2번 시안 (종료)  @@@@@@@@@@@@@@@@@@@@@@@
+			//
 
-			if (strikePer >= rand)
+			if (strikePer >= rand)	//크리티컬 공격!
             {
-				power = power * strikePow;  //대안생각하기
-				//Debug.Log("크리티컬 공격 : " + power);
-				effect.setPower(power);
-				EffectManager.instance.attckShow();
+				n_power *= strikePow;  //대안생각하기
             }
-            else
-            {
-				//Debug.Log("공격 : " + power);
-				effect.setPower(power);
-				EffectManager.instance.attckShow();
-			}
 
-			Enemy.GetInstance().decreased(power); //추후 수정 --> 싱글톤 삭제하자!
+			effect.isChange = true;
+			EffectManager.Instance.attckShow();
+			Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!
 
 			StartCoroutine(Wait());
 		}
 	}
+
+	public static float damText()	//damage를 effect에서 호출할때 사용한다. --> 추후 수정(static이기 때문에)
+    {
+		return n_power;
+    }
 	
 	IEnumerator Wait() //모션 유지 시간 --> 추후 변경예정
     {

@@ -5,7 +5,7 @@
 ___
 
 ## __12.22__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 클리커게임을 위해 클릭, 돈, 클릭per돈 등을 구현만 해두었다.
  - PlayerPrefabs.SetInt() 와 PlayerPrefabs.GetInt()를 통해서 local에 저장했다. 작은 메모리에서만 사용가능하니 <ins>Json으로 추후 변경해야한다.</ins> 
  - 오후에는 [수업](https://www.youtube.com/watch?v=5obCdTnlEFo)을 모두 듣고 나만의 것을 따로 만들어 구현할 것이다.
@@ -36,7 +36,7 @@ private static Manager instance;
 ```
 ___
 ## __12.23__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 프로젝트를 제작하기 시작했다.
  - Enemy, Player, itemButton, DataManager, UIManger를 구현
  - 공격버튼시 강제로 돈이 추가된다는 점과 적 생성에 있어 오류 ~~(수정필요)~~
@@ -46,7 +46,7 @@ ___
  - NULL
 ___
 ## __12.24__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
   - EnemyManager를 수정해서 죽고 2초 뒤에 생성 <ins>(수정필요)</ins> 
   - Player, Enemy 두가지 데이터의 상태들을 제작, power업그레이드를 완벽하게 구현
   - power표시 오류 수정 및 PlayerState를 싱글톤화 하지 않고 DataManager에서 할당해서 사용 
@@ -56,7 +56,7 @@ ___
  - NULL
 ___
 ## __12.25__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - Critcal (Pow,Per) 2가지를 Random.Range()함수로 구현하려 했으나, 더욱 확실하게 구현하기 위해서 __<mark>"의사 난수 알고리즘"</mark>__ 을 학습
 > **<h3>Realization</h3>**
  - LCG(선형 합동법)이 대표적이며 이외에도 Mersenne Twister, PCG, xoroshro가 존재
@@ -69,20 +69,20 @@ ___
 단점 : 구현에 있어 복잡함
 ___
 ## __12.26__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 메르센 트위스터와 XOR 스프트를 구하려 했으나 시간을 사용하는 LCG를 사용 
  - C#은 구현방식이 달라 다시 학습 필요
 > **<h3>Realization</h3>**
  - NULL
 ___
 ## __12.27__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - NULL
 > **<h3>Realization</h3>**
  - NULL
 ___
 ## __12.28__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 유니티에서 의사난수 알고리즘 필요 X -> <ins>Random.range()</ins>사용
  - 모든 Player State를 float형으로 전환
  - Player 애니메이션 idle, attack만 보기 쉽게 구현
@@ -96,14 +96,14 @@ ___
 ___
 
 ## __12.29__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - power,critical등의 변수들을 float형으로 전환
  - Buttons 클래스를 만들고 상속을 통해서 모든 버튼(Power, Critical)을 상속, ~~미완성~~
 > **<h3>Realization</h3>**
  - NULL
 ___
 ## __12.30__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 몬스터 사망 판단 수정 (Update로 이동) 및 공격 수정
  - Buttons 상속 구현 완성, 크리티컬 확률과 퍼센트 버튼 생성 및 상속사용
  - 몬스터의 등장을 구현 <ins>(추후 수정)</ins>
@@ -117,7 +117,7 @@ ___
 
 
 ## __12.31__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - readme 파일 수정을 위한 markdown 학습 
  - 내일은 일기를 다시 갱신 예정
 > **<h3>Realization</h3>**
@@ -131,20 +131,20 @@ __<h2>Happy New Year!!</h2>__
 
 ___
 ## __1.1__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - Dev Story 작성 및 수정
 > **<h3>Realization</h3>**
  - NULL
 
 ___
 ## __1.2__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
 - 모니터 와서 못했엉.
 > **<h3>Realization</h3>**
  - NULL
 ___
 ## __1.3__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
 - 몬스터 다가 올때만 배경 추가 및 움직임 구현
 - EnemyManager에서 Instantiate사용시 0.85초간 이동하게 만듬 <ins>(추후 수정)</ins>
 - 한번만 이동하고 다시 이동하지 않는다. ~~<ins>(추후 수정)</ins>~~
@@ -196,7 +196,7 @@ ___
  - 배경을 움직이는 방법 2가지
  1. n개의 배경을 만들어 놓고 transform.postion을 이동시켜 교차하면서 사용하기
 > 결과
-<img src = "Capture/bg_Move.gif" width="400">
+<img src = "Capture/bg_Move.gif" width="600">
 
 ```c#
 public class MoveBackground : MonoBehaviour 
@@ -276,7 +276,7 @@ public class BGScroller : MonoBehaviour
 - 나는 1번안을 통해서 사용했다. (이유 : 이미지의 offsetX값을 수정하기엔 이미지가 이상있어서)
 ___
 ## __1.4__
-> **<h3>Today Dev Stroy</h3>**
+> **<h3>Today Dev Story</h3>**
  - 배경 이동 속도 및 한번만 이동하는 오류 수정.
  - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
  - 타이머할때만 slider.setative 활성화
@@ -395,3 +395,45 @@ ___
  - 썻던 오브젝트를 재사용하는 것이기 때문에 사용후에는 초기화가 필수로 필요하다.
  - 오브젝트 파괴(Destory함수) 대신에 Enqueue(GameObject)를 통해서 반환하고, 생성시 DeQueue()를 통해서 미사용중인 오브젝트를 불러온다. 
  - 이는 총알같은 오브젝트에서 자주 사용하며 최적화에 도움을 준다.
+___
+## __1.5__
+> **<h3>Today Dev Story</h3>**
+- Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
+- 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif">
+- player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif">
+- 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
+```c#
+public float power  //힘
+{
+    get
+    {
+      return PlayerPrefs.GetFloat("power", 1f);
+    }
+    set
+    {
+      PlayerPrefs.SetFloat("power", value);
+    }
+}
+```
+ - 접근자 프로퍼티 설정 후 DamageText에서 오류가 발생해 수정, 하지만 static으로 진행한 임시 방편 <ins>(추후수정)</ins>
+> **<h3>Realization</h3>**
+- int형의 값이 overflow 될수 있기에 long형으로 변환하는법
+- 변환했을때 접근자 프로퍼티를 설정하는 방법
+- 장점 : 굳이 호출하는 함수를 따로 제작 X, 시작시 호출 X, 싱글톤에서도 사용 O,
+```c#
+public long gold
+{
+  get
+  {
+    if (!PlayerPrefs.HasKey("Gold"))    //만약 Gold가 할당되어 있지 않다면 0을 반환 --> 저장X
+    {
+      string str = PlayerPrefs.GetString("Gold"); //문자열로 받고
+      return long.Parse(str); //long형으로 반환후에 return
+    }
+  }
+  set
+  {
+    PlayerPrefs.SetString("Gold", value.ToString());
+  }
+}
+```

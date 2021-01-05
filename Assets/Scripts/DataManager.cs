@@ -6,22 +6,84 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 {
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
     private static DataManager instance;
-    public static DataManager GetInstance()
+    public static DataManager Instance
     {
-        if(instance == null)
+        get
         {
-            instance = FindObjectOfType<DataManager>();
-            if(instance == null)
+            if (instance == null)
             {
-                GameObject container = new GameObject("DataManager");
-                instance = container.AddComponent<DataManager>();
+                instance = FindObjectOfType<DataManager>();
+                if (instance == null)
+                {
+                    GameObject container = new GameObject("DataManager");
+                    instance = container.AddComponent<DataManager>();
+                }
             }
+            return instance;
         }
-        return instance;
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    public PlayerState p; //PlayerState를 불러온다.(싱글톤X)
+    //[HideInInspector]
+    public float power  //힘
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("power", 1f);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("power", value);
+        }
+    }
+    //[HideInInspector]
+    public int gold  //돈
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("gold", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("gold", value);
+        }
+    }
+    //[HideInInspector]
+    public float criticalPer //치명타 확률
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("criticalPer", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("criticalPer", value);
+        }
+    }
+    // [HideInInspector]
+    public float criticalPow //치명타배수
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("criticalPow", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("criticalPow", value);
+        }
+    }
+    // [HideInInspector]
+    public int stage
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("stage", 1);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("stage", value);
+        }
+    }
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadC_Button(CriticalButton criticalButton) //critical업글 불러오기
@@ -58,33 +120,11 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
     { 
-        p.criticalPow += startPow * Mathf.Pow(costPow, level);
-        SetCritical(p.criticalPow);
+        criticalPow += startPow * Mathf.Pow(costPow, level);
     }
     public void increasedCriticalPer(float startPer, float costPow, int level) //CriticalPer 증가(수정)
     {
-        p.criticalPer += startPer * Mathf.Pow(costPow, level);
-        SetCriticalPer(p.criticalPer);
-    }
-
-    public void SetCritical(float p) //CriticalPow 저장
-    {
-        PlayerPrefs.SetFloat("criticalPow", p);
-    }
-
-    public float GetCritical() //CriticalPow 불러오기
-    {
-        return p.criticalPow;
-    }
-
-    public void SetCriticalPer(float p) //CriticalPer 저장
-    {
-        PlayerPrefs.SetFloat("criticalPer", p);
-    }
-
-    public float GetCriticalPer()  //CriticalPer 불러오기
-    {
-        return p.criticalPer;
+        criticalPer += startPer * Mathf.Pow(costPow, level);
     }
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -107,66 +147,14 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     public void increasedPower(float startPower,float costPow,int level) //power 증가
     {
-        p.power += startPower * Mathf.Pow(costPow,level);
-        SetPower(p.power);
-    }
-
-    public void SetPower(float p) //power저장
-    {
-        PlayerPrefs.SetFloat("Power",p);
-    }
-
-    public float GetPower() //power 불러오기
-    {
-        return p.power;
+        power += startPower * Mathf.Pow(costPow,level);
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    //골드 관련@@@@@@@@@@@@@@@@@@@@@@@@ 시작
-    public void SetGold(int nGold) //불러와 저장
-    {
-        PlayerPrefs.SetInt("gold", nGold);
-    }
-
-    public void SubGold(int nGold)
-    {
-        p.gold -= nGold;
-        SetGold(p.gold);
-    }
-
-    public void AddGold(int nGold) //골드 획득
-    {
-        p.gold += nGold;
-        SetGold(p.gold);
-    }
-    
-    public int GetGold() //m_goldPerClick 리턴
-    {
-        return p.gold;
-    }
-    //골드 관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 끝
-
     //Stage관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void AddStage() //스테이지를 넘어간다.
-    {
-        p.stage++;
-        SaveStage(p.stage);
-    }
     public void DecreaseStage()
     {
-        p.stage -= 10;
-        SaveStage(p.stage);
+        stage -= 10;
     }
-
-    public void SaveStage(int num) //PlayerPrefabs에 저장한다.
-    {
-        PlayerPrefs.SetInt("stage", num);
-    }
-
-    public int GetStage() //호출
-    {
-        return p.stage;
-    }
-
     //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ㄴ
 }

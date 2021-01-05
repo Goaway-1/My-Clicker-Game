@@ -16,19 +16,19 @@ public class ItemButton : Buttons
         costPow = 1.08f;
         startState = 1f; //시작크리티컬
 
-        DataManager.GetInstance().LoadItemButton(this);
+        DataManager.Instance.LoadItemButton(this);
         UpdateUI();
     }
 
     public override void PurchaseUpgrade()
     {
         //if구문->돈빼고(자동저장)
-        if (DataManager.GetInstance().GetGold() >= currentCost)
+        if (DataManager.Instance.gold >= currentCost)
         {
-            DataManager.GetInstance().SubGold(currentCost);
+            DataManager.Instance.gold -= currentCost;
             level++;
-            DataManager.GetInstance().increasedPower(startState, costPow, level);
-            DataManager.GetInstance().SaveitemButton(this);
+            DataManager.Instance.increasedPower(startState, costPow, level);
+            DataManager.Instance.SaveitemButton(this);
             UpdateItem();
             UpdateUI();
         }
@@ -39,6 +39,6 @@ public class ItemButton : Buttons
     }
     public override void UpdateUI()
     {
-        upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nPower : " + DataManager.GetInstance().GetPower() + "\nCost" + currentCost;
+        upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nPower : " + DataManager.Instance.power + "\nCost" + currentCost;
     }
 }

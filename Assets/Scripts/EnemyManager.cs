@@ -1,23 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@
     private static EnemyManager instance;
-    public static EnemyManager GetInstance()
+    public static EnemyManager Instance
     {
-        if (instance == null)
+        get
         {
-            instance = FindObjectOfType<EnemyManager>();
             if (instance == null)
             {
-                GameObject container = new GameObject("EnemyManager");
-                instance = container.AddComponent<EnemyManager>();
+                instance = FindObjectOfType<EnemyManager>();
+                if (instance == null)
+                {
+                    GameObject container = new GameObject("EnemyManager");
+                    instance = container.AddComponent<EnemyManager>();
+                }
             }
+            return instance;
         }
-        return instance;
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -39,6 +43,9 @@ public class EnemyManager : MonoBehaviour
     public UIManager ui;                //UI매니저 호출
     public bool isBoss = false;         //보스가 생성되냐?
 
+    //hp 슬라이더 관련
+    public Slider hpSlider;
+
     private void Start()
     {
         startPos = new Vector3(4, 1.7f,-1f); //추후 수정
@@ -51,16 +58,17 @@ public class EnemyManager : MonoBehaviour
             ui.DecreaseTime(); //시간 감소
         }
         reSpawn();
+        //showHp();
     }
 
     public float defineHp()
     {
-        if(DataManager.GetInstance().GetStage() % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
+        if(DataManager.Instance.stage % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
         {
             isBoss = true;
             Debug.Log("@@@@@Boss 출현@@@@@");
         }
-        Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.GetInstance().GetStage() / 2);
+        Hp = startHp * (int)Mathf.Pow(HpPow, DataManager.Instance.stage / 2);
         return Hp;
     }
     
@@ -75,7 +83,6 @@ public class EnemyManager : MonoBehaviour
             setExist(true); //몬스터가 존재한다.
             isMove = true;  //배경 움직여라
             curTime = 0;
-            //Instantiate<T>(T original, Vector3 position, Quaternion rotation) where T : Object;
             Instantiate(enemys[randomEnemy()], startPos, quaternion);
         }
     }

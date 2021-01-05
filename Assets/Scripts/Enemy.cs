@@ -7,34 +7,33 @@ public class Enemy : MonoBehaviour
 {
     //@@@@@@@@@@@@@@@@@@½Ì±ÛÅæ
     private static Enemy instance;
-    public static Enemy GetInstance()
+    public static Enemy Instance
     {
-        if (instance == null)
+        get
         {
-            instance = FindObjectOfType<Enemy>();
             if (instance == null)
             {
-                GameObject container = new GameObject("Enemy");
-                instance = container.AddComponent<Enemy>();
+                instance = FindObjectOfType<Enemy>();
+                if (instance == null)
+                {
+                    GameObject container = new GameObject("Enemy");
+                    instance = container.AddComponent<Enemy>();
+                }
             }
+            return instance;
         }
-        return instance;
     }
     //@@@@@@@@@@@@@@@@@@½Ì±ÛÅæ
 
-    private float maxHP;
-    private float currentHP;
+    public float maxHP;
+    public float currentHP;
 
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //µµÂø Æ÷Áö¼Ç (ÃßÈÄ ¼öÁ¤)
     int dropGold = 100;
 
-    //hp ½½¶óÀÌ´õ °ü·Ã
-    public Slider hpSlider;
-    public GameObject Slider;
-
     public void Start()
     {
-        maxHP = EnemyManager.GetInstance().defineHp();
+        maxHP = EnemyManager.Instance.defineHp();
         currentHP = maxHP;
         Debug.Log("HP:"+maxHP);
     }
@@ -46,10 +45,11 @@ public class Enemy : MonoBehaviour
             Move();
         }
 
-        if (currentHP <= 0 && EnemyManager.GetInstance().getExist())
+        if (currentHP <= 0 && EnemyManager.Instance.getExist())
         {
             ifdead();
         }
+        showHp();
     }
 
     public void Move()
@@ -65,9 +65,15 @@ public class Enemy : MonoBehaviour
     public void ifdead()
     {
         Debug.Log("»ç¸Á");
-        DataManager.GetInstance().AddGold(dropGold);
-        DataManager.GetInstance().AddStage();
-        EnemyManager.GetInstance().setExist(false);
+        DataManager.Instance.gold += dropGold;
+        DataManager.Instance.stage++;
+        EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);
     }
+    //UI°ü·Ã@@@@@
+    public void showHp()
+    {
+        EnemyManager.Instance.hpSlider.value = currentHP / maxHP;
+    }
+    //UI°ü·Ã@@@@@
 }
