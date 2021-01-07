@@ -437,3 +437,35 @@ public long gold
   }
 }
 ```
+___
+## __1.6__
+> **<h3>Today Dev Story</h3>**
+ - null
+> **<h3>Realization</h3>**
+ 1. 스크롤 바
+  - Canvas - Scroll View - Viewport - Mask -> 스크린상 넘치는것 표현유무
+  - Viewport를 아래로 늘린다.
+  - content 아래에 이미지 삽입후 Horizional 고정 해제 후 그냥 사용가능
+ 2. 투명도 설정
+  - Item Button에 Canvas Group 추가 후 Alpha로 투명도 설정
+```c#
+if (isPurchased)    //구매를 했다면 투명도
+{
+  canvasGroup.alpha = 1.0f;
+}
+else   //아니라면
+{
+  canvasGroup.alpha = 0.6f;
+}
+```
+___
+## __1.7__
+> **<h3>Today Dev Story</h3>**
+ - null
+> **<h3>Realization</h3>**
+  1. Slider 설정
+```c#
+slider.minValue = 0;  //최소값
+slider.maxValue = currentCost;  //최댓값
+slider.value = DataManager.Instance.gold; //현재 값
+```

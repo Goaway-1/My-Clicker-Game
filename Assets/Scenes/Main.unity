@@ -2442,9 +2442,9 @@ MonoBehaviour:
   startPos: {x: 0, y: 0, z: 0}
   quaternion: {x: 0, y: 0, z: 0, w: 0}
   enemys:
-  - {fileID: 5343697756050449917, guid: d16f119746e36554fb33dfa2e606e9cc, type: 3}
+  - {fileID: 1994868076084900535, guid: 26afbfbee207c41448592322b291f8d6, type: 3}
   - {fileID: 3800809639440064371, guid: 9f3e13fa3f8a2fb48a3858e2adbfbc9a, type: 3}
-  - {fileID: 1832102841483626596, guid: d0290e2797359a040b60139856fa5e26, type: 3}
+  - {fileID: 6924248651376394563, guid: a3db819e95bd8a94fbe010e334febb20, type: 3}
   isMove: 0
   ui: {fileID: 2129231111}
   isBoss: 0
