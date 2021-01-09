@@ -469,3 +469,66 @@ slider.minValue = 0;  //최소값
 slider.maxValue = currentCost;  //최댓값
 slider.value = DataManager.Instance.gold; //현재 값
 ```
+___
+## __1.8__
+> **<h3>Today Dev Story</h3>**
+ - null
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.9__
+> **<h3>Today Dev Story</h3>**
+ - null
+> **<h3>Realization</h3>**
+ - 데이터 저장의 방법 (1)PlayerPrefs (2)바이너리 파일 (3)Json
+ - **PlayerPrefabs** : 기본형의 데이터를 문자열과 함께 저장, 암호화 X, 한계 존재
+ - **바이너리 파일** : 물리적인 파일에 저장, 성능 우수(최적화O)
+ - **Json** : "키값 : Value값" 으로 이루어짐, Data 관리 시스템을 따로 제작해야함, 암호화 가능
+ - 씬 전환 시 데이터를 저장하고자 한다면 정적 클래스(static)를 통해 저장 or DontDestoryOnLoadobject 사용
+ - 유니티에셋(Easy Save) : 각종 자료형, 클래스를 손쉽게 저장가능(암호화 O) 50달라
+
+-------
+ - 직렬화(Serialzation), 역직렬화(Deserialization)
+ - 직렬화 : 추상적인 오브젝트를 구체적이고 저장, 전송 가능한 연속된 파일(비트)로 수정하는 것
+ - 역직렬화 : 그 반대의 과정 
+ - EX) Json, Bytes, XML, YAML...
+```c#
+using System.IO;  //추가
+
+public class PlayerController : MonoBehaviour //MonoBehavour에는 이미 직렬화
+{
+  public PlayerData playerData
+
+  [ContextMenu("To Json Data")] //함수를 그냥 실행 할 수 있게 만들어준다.
+  void SavePlayerDataToJson() //Serialization
+  {
+    string jsonData = JsonUtility.ToJson(playerData);
+    //string jsonData = JsonUtility.ToJson(playerData,true); --> true 추가시 이쁘게 정리된다.
+    string path = Path.Combine(Application.dataPath,"playerData.json");
+    File.WriteAllText(path,jsonData);
+  }
+
+  [ContextMenu("Load Json Data")] 
+  void SavePlayerDataToJson() //Deserialization
+  {
+    string path = Path.Combine(Application.dataPath,"playerData.json");
+    string jsonData = File.ReadAllText(path);
+    playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+  }
+}
+
+[System.Serializable] //직렬화 가능한 데이터로 변환 (저장/편집도 가능)
+public class playerData
+{
+  public string name;
+  public int level;
+  public bool isDead;
+  public string[] items;
+}
+```
+___
+## __1.10__
+> **<h3>Today Dev Story</h3>**
+ - null
+> **<h3>Realization</h3>**
+ - null
