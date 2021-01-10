@@ -5,18 +5,25 @@ using UnityEngine.UI;
 
 public class ItemButton : Buttons
 {
-
     private void Start()
     {
         upgradeName = "Power";
 
+        //시작 속성
+        startState = 1f; 
         startCurrentCost = 1;
 
         //업글 제곱
-        costPow = 1.08f;
-        startState = 1f; //시작크리티컬
+        UpcostPow = 1.39f;
+        costPow = 1.01f;
+        currentCost = 2;
 
         DataManager.Instance.LoadItemButton(this);
+        UpdateUI();
+    }
+
+    private void Update()
+    {
         UpdateUI();
     }
 
@@ -35,10 +42,33 @@ public class ItemButton : Buttons
     }
     public override void UpdateItem()
     {
-        currentCost = startCurrentCost * (int)Mathf.Pow(costPow, level);
+        currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
     }
     public override void UpdateUI()
     {
         upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nPower : " + DataManager.Instance.power + "\nCost" + currentCost;
+
+        slider.minValue = 0;
+        slider.maxValue = currentCost;
+
+        slider.value = DataManager.Instance.gold;
+
+        if (isPurchased)
+        {
+            canvasGroup.alpha = 1.0f;
+        }
+        else
+        {
+            canvasGroup.alpha = 0.6f;
+        }
+
+        if (currentCost <= DataManager.Instance.gold)
+        {
+            colorImage.color = upgradeAbleColor;
+        }
+        else
+        {
+            colorImage.color = notUpgradeAbleColor;
+        }
     }
 }

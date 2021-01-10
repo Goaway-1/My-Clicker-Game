@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     public float currentHP;
 
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
-    int dropGold = 100;
+    int startDropGold = 1;
 
     public void Start()
     {
@@ -65,7 +65,8 @@ public class Enemy : MonoBehaviour
     public void ifdead()
     {
         Debug.Log("사망");
-        DataManager.Instance.gold += dropGold;
+        //float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
+        DataManager.Instance.gold += startDropGold * DataManager.Instance.stage;    //추후 추가
         DataManager.Instance.stage++;
         EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);

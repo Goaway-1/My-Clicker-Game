@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
     {
         get
         {
-            return PlayerPrefs.GetFloat("criticalPer", 0);
+            return PlayerPrefs.GetFloat("criticalPer", 0.1f);
         }
         set
         {

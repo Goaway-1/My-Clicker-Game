@@ -8,13 +8,19 @@ public class CriticalPerButton : Buttons
     {
         upgradeName = "CriticalPer";
 
+        startState = 1f; //시작크리티컬
         startCurrentCost = 1;
 
         //업글 제곱
-        costPow = 1.08f;
-        startState = 1f; //시작크리티컬
+        costPow = 1.02f;
+        UpcostPow = 1.39f;
+        currentCost = 1;
 
-        DataManager.Instance.LoadC_Per_Button(this); 
+        DataManager.Instance.LoadC_Per_Button(this);
+        UpdateUI();
+    }
+    private void Update()
+    {
         UpdateUI();
     }
 
@@ -34,12 +40,34 @@ public class CriticalPerButton : Buttons
 
     public override void UpdateItem()
     {
-        currentCost = startCurrentCost * (int)Mathf.Pow(costPow, level);
+        currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
     }
 
     public override void UpdateUI()
     {
         upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nCriticalPer : " + DataManager.Instance.criticalPer + "\nCost" + currentCost;
+        slider.value = DataManager.Instance.gold;
+
+        slider.minValue = 0;
+        slider.maxValue = currentCost;
+
+        if (isPurchased)
+        {
+            canvasGroup.alpha = 1.0f;
+        }
+        else
+        {
+            canvasGroup.alpha = 0.6f;
+        }
+
+        if (currentCost <= DataManager.Instance.gold)
+        {
+            colorImage.color = upgradeAbleColor;
+        }
+        else
+        {
+            colorImage.color = notUpgradeAbleColor;
+        }
     }
  
 }

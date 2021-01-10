@@ -99,6 +99,34 @@ ___
 > **<h3>Today Dev Story</h3>**
  - power,critical등의 변수들을 float형으로 전환
  - Buttons 클래스를 만들고 상속을 통해서 모든 버튼(Power, Critical)을 상속, ~~미완성~~
+```c#  
+public abstract class Buttons : MonoBehaviour
+{
+  public string upgradeName;
+  public Text upgradeDisplay;
+  public int level;
+
+  //업그레이드 비용
+  public int currentCost;         //지금 비용
+  public int startCurrentCost;    //시작 비용
+  public float UpcostPow;         //비용증가 pow
+
+  //업글 제곱
+  public float costPow;       //State 강화 pow
+  public float startState;    //현재 state
+
+  public CanvasGroup canvasGroup;                 //Alpha값을 조정하기 위한 그룹
+  public Slider slider;
+  public Color upgradeAbleColor = Color.blue;     //업그레이할때 변함
+  public Color notUpgradeAbleColor = Color.red;   //업그레이드 전
+  public Image colorImage;
+  public bool isPurchased = false;               //아이템 구매여부
+
+  public abstract void PurchaseUpgrade();
+  public abstract void UpdateItem();
+  public abstract void UpdateUI();
+}
+```
 > **<h3>Realization</h3>**
  - NULL
 ___
@@ -529,6 +557,49 @@ public class playerData
 ___
 ## __1.10__
 > **<h3>Today Dev Story</h3>**
- - null
+ - Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
+ - 화면 어느곳이던 터치(클릭)시 공격
+ - 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
+ - power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
+```c#
+//몬스터 HP
+private float startHp = 5f; //초기 HP
+private float HpPow = 4.2f; //제곱비
+float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
+  return Hp;
+```
+ - **GUI 스크롤 설정** <img src="Capture/Scroll.gif">
+    1. Panel에 Vertical Layout Group설정
+    2. Scroll View 생성및 스크롤바 삭제
+    3. Content 안에 내용물 삽입
+    4. Content, Panel의 크기를 동일한 크기로 설정(크게)
+ - **item창 구매 화면 변경** <img src="Capture/Bar.gif">
+    1. 슬라이더를 블럭에 맞게 추가 슬라이더의 Fill을 이용해서 색을 변경
+    2. canvasGroup 추가(Alpha로 투명도 조절)
+```c#
+slider.minValue = 0;
+slider.maxValue = currentCost;
+
+slider.value = DataManager.Instance.gold;
+
+if (isPurchased)    //투명도 조절
+{
+  canvasGroup.alpha = 1.0f; 
+}
+else
+{
+ canvasGroup.alpha = 0.6f;
+}
+
+if (currentCost <= DataManager.Instance.gold) 
+{
+  colorImage.color = upgradeAbleColor;
+}
+else
+{
+  colorImage.color = notUpgradeAbleColor;
+}
+```
 > **<h3>Realization</h3>**
- - null
+ - 스크롤 방법
+ - 버튼 색 채우는 방법
