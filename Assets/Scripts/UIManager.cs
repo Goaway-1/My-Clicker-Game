@@ -10,9 +10,23 @@ public class UIManager : MonoBehaviour
     //timer
     public Slider timeSlider;
     public GameObject Slider;
-    public float currentTime = 10f;  //시작시간
+    private float currentTime = 10f;  //시작시간
     const float MaxTime = 10f;      //최대시간(변경 X) -->static으로 선언된다.
     public Text currentDisplay;    //화면에 보여질 시간
+
+    //Menu
+    public Animator M_Ani;
+    public Text M_text;
+    private bool M_isshow = false;
+
+    //State 표시
+    public GameObject S_Panel;
+    private bool S_isShow = false;
+
+    //Menu 전환
+    public GameObject UpgradeP;
+    public GameObject MasterP;
+    public GameObject MissonP;
 
     private void Start()
     {
@@ -32,7 +46,7 @@ public class UIManager : MonoBehaviour
         currentDisplay.text = (int)currentTime + "초";
     }
     
-    public void DecreaseTime()  //시간 감소
+    public void DecreaseTime()  //보스 생성시 시간 감소
     {
         Slider.SetActive(true);
         StartCoroutine(wait());
@@ -57,4 +71,73 @@ public class UIManager : MonoBehaviour
         Slider.SetActive(false);
         currentTime = 10f;  //다시 초기화 해준다.
     }
+
+    public void ShowMenu() //메뉴의 생성 및 소멸관리
+    {
+        if (!M_isshow) //보여주자
+        {
+            M_isshow = true;
+            M_Ani.SetBool("isShow", true);
+            M_text.text = "Hide";
+        }
+        else
+        {
+            M_isshow = false;
+            M_Ani.SetBool("isShow", false);
+            M_text.text = "Show";
+        }
+    }
+
+    public void ResetButton()   //PlayerPrefs 데이터를 모두 삭제
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
+    public void maxMoney()  //돈 급수
+    {
+        DataManager.Instance.gold += 9999999;
+    }
+    public void killEnemy() //데미지 금수
+    {
+        Enemy.Instance.decreased(999999999); //추후 수정 --> 싱글톤 삭제하자!
+    }
+
+    public void ShowState() //State를 표시한다.
+    {
+        if (!S_isShow)
+        {
+            S_isShow = true;
+            S_Panel.SetActive(true);
+        }
+        else
+        {
+            S_isShow = false;
+            S_Panel.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Menu의 전환
+    /// </summary>
+    public void SwitchUpgrade()    //선택하면 Active를 비/활성화 (Button창)
+    {
+        UpgradeP.SetActive(true);
+        MasterP.SetActive(false);
+        MissonP.SetActive(false);
+    }
+    public void SwitchMaster()    //선택하면 Active를 비/활성화 (Master창)
+    {
+        UpgradeP.SetActive(false);
+        MasterP.SetActive(true);
+        MissonP.SetActive(false);
+    }
+    public void SwitchMisson()    //선택하면 Active를 비/활성화 (Misson창)
+    {
+        UpgradeP.SetActive(false);
+        MasterP.SetActive(false);
+        MissonP.SetActive(true);
+    }
+    /// <summary>
+    /// Menu의 전환
+    /// </summary>
 }

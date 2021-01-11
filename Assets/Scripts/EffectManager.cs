@@ -12,11 +12,10 @@ public class EffectManager : MonoBehaviour
     {
         Instance = this;
     }
-    public void attckShow()
+    public void attckShow() //DamageText를 EnQueue한다.
     {
         GameObject t_object = ObjectPoolingManager.instance.GetQueue();
         t_object.transform.position = randPos();
-        
     }
 
     private Vector3 randPos()   //pos의 위치를 랜덤으로 한다.

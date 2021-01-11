@@ -56,7 +56,6 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Button\ShowState.cs" />
     <Compile Include="Assets\Scripts\Button\AttackButton.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\ObjectPoolingManager.cs" />
@@ -67,13 +66,10 @@
     <Compile Include="Assets\Scripts\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalButton.cs" />
     <Compile Include="Assets\Scripts\Effect.cs" />
-    <Compile Include="Assets\Scripts\Button\MaterButton.cs" />
-    <Compile Include="Assets\Scripts\Button\ResetButton.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Button\ItemButton.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
-    <Compile Include="Assets\Scripts\Button\ShowMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

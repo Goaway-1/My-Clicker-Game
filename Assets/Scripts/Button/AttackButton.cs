@@ -42,14 +42,12 @@ public class AttackButton : MonoBehaviour
             }
 
             float rand = num1 + num2;
-			//
 
 			if (strikePer >= rand)	//크리티컬 공격!
             {
 				n_power *= strikePow;  //대안생각하기
             }
 
-			effect.isChange = true;
 			EffectManager.Instance.attckShow();
 			Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!
 
@@ -57,7 +55,7 @@ public class AttackButton : MonoBehaviour
 		}
 	}
 
-	public static float damText()	//damage를 effect에서 호출할때 사용한다. --> 추후 수정(static이기 때문에)
+	public static float getDamage()	//damage를 effect에서 호출할때 사용한다. --> 추후 수정(static이기 때문에)
     {
 		return n_power;
     }

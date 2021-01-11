@@ -371,9 +371,10 @@ ___
     return t_object;
   }
 ```
+
 ```c#
 //effect Manager
- public static EffectManager instance;
+  public static EffectManager instance;
 
   private void Start()
   {
@@ -383,36 +384,53 @@ ___
   public void attckShow()
   {
     GameObject t_object = ObjectPoolingManager.instance.GetQueue();
-    t_object.transform.position = Vector3.zero;
+    t_object.transform.position = randPos();
+  }
+
+  private Vector3 randPos()   //pos의 위치를 랜덤으로 한다.
+  {
+    float a = Random.Range(-0.5f, 0.5f);
+    float b = Random.Range(1f, 2f);
+    return new Vector3(a, b, -1.1f);
   }
 ```
+
 ```c#
 //Effect
-  Rigidbody m_myrigid = null;
-  public TextMesh tt = null;
+Rigidbody m_myrigid = null;
+public TextMesh m_text = null;
+private float transparency = 1f; //투명도
 
-  private void OnEnable() //활성화 될때마다
-  {
-    if (m_myrigid == null)
-    {
-      m_myrigid = GetComponent<Rigidbody>();
-    }
+private void OnEnable() //활성화 될때마다
+{
+if (m_myrigid == null)
+{
+  m_myrigid = GetComponent<Rigidbody>();
+}
+  transparency = 1f;
+  m_text.color = new Color(0, 0, 0, 1f);
+  m_myrigid.velocity = Vector3.zero; //초기화 필수(속도값)
+  setDamageText(AttackButton.getDamage());  //데미지를 설정한다.  
+  m_myrigid.AddExplosionForce(100, transform.position, 1f);
+  StartCoroutine(DestoryCube());
+}
 
-    m_myrigid.velocity = Vector3.zero; //초기화 필수
-    m_myrigid.AddExplosionForce(100, transform.position, 1f);
-    StartCoroutine(DestoryCube());
-  }
+public void Update()
+{
+  transparency -= Time.deltaTime;
+  m_text.color = new Color(0, 0, 0, transparency);
+}
 
-  IEnumerator DestoryCube()
-  {
-    yield return new WaitForSeconds(3f);
-    ObjectPoolingManager.instance.InsertQueue(gameObject);
-  }
+IEnumerator DestoryCube()
+{
+  yield return new WaitForSeconds(0.7f);  //추후 수정
+  ObjectPoolingManager.instance.InsertQueue(gameObject);
+}
 
-  public void setPower(float power)
-  {
-    tt.text = "" + power;
-  }
+public void setDamageText(float power)       //DamageText 설정
+{
+  m_text.text = "" + power;
+}
 ```
  - show버튼을 제작해 인터페이스창의 비/활성화 구현
 <img src= "Capture/ShowState.gif" width="350">
@@ -427,8 +445,8 @@ ___
 ## __1.5__
 > **<h3>Today Dev Story</h3>**
 - Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
-- 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif">
-- player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif">
+- 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif" width="350">
+- player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif" width="350">
 - 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
 ```c#
 public float power  //힘
@@ -568,12 +586,12 @@ private float HpPow = 4.2f; //제곱비
 float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
   return Hp;
 ```
- - **GUI 스크롤 설정** <img src="Capture/Scroll.gif">
+ - **GUI 스크롤 설정** <img src="Capture/Scroll.gif" width="350">
     1. Panel에 Vertical Layout Group설정
     2. Scroll View 생성및 스크롤바 삭제
     3. Content 안에 내용물 삽입
     4. Content, Panel의 크기를 동일한 크기로 설정(크게)
- - **item창 구매 화면 변경** <img src="Capture/Bar.gif">
+ - **item창 구매 화면 변경** <img src="Capture/Bar.gif" width="350">
     1. 슬라이더를 블럭에 맞게 추가 슬라이더의 Fill을 이용해서 색을 변경
     2. canvasGroup 추가(Alpha로 투명도 조절)
 ```c#
@@ -603,3 +621,99 @@ else
 > **<h3>Realization</h3>**
  - 스크롤 방법
  - 버튼 색 채우는 방법
+____
+## __1.11__
+> **<h3>Today Dev Story</h3>**
+ - 업그레드 창의 호출 및 숨김 구현 (<span style = "color:yellow;">1.애니메이션</span> 2.recttransform) 
+ - <img src = "Capture/ShowMenu.gif" width="350">
+```c#
+//애니메이션으로 구현
+public Animator ani;
+public Text text; 
+private bool isshow = false;
+
+public void OnClick()
+{
+  if (!isshow) //위로 올라옴
+    isshow = true;
+    ani.SetBool("isShow", true);
+    text.text = "Hide";     //text의 변화
+  }
+  else
+  {
+    isshow = false;
+    ani.SetBool("isShow", false);
+    text.text = "Show";
+  }
+}
+```
+ - DamageText 수정 완료
+ - 분산되어 있던 GUI함수들을 UIManager에 확장
+ - 좌우 메뉴 확장 <ins>(c# 간단하게 추후 수정)</ins>
+ - <img src = "Capture/SwitchMenu.gif" width="350">
+```c#
+public void SwitchUpgrade()    //Button창 활성화
+{
+  UpgradeP.SetActive(true);
+  MasterP.SetActive(false);
+  MissonP.SetActive(false);
+}
+public void SwitchMaster()    //Master창 활성화
+{
+  UpgradeP.SetActive(false);
+  MasterP.SetActive(true);
+  MissonP.SetActive(false);
+}
+public void SwitchMisson()    //Misson창 활성화
+{
+  UpgradeP.SetActive(false);
+  MasterP.SetActive(false);
+  MissonP.SetActive(true);
+}
+```
+> **<h3>Realization</h3>**
+ - <span style = "color:yellow;">**Slot에 아이템 추가하는 방법** </span>
+    1. 슬롯에 대한 정보 추가  
+    ```c#
+    [System.Serializable]
+    public class SlotData
+    {
+      public bool isEmpty;
+      public GameObject slotObj;
+    }
+    ``` 
+    1. 인벤토리를 List로 생성
+    ```c#
+    public List<SlotData> slots = new List<SlotData>();
+    private int maxSlot = 3;
+    public GameObject slotPrefab;
+
+    private void Start()
+    {
+      GameObject slotPanel = GameObject.Find("Panel");    //Slot을 프립펩화 한후에 Panel아래에 생성할꺼임 그래서 Panel을 찾는거임
+
+      for (int i = 0; i < maxSlot; i++)
+      {
+        GameObject go = Instantiate(slotPrefab, slotPanel.transform, false);
+        go.name = "Slot" + i;
+        SlotData slot = new SlotData();
+        slot.isEmpty = true;
+        slot.slotObj = go;
+        slots.Add(slot);
+      }
+    }
+    ```
+    1. 조건이 된다면 슬롯에 할당
+    ```c#
+    Inventory inven = collision.GetComponent<Inventory>();
+    for (int i = 0; i < inven.slots.Count; i++)
+    {
+      if (inven.slots[i].isEmpty) //슬롯에 생성
+      {
+        Instantiate(slotItem, inven.slots[i].slotObj.transform, false);
+        inven.slots[i].isEmpty = false;
+        Destroy(this.gameObject);
+        break;
+      }
+    }
+    ```
