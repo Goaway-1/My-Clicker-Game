@@ -717,3 +717,130 @@ public void SwitchMisson()    //Misson창 활성화
       }
     }
     ```
+____
+## __1.12__
+> **<h3>Today Dev Story</h3>**
+ - Combo창을 만들어 버튼을 누르면 창에 이미지를 삽입 (List사용)
+ - 버튼 클릭시 slot 하위에 이미지만 생성 <ins>추후 수정(오브젝트 풀링 사용)</ins>
+ - <img src="Capture/SaveItem.gif" width=350> <img src="Capture/SavedItem.gif" width=300>
+```c#
+public class InventoryManger : MonoBehaviour
+{
+  public List<SlotData> slots = new List<SlotData>(); //List사용
+  private int maxSlot = 3;
+  public GameObject slotPrefab;
+  public GameObject Panel;    //Panel의 setactive를 사용하기 위함
+
+  public void Start()
+  {
+    Panel.SetActive(true);  //Panel이 활성화 되어 있지 않으면 item창이 생성되지 않아서 켰다가 끄게 만들었다.
+    GameObject slotPanel = GameObject.Find("Slot_Panel");
+    for (int i = 0; i < maxSlot; i++)
+    {
+      GameObject go = Instantiate(slotPrefab, slotPanel.transform, false); //미리 공간만 만들어 둔다.
+      go.name = "Slot" + i;
+      SlotData slot = new SlotData();
+      slot.isEmpty = true;
+      slot.index = 0;
+      slot.additionalD = 0;
+      slot.slotObj = go;
+      slots.Add(slot);
+    }
+    Panel.SetActive(false);  
+  }
+}
+
+[System.Serializable]
+public class SlotData   //각 slot의 데이터
+{
+    public bool isEmpty;
+    public int index;           //고유 인덱스 값
+    public float additionalD;   //추가 데미지
+    public GameObject slotObj;  //넣을 이미지
+}
+
+public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변경)
+{
+  public GameObject slotItem;
+  public InventoryManger inven;
+  public float i_additionalD;   //설정할 추가 데미지 값
+  public int i_index;           //설정한 고유 index값
+
+  public void Add()   //추후 오브젝트 풀링으로 변경하자
+  {
+    for (int i = 0; i < inven.slots.Count; i++)   //빈곳에 넣는다.
+    {
+      if (inven.slots[i].isEmpty)
+      {
+        Instantiate(slotItem, inven.slots[i].slotObj.transform, false);
+        inven.slots[i].isEmpty = false;
+        inven.slots[i].additionalD = i_additionalD; 
+        inven.slots[i].index = i_index;
+        break;
+     }
+    }
+  }
+}
+```
+ - 장착된 Combo에 따른 %데미지 추가(관련 class수정 ItemAddButton,SlotData, InventoryManager)
+ - <img src="Capture/AdditionalDam.gif" width=350> <img src="Capture/AdditionalDamEx.gif" >
+```c#
+//AttackButton에 Onclick()함수에 추가된 내용
+//Combo 순서대로 공격
+if (count == inven.slots.Count)
+{
+  count = 0;
+}
+if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
+{
+  n_power += n_power * inven.slots[count].additionalD;
+  Debug.Log("@@강화 공격@@"); //삭제
+}
+count++;
+```
+ - 장착된 Combo 삭제 구현(1,2,3번 클릭)
+ - <img src="Capture/DelAdditional.gif" width=350>
+```c#
+public class ItemDel : MonoBehaviour  //장착시 생성되는 곳에 들어간다.
+{
+    private void Update()
+    {
+        if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+        {
+            Destroy(this.gameObject);
+        }
+    }
+}
+public class Slot : MonoBehaviour //Slot 배경에 들어간다.
+{
+    InventoryManger inventory;
+    public int num;
+    private void Start()
+    {
+        inventory = GameObject.Find("InventoryManager").GetComponent<InventoryManger>();    //이렇게 받을 수도 있군 
+        num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
+    }
+    private void Update()
+    {
+        if(transform.childCount <= 0)
+        {
+            inventory.slots[num].isEmpty = true;
+        }
+    }
+}
+```
+> **<h3>Realization</h3>**
+ - PreFab화 된 오브젝트를 생성시에 이름을 정하는 방법
+   - Instantiate후 obj.name = "~~"으로 설정
+ - 문자열 자르기 SubString 
+   ```c#
+   num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
+   ```
+ - InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
+    ```c#
+    GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
+    ``` 
+ - 본인 오브젝트에서 부모오브젝트중 Slot이라는 것(스크립트 등등)을 찾아 사용
+    ```c#
+    transform.parent.GetComponent<Slot>().num
+    ```

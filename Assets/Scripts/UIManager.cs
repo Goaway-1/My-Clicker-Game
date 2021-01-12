@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     //Menu 전환
     public GameObject UpgradeP;
     public GameObject MasterP;
+    public GameObject ComboP;
     public GameObject MissonP;
 
     private void Start()
@@ -123,18 +124,28 @@ public class UIManager : MonoBehaviour
     {
         UpgradeP.SetActive(true);
         MasterP.SetActive(false);
+        ComboP.SetActive(false);
         MissonP.SetActive(false);
     }
     public void SwitchMaster()    //선택하면 Active를 비/활성화 (Master창)
     {
         UpgradeP.SetActive(false);
         MasterP.SetActive(true);
+        ComboP.SetActive(false);
+        MissonP.SetActive(false);
+    }
+    public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
+    {
+        UpgradeP.SetActive(false);
+        MasterP.SetActive(false);
+        ComboP.SetActive(true);
         MissonP.SetActive(false);
     }
     public void SwitchMisson()    //선택하면 Active를 비/활성화 (Misson창)
     {
         UpgradeP.SetActive(false);
         MasterP.SetActive(false);
+        ComboP.SetActive(false);
         MissonP.SetActive(true);
     }
     /// <summary>

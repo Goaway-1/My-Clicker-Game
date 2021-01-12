@@ -129,20 +129,20 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadItemButton(ItemButton itemButton) //power업글 불러오기
+    public void LoadItemButton(PowerButton powerButton) //power업글 불러오기
     {
-        string key = itemButton.upgradeName;
+        string key = powerButton.upgradeName;
 
-        itemButton.currentCost = PlayerPrefs.GetInt(key + "_cost", itemButton.startCurrentCost);
-        itemButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        powerButton.currentCost = PlayerPrefs.GetInt(key + "_cost", powerButton.startCurrentCost);
+        powerButton.level = PlayerPrefs.GetInt(key + "_level", 1);
     }
 
-    public void SaveitemButton(ItemButton itemButton) //power업글 저장하기
+    public void SaveitemButton(PowerButton powerButton) //power업글 저장하기
     {
-        string key = itemButton.upgradeName;
+        string key = powerButton.upgradeName;
 
-        PlayerPrefs.SetInt(key + "_cost", itemButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", itemButton.level);
+        PlayerPrefs.SetInt(key + "_cost", powerButton.currentCost);
+        PlayerPrefs.SetInt(key + "_level", powerButton.level);
     }
 
     public void increasedPower(float startPower,float costPow,int level) //power 증가
