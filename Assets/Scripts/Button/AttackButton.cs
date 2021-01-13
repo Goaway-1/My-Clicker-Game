@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AttackButton : MonoBehaviour
 {
+    public PlayerAnimation playerAnimation;
+
 	static float n_power;
 	float strikePer;
 	float strikePow;
@@ -13,19 +15,17 @@ public class AttackButton : MonoBehaviour
 	int num_len;
 	float rand;
 
-//애니관련(데미지 효과)
-public bool ispunch = false;
+    //애니관련(데미지 효과)
 	public Effect effect;
 
 	//순서대로 공격
-	private int count = 0;
+	public int count = 0;
 	public InventoryManger inven;       //추후 싱글톤 & ItemAddButton과 동시에
 
     public void OnClick() //클릭시 Manager에서 불러옴
     {
         if (EnemyManager.Instance.getExist())
         {
-            ispunch = true;
             n_power = DataManager.Instance.power;
             strikePer = DataManager.Instance.criticalPer;
             strikePow = DataManager.Instance.criticalPow;
@@ -66,12 +66,12 @@ public bool ispunch = false;
                 n_power += n_power * inven.slots[count].additionalD;
                 Debug.Log("@@강화 공격@@"); //삭제
             }
-            count++;
 
             //실질적으로 데미지를 입히고 보여주는 곳
+            playerAnimation.AttackAction(count);
             EffectManager.Instance.attckShow();
-            Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!
-            StartCoroutine(Wait());
+            Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!n 
+            count++;
         }
     }
 
@@ -79,10 +79,4 @@ public bool ispunch = false;
     {
 		return n_power;
     }
-	
-	IEnumerator Wait() //강제로 모션 유지 시간 --> 추후 변경예정
-    {
-		yield return new WaitForSeconds(0.43f);
-		ispunch = false;
-	}
 }

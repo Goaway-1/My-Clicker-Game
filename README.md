@@ -305,8 +305,8 @@ public class BGScroller : MonoBehaviour
 ___
 ## __1.4__
 > **<h3>Today Dev Story</h3>**
- - 배경 이동 속도 및 한번만 이동하는 오류 수정.
- - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
+ - ### 배경 이동 속도 및 한번만 이동하는 오류 수정.
+ - ### 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
  - 타이머할때만 slider.setative 활성화
 <img src= "Capture/BossTimer.gif" width="350">
 ```c#
@@ -336,8 +336,8 @@ ___
         currentTime = 10f;
     }
 ```
- - 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
- - 동시에 오브젝트 풀링을 사용해서 최적화
+ - ### 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
+ - ### 동시에 오브젝트 풀링을 사용해서 최적화
 <img src = "Capture/ObjectPooling.gif" width="350">
 ```c#
   ///ObjectPooling 기획
@@ -432,9 +432,9 @@ public void setDamageText(float power)       //DamageText 설정
   m_text.text = "" + power;
 }
 ```
- - show버튼을 제작해 인터페이스창의 비/활성화 구현
+ - ### show버튼을 제작해 인터페이스창의 비/활성화 구현
 <img src= "Capture/ShowState.gif" width="350">
- - Master버튼을 제작해 몬스터를 죽이고,돈을 무한으로 변경(이미지)
+ - ### Master버튼을 제작해 몬스터를 죽이고,돈을 무한으로 변경(이미지)
 > **<h3>Realization</h3>**
  - 오브젝트 폴링에 대한 학습했다. 이는 기존 오브젝트를 생성하고 파괴하는 방식이 아닌 일정한 수많큼 오브젝트를 <mark>**생성해 놓고 돌려쓰는**</mark> 개념이다.
  - 순서를 정리하자면 pooling 클래스를 싱글톤화 한 후/ Queue 저장공간할당/ 시작과 동시에 오브젝트들을 생성한다.
@@ -444,10 +444,10 @@ public void setDamageText(float power)       //DamageText 설정
 ___
 ## __1.5__
 > **<h3>Today Dev Story</h3>**
-- Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
-- 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif" width="350">
-- player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif" width="350">
-- 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
+- ### Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
+- ### 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif" width="350">
+- ### player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif" width="350">
+- ### 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
 ```c#
 public float power  //힘
 {
@@ -461,11 +461,11 @@ public float power  //힘
     }
 }
 ```
- - 접근자 프로퍼티 설정 후 DamageText에서 오류가 발생해 수정, 하지만 static으로 진행한 임시 방편 <ins>(추후수정)</ins>
+ - ### 접근자 프로퍼티 설정 후 DamageText에서 오류가 발생해 수정, 하지만 static으로 진행한 임시 방편 <ins>(추후수정)</ins>
 > **<h3>Realization</h3>**
-- int형의 값이 overflow 될수 있기에 long형으로 변환하는법
-- 변환했을때 접근자 프로퍼티를 설정하는 방법
-- 장점 : 굳이 호출하는 함수를 따로 제작 X, 시작시 호출 X, 싱글톤에서도 사용 O,
+- ### int형의 값이 overflow 될수 있기에 long형으로 변환하는법
+- ### 변환했을때 접근자 프로퍼티를 설정하는 방법
+- ### 장점 : 굳이 호출하는 함수를 따로 제작 X, 시작시 호출 X, 싱글톤에서도 사용 O,
 ```c#
 public long gold
 {
@@ -526,7 +526,7 @@ ___
 > **<h3>Today Dev Story</h3>**
  - null
 > **<h3>Realization</h3>**
- - 데이터 저장의 방법 (1)PlayerPrefs (2)바이너리 파일 (3)Json
+ - ### 데이터 저장의 방법 (1)PlayerPrefs (2)바이너리 파일 (3)Json
  - **PlayerPrefabs** : 기본형의 데이터를 문자열과 함께 저장, 암호화 X, 한계 존재
  - **바이너리 파일** : 물리적인 파일에 저장, 성능 우수(최적화O)
  - **Json** : "키값 : Value값" 으로 이루어짐, Data 관리 시스템을 따로 제작해야함, 암호화 가능
@@ -575,10 +575,10 @@ public class playerData
 ___
 ## __1.10__
 > **<h3>Today Dev Story</h3>**
- - Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
- - 화면 어느곳이던 터치(클릭)시 공격
- - 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
- - power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
+ - ### Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
+ - ### 화면 어느곳이던 터치(클릭)시 공격
+ - ### 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
+ - ### power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
 ```c#
 //몬스터 HP
 private float startHp = 5f; //초기 HP
@@ -586,12 +586,14 @@ private float HpPow = 4.2f; //제곱비
 float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
   return Hp;
 ```
- - **GUI 스크롤 설정** <img src="Capture/Scroll.gif" width="350">
+ - ### **GUI 스크롤 설정** 
+ - <img src="Capture/Scroll.gif" width="350">
     1. Panel에 Vertical Layout Group설정
     2. Scroll View 생성및 스크롤바 삭제
     3. Content 안에 내용물 삽입
     4. Content, Panel의 크기를 동일한 크기로 설정(크게)
- - **item창 구매 화면 변경** <img src="Capture/Bar.gif" width="350">
+ - ### **item창 구매 화면 변경** 
+ - <img src="Capture/Bar.gif" width="350">
     1. 슬라이더를 블럭에 맞게 추가 슬라이더의 Fill을 이용해서 색을 변경
     2. canvasGroup 추가(Alpha로 투명도 조절)
 ```c#
@@ -619,12 +621,12 @@ else
 }
 ```
 > **<h3>Realization</h3>**
- - 스크롤 방법
- - 버튼 색 채우는 방법
+ - ### 스크롤 방법
+ - ### 버튼 색 채우는 방법
 ____
 ## __1.11__
 > **<h3>Today Dev Story</h3>**
- - 업그레드 창의 호출 및 숨김 구현 (<span style = "color:yellow;">1.애니메이션</span> 2.recttransform) 
+ - ### 업그레드 창의 호출 및 숨김 구현 (<span style = "color:yellow;">1.애니메이션</span> 2.recttransform) 
  - <img src = "Capture/ShowMenu.gif" width="350">
 ```c#
 //애니메이션으로 구현
@@ -647,9 +649,9 @@ public void OnClick()
   }
 }
 ```
- - DamageText 수정 완료
- - 분산되어 있던 GUI함수들을 UIManager에 확장
- - 좌우 메뉴 확장 <ins>(c# 간단하게 추후 수정)</ins>
+ - ### DamageText 수정 완료
+ - ### 분산되어 있던 GUI함수들을 UIManager에 확장
+ - ### 좌우 메뉴 확장 <ins>(c# 간단하게 추후 수정)</ins>
  - <img src = "Capture/SwitchMenu.gif" width="350">
 ```c#
 public void SwitchUpgrade()    //Button창 활성화
@@ -672,7 +674,7 @@ public void SwitchMisson()    //Misson창 활성화
 }
 ```
 > **<h3>Realization</h3>**
- - <span style = "color:yellow;">**Slot에 아이템 추가하는 방법** </span>
+ - ### <span style = "color:yellow;">**Slot에 아이템 추가하는 방법** </span>
     1. 슬롯에 대한 정보 추가  
     ```c#
     [System.Serializable]
@@ -682,7 +684,7 @@ public void SwitchMisson()    //Misson창 활성화
       public GameObject slotObj;
     }
     ``` 
-    1. 인벤토리를 List로 생성
+    2. 인벤토리를 List로 생성
     ```c#
     public List<SlotData> slots = new List<SlotData>();
     private int maxSlot = 3;
@@ -703,7 +705,7 @@ public void SwitchMisson()    //Misson창 활성화
       }
     }
     ```
-    1. 조건이 된다면 슬롯에 할당
+    3. 조건이 된다면 슬롯에 할당
     ```c#
     Inventory inven = collision.GetComponent<Inventory>();
     for (int i = 0; i < inven.slots.Count; i++)
@@ -720,8 +722,8 @@ public void SwitchMisson()    //Misson창 활성화
 ____
 ## __1.12__
 > **<h3>Today Dev Story</h3>**
- - Combo창을 만들어 버튼을 누르면 창에 이미지를 삽입 (List사용)
- - 버튼 클릭시 slot 하위에 이미지만 생성 <ins>추후 수정(오브젝트 풀링 사용)</ins>
+ - ### Combo창을 만들어 버튼을 누르면 창에 이미지를 삽입 (List사용)
+ - ### 버튼 클릭시 slot 하위에 이미지만 생성 <ins>추후 수정(오브젝트 풀링 사용)</ins>
  - <img src="Capture/SaveItem.gif" width=350> <img src="Capture/SavedItem.gif" width=300>
 ```c#
 public class InventoryManger : MonoBehaviour
@@ -782,7 +784,7 @@ public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변
   }
 }
 ```
- - 장착된 Combo에 따른 %데미지 추가(관련 class수정 ItemAddButton,SlotData, InventoryManager)
+ - ### 장착된 Combo에 따른 %데미지 추가(관련 class수정 ItemAddButton,SlotData, InventoryManager)
  - <img src="Capture/AdditionalDam.gif" width=350> <img src="Capture/AdditionalDamEx.gif" >
 ```c#
 //AttackButton에 Onclick()함수에 추가된 내용
@@ -798,7 +800,7 @@ if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
 }
 count++;
 ```
- - 장착된 Combo 삭제 구현(1,2,3번 클릭)
+ - ### 장착된 Combo 삭제 구현(1,2,3번 클릭)
  - <img src="Capture/DelAdditional.gif" width=350>
 ```c#
 public class ItemDel : MonoBehaviour  //장착시 생성되는 곳에 들어간다.
@@ -830,17 +832,71 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
 }
 ```
 > **<h3>Realization</h3>**
- - PreFab화 된 오브젝트를 생성시에 이름을 정하는 방법
+ - ### PreFab화 된 오브젝트를 생성시에 이름을 정하는 방법
    - Instantiate후 obj.name = "~~"으로 설정
- - 문자열 자르기 SubString 
+ - ### 문자열 자르기 SubString 
    ```c#
    num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
    ```
- - InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
+ - ### InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
     ```c#
     GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
     ``` 
- - 본인 오브젝트에서 부모오브젝트중 Slot이라는 것(스크립트 등등)을 찾아 사용
+ - ### 본인 오브젝트에서 부모오브젝트중 Slot이라는 것(스크립트 등등)을 찾아 사용
     ```c#
     transform.parent.GetComponent<Slot>().num
+    ```
+## __1.13__
+> **<h3>Today Dev Story</h3>**
+ - ### Combo 창 선택시 Scroll View의 Scroll Rect 비활성화하여 스크롤 기능을 멈춤
+    ```c#
+    public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
+    {
+      UpgradeP.SetActive(false);
+      MasterP.SetActive(false);
+      ComboP.SetActive(true);
+      MissonP.SetActive(false);
+      scrollRect.enabled = false; //스크롤 비활성화
+      content.anchoredPosition = new Vector2(0, -100);    //초기로 고정해버림
+    }
+   ```
+ - ### Combo에 따른 공격 이미지 변경 <ins>(추후 변경)</ins>
+  - <img src="Capture/AttackAni.gif" witdh=350>
+
+    ```c#
+    public void AttackAction(int num)
+    {
+      switch (inven.slots[num].index) //고유번호 사용
+      {
+        case 1:
+          animator.SetInteger("Attack", 1);
+          break;
+        case 2:
+          animator.SetInteger("Attack", 2);
+          break;
+        case 3:
+          animator.SetInteger("Attack", 3);
+          break;
+        case 4:
+          animator.SetInteger("Attack", 4);
+          break;
+        case 5:
+          animator.SetInteger("Attack", 5);
+          break;
+        default:
+             break;
+      }
+      StartCoroutine(Wait());
+    }
+    ```
+> **<h3>Realization</h3>**
+ - ### 스크립트로 컴포넌트 편집방법
+    ```c#
+    //추가
+    GameObject.AddComponent<찾을 컴포넌트>();
+    //삭제
+    GameObject a = GameObject.GetComponent<찾을 컴포넌트>();
+    Destory(a);
+    //비/활성화
+    ~~~~.enabled = true (false)
     ```

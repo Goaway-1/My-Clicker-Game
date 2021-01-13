@@ -8,6 +8,7 @@ public class PlayerAnimation : MonoBehaviour
 
     //애니메이션
     public Animator animator;
+    public InventoryManger inven;       //추후 싱글톤 & ItemAddButton과 동시에
 
     public void Start()
     {
@@ -16,20 +17,32 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Update()
     {
-        AttackAction();
         RunAction();
     }
 
-    private void AttackAction()
+    public void AttackAction(int num)
     {
-        if (!attackButton.ispunch) //안친다.
+        switch (inven.slots[num].index)
         {
-            animator.SetBool("Attack", false);
+            case 1:
+                animator.SetInteger("Attack", 1);
+                break;
+            case 2:
+                animator.SetInteger("Attack", 2);
+                break;
+            case 3:
+                animator.SetInteger("Attack", 3);
+                break;
+            case 4:
+                animator.SetInteger("Attack", 4);
+                break;
+            case 5:
+                animator.SetInteger("Attack", 5);
+                break;
+            default:
+                break;
         }
-        else
-        {
-            animator.SetBool("Attack", true);
-        }
+        StartCoroutine(Wait());
     }
 
     private void RunAction()
@@ -42,5 +55,11 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("Run", true);
         }
+    }
+
+    IEnumerator Wait() //강제로 모션 유지 시간 --> 추후 변경예정
+    {
+        yield return new WaitForSeconds(0.08f);
+        animator.SetInteger("Attack", 0);
     }
 }

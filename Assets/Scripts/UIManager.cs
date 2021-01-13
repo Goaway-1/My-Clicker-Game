@@ -29,11 +29,19 @@ public class UIManager : MonoBehaviour
     public GameObject ComboP;
     public GameObject MissonP;
 
+    //상하 스크롤 고정
+    private ScrollRect scrollRect;
+    private RectTransform content;
+
     private void Start()
     {
         currentTime = 10f;
         Slider.SetActive(false);
-        timeSlider.value = currentTime / MaxTime;  
+        timeSlider.value = currentTime / MaxTime;
+        
+        //고정관련
+        scrollRect = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
+        content = GameObject.Find("Content").GetComponent<RectTransform>();
     }
 
     void Update()
@@ -133,6 +141,7 @@ public class UIManager : MonoBehaviour
         MasterP.SetActive(true);
         ComboP.SetActive(false);
         MissonP.SetActive(false);
+        scrollRect.enabled = true; //스크롤 활성화
     }
     public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
     {
@@ -140,6 +149,8 @@ public class UIManager : MonoBehaviour
         MasterP.SetActive(false);
         ComboP.SetActive(true);
         MissonP.SetActive(false);
+        scrollRect.enabled = false; //스크롤 비활성화
+        content.anchoredPosition = new Vector2(0, -100);    //초기로 고정해버림
     }
     public void SwitchMisson()    //선택하면 Active를 비/활성화 (Misson창)
     {
