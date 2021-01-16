@@ -945,3 +945,21 @@ ___
 > **<h3>Realization</h3>**
  - [소수점 처리 관련](https://dodnet.tistory.com/4406)
  - System.Math.Round(float a, int b) : a의 소숫점을 b 자리 까지 남기고 반올림
+___
+## __1.15__
+> **<h3>Today Dev Story</h3>**
+ - 아파
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.16__
+> **<h3>Today Dev Story</h3>**
+ - 늦은 귀가
+> **<h3>Realization</h3>**
+ - null
+___
+ ## __1.17__
+> **<h3>Today Dev Story</h3>**
+ - 소수점처리, auto Click, 공격시스템(터치 관련), 애니메이션
+> **<h3>Realization</h3>**
+ - null
