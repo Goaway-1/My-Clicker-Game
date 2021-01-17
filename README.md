@@ -305,36 +305,44 @@ public class BGScroller : MonoBehaviour
 ___
 ## __1.4__
 > **<h3>Today Dev Story</h3>**
- - ### 배경 이동 속도 및 한번만 이동하는 오류 수정.
- - ### 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락
+ - 배경 이동 속도 및 한번만 이동하는 오류 수정.
+ - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락 
+   - #### 보스-돈-수정
  - 타이머할때만 slider.setative 활성화
 <img src= "Capture/BossTimer.gif" width="350">
 ```c#
- public void DecreaseTime()  //시간 감소
+//UIManager 내부
+public void DecreaseTime()  //시간 감소
+{
+  Slider.SetActive(true);
+  StartCoroutine(wait());
+}
+IEnumerator wait()   //시간 감소를 위한 대기시간을 위해 만듦
+{
+  while (currentTime >= 0)
+  {
+    currentTime -= Time.deltaTime;
+    timeSlider.value = currentTime / MaxTime; //출력
+    yield return new WaitForFixedUpdate();  //프레임 대기
+    if (!EnemyManager.GetInstance().getExist()) //몬스터 뒤짐
     {
-        Slider.SetActive(true);
-        StartCoroutine(wait());
+      break;
     }
-    IEnumerator wait()   //시간 감소를 위한 대기시간을 위해 만듦
-    {
-        while (currentTime >= 0)
-        {
-            currentTime -= Time.deltaTime;
-            timeSlider.value = currentTime / MaxTime; //출력
-            yield return new WaitForFixedUpdate();  //프레임 대기
-            if (!EnemyManager.GetInstance().getExist()) //몬스터 뒤짐
-            {
-                break;
-            }
-        }
-        if (EnemyManager.GetInstance().getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
-        {   
-            Enemy.GetInstance().ifdead();
-            DataManager.GetInstance().DecreaseStage();
-        }
-        Slider.SetActive(false);
-        currentTime = 10f;
-    }
+  }
+  if (EnemyManager.GetInstance().getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
+  {   
+    Enemy.GetInstance().bossNotDead();  //수정(21.01.17)
+    DataManager.GetInstance().DecreaseStage();
+  }
+  Slider.SetActive(false);
+  currentTime = 10f;
+}
+//Enemy 내부
+public void bossNotDead()   //보스가 죽지 않았을때의 판전
+{
+    EnemyManager.Instance.setExist(false);
+    Destroy(this.gameObject);
+}
 ```
  - ### 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
  - ### 동시에 오브젝트 풀링을 사용해서 최적화
@@ -848,7 +856,7 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
     ```
 ## __1.13__
 > **<h3>Today Dev Story</h3>**
- - ### Combo 창 선택시 Scroll View의 Scroll Rect 비활성화하여 스크롤 기능을 멈춤
+ - ### Combo 창 선택시 Scroll View의 Scroll Rect 비활성화하여 스크롤 기능을 멈춤 
     ```c#
     public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
     {
@@ -960,6 +968,43 @@ ___
 ___
  ## __1.17__
 > **<h3>Today Dev Story</h3>**
- - 소수점처리, auto Click, 공격시스템(터치 관련), 애니메이션
+ - 공격데미지 소수점처리 
+ - <img src="Capture/Damage(float).gif" width=350>
+   
+   ```c#
+   n_power = (float)System.Math.Round(n_power,2); //2자리수까지만 표현
+   ``` 
+ - [보스를 못잡아도 돈 증가오류 수정](#보스-돈-수정)
+ - Combo메뉴에서 다른 메뉴변경 시 스크롤이 안되는 오류 수정
+ - Auto Click 구현 (Default -> 1f) <ins>(추후 수정)</ins>
+ - <img src="Capture/AutoClick.gif" width=350>
+    
+    ```c#
+    //다른 Buttons를 상속받은 버튼과 동일하다. 감소되는 정도만 다르다.(고정) ->AutoClickButton의 내용
+    DataManager.Instance.AutoC -= 0.02f;    //감소
+
+    //DataManager에 추가된 내용
+    [HideInInspector]
+    public float AutoC  //자동 클릭 시간
+    {
+      get
+      {
+        return PlayerPrefs.GetFloat("auto", 1f);
+      }
+      set
+      {
+        PlayerPrefs.SetFloat("auto", value);
+      }
+    }
+    ```
+ - 애니메이션 작성 및 수정 <ins>(추후 수정)</ins>
+ - <img src="Capture/NAnimation.gif" width=350>
+ - 공격시스템(터치 관련)
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.14__
+> **<h3>Today Dev Story</h3>**
+ - 
 > **<h3>Realization</h3>**
  - null

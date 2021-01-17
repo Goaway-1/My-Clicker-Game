@@ -56,7 +56,6 @@ public class EnemyManager : MonoBehaviour
             ui.DecreaseTime(); //시간 감소
         }
         reSpawn();
-        //showHp();
     }
 
     public float defineHp()

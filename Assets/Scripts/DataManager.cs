@@ -36,6 +36,18 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
             PlayerPrefs.SetFloat("power", value);
         }
     }
+    [HideInInspector]
+    public float AutoC  //자동 클릭 시간
+    {
+        get
+        {
+            return PlayerPrefs.GetFloat("auto", 1f);
+        }
+        set
+        {
+            PlayerPrefs.SetFloat("auto", value);
+        }
+    }
     //[HideInInspector]
     public int gold  //돈
     {
@@ -151,10 +163,29 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
+    //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    public void LoadAutoButton(AutoClickButton autoClickButton) //power업글 불러오기
+    {
+        string key = autoClickButton.upgradeName;
+
+        autoClickButton.currentCost = PlayerPrefs.GetInt(key + "_cost", autoClickButton.startCurrentCost);
+        autoClickButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+    }
+
+    public void SaveAutoButton(AutoClickButton autoClickButton) //power업글 저장하기
+    {
+        string key = autoClickButton.upgradeName;
+
+        PlayerPrefs.SetInt(key + "_cost", autoClickButton.currentCost);
+        PlayerPrefs.SetInt(key + "_level", autoClickButton.level);
+    }
+    //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
     //Stage관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void DecreaseStage()
     {
-        stage -= 10;
+        stage -= 9;
     }
     //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ㄴ
 }

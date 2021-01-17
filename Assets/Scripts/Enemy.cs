@@ -60,14 +60,18 @@ public class Enemy : MonoBehaviour
     public void decreased(float power) //체력 감소
     {
         currentHP -= power;
+        Debug.Log("HP :" +  currentHP);
     }
     
-    public void ifdead()
+    public void ifdead()    //일반 몬스터가 죽을때
     {
-        Debug.Log("사망");
-        //float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
         DataManager.Instance.gold += startDropGold * DataManager.Instance.stage;    //추후 추가
         DataManager.Instance.stage++;
+        EnemyManager.Instance.setExist(false);
+        Destroy(this.gameObject);
+    }
+    public void bossNotDead()   //보스가 죽지 않았을때의 판전
+    {
         EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);
     }

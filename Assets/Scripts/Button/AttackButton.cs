@@ -23,6 +23,19 @@ public class AttackButton : MonoBehaviour
 	public int count = 0;
 	public InventoryManger inven;       //추후 싱글톤 & ItemAddButton과 동시에
 
+    private void Start()
+    {
+        StartCoroutine(Auto());
+    }
+    IEnumerator Auto()
+    {
+        while (true)
+        {
+            OnClick();
+            yield return new WaitForSeconds(DataManager.Instance.AutoC);
+        }
+    }
+
     public void OnClick() //클릭시 Manager에서 불러옴
     {
         if (EnemyManager.Instance.getExist())
@@ -60,7 +73,7 @@ public class AttackButton : MonoBehaviour
             count++;
         }
     }
-    private float sumPower()    //Power 계산하는법
+    private void sumPower()    //Power 계산하는법
     {
         if (strikePer >= rand)  //크리티컬 공격!
         {
@@ -93,8 +106,7 @@ public class AttackButton : MonoBehaviour
                 }
             }
         }
-        //n_power = (float)System.Math.Round(n_power, 2); //임시
-        return n_power;
+        n_power = (float)System.Math.Round(n_power, 2); //2자리 수로 고정한다.
     }
     public static float getDamage()	//damage를 effect에서 호출할때 사용한다. --> 추후 수정(static이기 때문에)
     {

@@ -75,7 +75,7 @@
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\PleaseDead.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
-    <Compile Include="Assets\Scripts\Button\PleaseDel.cs" />
+    <Compile Include="Assets\Scripts\Button\AutoClickButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

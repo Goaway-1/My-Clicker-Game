@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
         }
         if (EnemyManager.Instance.getExist()) //몬스터 뒤지지 않았다면 삭제후, 스테이지 초기화
         {   
-            Enemy.Instance.ifdead();
+            Enemy.Instance.bossNotDead();    //수정
             DataManager.Instance.DecreaseStage();
         }
         Slider.SetActive(false);
@@ -134,6 +134,7 @@ public class UIManager : MonoBehaviour
         MasterP.SetActive(false);
         ComboP.SetActive(false);
         MissonP.SetActive(false);
+        scrollRect.enabled = true; //스크롤 활성화
     }
     public void SwitchMaster()    //선택하면 Active를 비/활성화 (Master창)
     {
@@ -158,6 +159,7 @@ public class UIManager : MonoBehaviour
         MasterP.SetActive(false);
         ComboP.SetActive(false);
         MissonP.SetActive(true);
+        scrollRect.enabled = true; //스크롤 활성화
     }
     /// <summary>
     /// Menu의 전환
