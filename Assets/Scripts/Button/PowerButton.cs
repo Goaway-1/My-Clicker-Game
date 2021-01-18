@@ -11,14 +11,14 @@ public class PowerButton : Buttons
 
         //시작 속성
         startState = 1f; 
-        startCurrentCost = 1;
+        startCurrentCost = 1;   //필요없는데...
 
         //업글 제곱
         UpcostPow = 1.39f;
-        costPow = 1.01f;
-        currentCost = 2;
+        costPow = 1.0f;    //진화되는 양
+        currentCost = 1;
 
-        DataManager.Instance.LoadItemButton(this);
+        DataManager.Instance.LoadPowerButton(this);
         UpdateUI();
     }
 
@@ -33,16 +33,23 @@ public class PowerButton : Buttons
         if (DataManager.Instance.gold >= currentCost)
         {
             DataManager.Instance.gold -= currentCost;
+            DataManager.Instance.power += costPow;  //수정
+            DataManager.Instance.SavePowerButton(this);
             level++;
-            DataManager.Instance.increasedPower(startState, costPow, level);
-            DataManager.Instance.SaveitemButton(this);
-            UpdateItem();
+            if (level % 3 == 0)
+            {
+                UpdateItem();
+            }
             UpdateUI();
+            if (level % 10 == 0) //10레벨마다 증가하는 폭 증가
+            {
+                costPow += 0.2f;
+            }
         }
     }
     public override void UpdateItem()
     {
-        currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
+        currentCost += 1;
     }
     public override void UpdateUI()
     {

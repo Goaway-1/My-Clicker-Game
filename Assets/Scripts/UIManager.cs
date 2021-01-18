@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
             yield return new WaitForFixedUpdate();  //프레임 대기
             if (!EnemyManager.Instance.getExist()) //몬스터 뒤짐
             {
+                DataManager.Instance.goldPerTake++; //골드 개수 증가
                 break;
             }
         }

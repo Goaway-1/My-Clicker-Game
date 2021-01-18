@@ -29,13 +29,12 @@ public class Enemy : MonoBehaviour
     public float currentHP;
 
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
-    int startDropGold = 1;
 
     public void Start()
     {
         maxHP = EnemyManager.Instance.defineHp();
         currentHP = maxHP;
-        Debug.Log("HP:"+maxHP);
+        Debug.Log(maxHP);
     }
 
     public void Update()
@@ -60,12 +59,13 @@ public class Enemy : MonoBehaviour
     public void decreased(float power) //체력 감소
     {
         currentHP -= power;
-        Debug.Log("HP :" +  currentHP);
     }
     
     public void ifdead()    //일반 몬스터가 죽을때
     {
-        DataManager.Instance.gold += startDropGold * DataManager.Instance.stage;    //추후 추가
+        int a = Random.Range(DataManager.Instance.goldPerTake, DataManager.Instance.goldPerTake + 2);   //+1까지만 지원
+        DataManager.Instance.gold += a;    //추후 추가
+        Debug.Log("추가 : " + a);
         DataManager.Instance.stage++;
         EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);

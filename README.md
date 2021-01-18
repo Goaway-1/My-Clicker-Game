@@ -3,7 +3,12 @@
 ## Description for Dev Stroy
 `Expain My third project and I want to make use of various tools useful. :)`
 ___
-
+|Value|StartValue|UpgradeValue|StartCost|UpgradeCost|MaxValue|Rebirth|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Power| 1.0f | 10level -> +0.2f | 1 | 3stage -> +1 | None  | +0.2f |
+|DropMoney| 1~2 | 10stage -> 1 | None  | None  | None | +1 |
+|Hp|   |   |   |   |||
+|Hp|   |   |   |   |||
 ## __12.22__
 > **<h3>Today Dev Story</h3>**
  - 클리커게임을 위해 클릭, 돈, 클릭per돈 등을 구현만 해두었다.
@@ -308,6 +313,7 @@ ___
  - 배경 이동 속도 및 한번만 이동하는 오류 수정.
  - 타이머 작동 중 몬스터(보스)가 죽으면 종료, 죽지 않았다면 스테이지를 하락 
    - #### 보스-돈-수정
+   - #### 골드 증가 수정(10stage마다)
  - 타이머할때만 slider.setative 활성화
 <img src= "Capture/BossTimer.gif" width="350">
 ```c#
@@ -326,6 +332,7 @@ IEnumerator wait()   //시간 감소를 위한 대기시간을 위해 만듦
     yield return new WaitForFixedUpdate();  //프레임 대기
     if (!EnemyManager.GetInstance().getExist()) //몬스터 뒤짐
     {
+      DataManager.Instance.goldPerTake++; //골드 개수 증가
       break;
     }
   }
@@ -999,12 +1006,88 @@ ___
     ```
  - 애니메이션 작성 및 수정 <ins>(추후 수정)</ins>
  - <img src="Capture/NAnimation.gif" width=350>
- - 공격시스템(터치 관련)
 > **<h3>Realization</h3>**
  - null
 ___
-## __1.14__
+## __1.18__
 > **<h3>Today Dev Story</h3>**
- - 
+ - ## 밸런스패치 진행
+ - Power_level이 10상승할때 마다 0.2f씩 공격력 증가하는 폭이 상승, 또한 Power 증가함수를 제거
+    ```c#
+    if (DataManager.Instance.gold >= currentCost)
+    {
+      DataManager.Instance.gold -= currentCost;
+      DataManager.Instance.power += costPow;    //수정
+      DataManager.Instance.SavePowerButton(this); 
+
+      level++;
+      if (level % 3 == 0)
+      {
+        UpdateItem();
+      }
+      if (level % 10 == 0) //10레벨마다 증가하는 폭 증가
+      {
+        costPow += 0.2f;
+      }
+    }
+    ```
+  - [골드 증가 수정 진행](#골드-증가-수정(10stage마다)) 
+    ```c#
+    //UIManager 내용
+    if (!EnemyManager.Instance.getExist()) //몬스터 뒤짐
+    {
+      DataManager.Instance.goldPerTake++; //골드 개수 증가
+      break;
+    }
+    ```
+  - 내일 구현할 Hp 증가 비례
+    ```c#
+    float b = 10f;
+    float a = 0f;
+    float pow = 0.8f; //제곱비
+    public void test()
+    {
+      a += b * Mathf.Pow(b, pow/ DataManager.Instance.stage); //수정해야함
+      Debug.Log("Test : " + a);
+      b += 5;
+    }
+    ```
 > **<h3>Realization</h3>**
- - null
+ - Awake
+   - 초기화 함수. 가장 먼저 호출
+ - OnEnable
+   - 게임 오브젝트가 활성화 될때 마다 호출
+ - Start
+   - 게임 시작 후, 첫번째 프레임 시작전 Update 직전에 한번 호출
+ - Update
+   - 게임 오브젝트가 활성화 되어 있을때 매 프레임 마다 호출
+ - LastUpdate
+   - 게임 오브젝트가 활성화 되어 있을대 Update후 매 프레임 마다 호출
+ - FixedUpdate
+   - 게임 오브젝트가 활성화 되어 있을때, 설정된 고정 시간 주기로 호출
+   - 고정시간 간격 : Edit -> ProjectSetting -> Time -> Fixed Timelep
+ - OnDisable
+   - 게임 오브젝트가 비활성화 될 때 마다 호출
+   - Update가 호출되지 않음.
+   - 다시 활성화 하면 OnEnable부터 호출됨
+ - OnDestroy
+   - 게임 오브젝트가 삭제될때 호출
+ - Invoke
+   - 타이머 대신 유니티의 MonoBehaviour에서 제공 하는 함수
+   -  Invoke("함수이름", 시간)
+ - InvokeRepeating
+   - 최초 실행 시간 설정 이후, 반복 시간 설정이 가능한 함수
+   - InvokeRepeating("함수이름", 최초 실행 시간, 반복 실행 시간)
+ - CancelInvoke
+   - 설정된 Invoke가 모두 취소됨
+ - OnTriggerEnter
+   - Trigger 속성이 True 게임 오브젝트가 충돌 하는 순간 호출
+ - OnTriggerStay
+   - Trigger 속성의 오브젝트가 충돌후 충돌 해제가 되기 전까지 매 프레임 마다 호출
+ - OnTriggerExit
+   - Trigger 속성의 오브젝트가 충돌해제될때 호출
+___
+## __1.19__
+> **<h3>Today Dev Story</h3>**
+ - GUI 수정
+> **<h3>Realization</h3>**

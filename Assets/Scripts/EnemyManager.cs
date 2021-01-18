@@ -34,8 +34,8 @@ public class EnemyManager : MonoBehaviour
     private float curTime;
     private float spawnTime = 2f;
 
-    private float startHp = 5f; //초기 HP
-    private float HpPow = 4.2f; //제곱비
+    private float Hp = 10f; //초기 HP
+    private float HpPow = 1.02f; //제곱비
 
     //보스생성시 사용
     public UIManager ui;                //UI매니저 호출
@@ -65,7 +65,7 @@ public class EnemyManager : MonoBehaviour
             isBoss = true;
             Debug.Log("@@@@@Boss 출현@@@@@");
         }
-        float Hp = startHp * Mathf.Pow(startHp, DataManager.Instance.stage / HpPow);
+        Hp = Mathf.Pow(Hp, HpPow); //수정해야함
         return Hp;
     }
     

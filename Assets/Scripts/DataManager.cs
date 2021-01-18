@@ -24,6 +24,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
 
+
     //[HideInInspector]
     public float power  //힘
     {
@@ -59,6 +60,12 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         {
             PlayerPrefs.SetInt("gold", value);
         }
+    }
+    [HideInInspector]
+    public int goldPerTake  //획득되는 골드양
+    {
+        get { return PlayerPrefs.GetInt("goldPerTake", 1); }
+        set { PlayerPrefs.SetInt("goldPerTake", value); }
     }
     //[HideInInspector]
     public float criticalPer //치명타 확률
@@ -141,25 +148,22 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadItemButton(PowerButton powerButton) //power업글 불러오기
+    public void LoadPowerButton(PowerButton powerButton) //power업글 불러오기
     {
         string key = powerButton.upgradeName;
 
+        powerButton.costPow = PlayerPrefs.GetFloat(key + "_costPow", 1f);
         powerButton.currentCost = PlayerPrefs.GetInt(key + "_cost", powerButton.startCurrentCost);
         powerButton.level = PlayerPrefs.GetInt(key + "_level", 1);
     }
 
-    public void SaveitemButton(PowerButton powerButton) //power업글 저장하기
+    public void SavePowerButton(PowerButton powerButton) //power업글 저장하기
     {
         string key = powerButton.upgradeName;
 
+        PlayerPrefs.SetFloat(key + "_costPow", powerButton.costPow);
         PlayerPrefs.SetInt(key + "_cost", powerButton.currentCost);
         PlayerPrefs.SetInt(key + "_level", powerButton.level);
-    }
-
-    public void increasedPower(float startPower,float costPow,int level) //power 증가
-    {
-        power += startPower * Mathf.Pow(costPow,level);
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -187,5 +191,5 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         stage -= 9;
     }
-    //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ㄴ
+    //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 }
