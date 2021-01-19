@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     public float maxHP;
     public float currentHP;
 
+    int r_gold;     //random Gold
+
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
 
     public void Start()
@@ -63,11 +65,14 @@ public class Enemy : MonoBehaviour
     
     public void ifdead()    //일반 몬스터가 죽을때
     {
-        int a = Random.Range(DataManager.Instance.goldPerTake, DataManager.Instance.goldPerTake + 2);   //+1까지만 지원
-        DataManager.Instance.gold += a;    //추후 추가
-        Debug.Log("추가 : " + a);
+        r_gold = Random.Range(DataManager.Instance.goldPerTake, DataManager.Instance.goldPerTake + 2);   //+1까지만 지원
+        DataManager.Instance.gold += r_gold;    //추후 추가
         DataManager.Instance.stage++;
         EnemyManager.Instance.setExist(false);
+
+        //Hp 관련
+        DataManager.Instance.Hp = maxHP;
+        DataManager.Instance.fixHp += 5;    //Hp 증가
         Destroy(this.gameObject);
     }
     public void bossNotDead()   //보스가 죽지 않았을때의 판전

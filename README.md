@@ -7,8 +7,9 @@ ___
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Power| 1.0f | 10level -> +0.2f | 1 | 3stage -> +1 | None  | +0.2f |
 |DropMoney| 1~2 | 10stage -> 1 | None  | None  | None | +1 |
-|Hp|   |   |   |   |||
-|Hp|   |   |   |   |||
+|AutoClick|   |   |   |   | | |
+|Hp| 0f | 5f * mathf(5f,0.4/stage) // 5f+5씩 | None | None | None | None |
+|AutoClick|   |   |   |   | | |
 ## __12.22__
 > **<h3>Today Dev Story</h3>**
  - 클리커게임을 위해 클릭, 돈, 클릭per돈 등을 구현만 해두었다.
@@ -987,8 +988,23 @@ ___
  - <img src="Capture/AutoClick.gif" width=350>
     
     ```c#
+    //AttackButton 에 구현
+    private void Start()
+    {
+        StartCoroutine(Auto());
+    }
+    IEnumerator Auto()  //자동 클릭
+    {
+      while (true)
+      {
+        OnClick();
+        yield return new WaitForSeconds(DataManager.Instance.AutoC);
+      }
+    }
+    ```
+    ```c#
     //다른 Buttons를 상속받은 버튼과 동일하다. 감소되는 정도만 다르다.(고정) ->AutoClickButton의 내용
-    DataManager.Instance.AutoC -= 0.02f;    //감소
+    DataManager.Instance.AutoC -= costPow;    //감소 0.05f
 
     //DataManager에 추가된 내용
     [HideInInspector]
@@ -1040,18 +1056,6 @@ ___
       break;
     }
     ```
-  - 내일 구현할 Hp 증가 비례
-    ```c#
-    float b = 10f;
-    float a = 0f;
-    float pow = 0.8f; //제곱비
-    public void test()
-    {
-      a += b * Mathf.Pow(b, pow/ DataManager.Instance.stage); //수정해야함
-      Debug.Log("Test : " + a);
-      b += 5;
-    }
-    ```
 > **<h3>Realization</h3>**
  - Awake
    - 초기화 함수. 가장 먼저 호출
@@ -1089,5 +1093,83 @@ ___
 ___
 ## __1.19__
 > **<h3>Today Dev Story</h3>**
- - GUI 수정
+ - ## 밸런스패치 진행
+ - Enemy Hp 패치
+   - **EnemyManager**에서 Hp를 관리해주며 Mathf.Pow()를 사용해 기하급수적 증가를 이룸
+   - **Enemy**에서 ifdead()가 활성화 되었을때 Hp,MaxHp를 증가시킨다.
+   - Boss 잡지 못했을때 **DataManager**에서 DecreaseStage()를 통해 Hp와 fixHp감소
+    ```c#
+    //EnemyManager.cs
+    private float n_Hp = 0f;
+    private float HpPow = 0.4f; //제곱비
+    ///////////////////////
+    public float defineHp()
+    {
+      n_Hp = DataManager.Instance.Hp;         //시작할때 불러온다.
+      if (DataManager.Instance.stage % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
+      {
+        isBoss = true;
+        Debug.Log("@@@@@Boss 출현@@@@@");
+      }
+      if(DataManager.Instance.stage % 10 == 1)
+      {
+        DataManager.Instance.subHp = n_Hp;
+        Debug.Log("저장" + DataManager.Instance.subHp);
+      }
+      n_Hp += DataManager.Instance.fixHp * Mathf.Pow(DataManager.Instance.fixHp, HpPow / DataManager.Instance.stage); //수정해야함
+      return n_Hp;
+    }
+    ```
+    ```c#
+     //Enemy
+    public void ifdead()    //일반 몬스터가 죽을때
+    {
+      r_gold = Random.Range(DataManager.Instance.goldPerTake, DataManager.Instance.goldPerTake + 2);   //+1까지만 지원
+      DataManager.Instance.gold += r_gold;    //추후 추가
+      DataManager.Instance.stage++;
+      EnemyManager.Instance.setExist(false);
+
+      //Hp 관련
+      DataManager.Instance.Hp = maxHP;
+      DataManager.Instance.fixHp += 5;    //Hp 증가
+      Destroy(this.gameObject);
+    }
+    ```
+    ```c#
+    //DataManager.cs 
+    public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
+    {
+      get { return PlayerPrefs.GetFloat("subHp", 0f); }
+      set { PlayerPrefs.SetFloat("subHp", value); }
+    }
+    public float fixHp  //5씩 증가하는 계산 용도
+    {
+      get { return PlayerPrefs.GetFloat("fixHp", 5f); }
+      set { PlayerPrefs.SetFloat("fixHp", value); }
+    }
+    public float Hp //실질적으로 관련
+    {
+      get { return PlayerPrefs.GetFloat("Hp", 0f); }
+      set { PlayerPrefs.SetFloat("Hp", value); }
+    }
+    /////// -->예외적으로 줄어드는 관리
+    public void DecreaseStage()
+    {
+      stage -= 9; //스테이지 감소
+
+      //몬스터 Hp감소
+      Hp = subHp;
+      fixHp -= 45;
+    }
+    ```
+ - GUI 수정 
+   - <img src="Capture/NGUI.gif" width = 350>
+   - 배치수정, 상태표시 창 삭제 -> 업그레이드 창에서 확인 가능
 > **<h3>Realization</h3>**
+ - null
+___
+## __1.20__
+> **<h3>Today Dev Story</h3>**
+ - AutoClick밸런스, Misson, 스킬다양화
+> **<h3>Realization</h3>**
+ - null

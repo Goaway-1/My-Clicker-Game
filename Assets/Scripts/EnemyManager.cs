@@ -34,8 +34,9 @@ public class EnemyManager : MonoBehaviour
     private float curTime;
     private float spawnTime = 2f;
 
-    private float Hp = 10f; //초기 HP
-    private float HpPow = 1.02f; //제곱비
+    //HP 관련
+    private float n_Hp = 0f;        //데이터를 불러올때 사용한다.
+    private float HpPow = 0.4f; //제곱비
 
     //보스생성시 사용
     public UIManager ui;                //UI매니저 호출
@@ -60,13 +61,19 @@ public class EnemyManager : MonoBehaviour
 
     public float defineHp()
     {
-        if(DataManager.Instance.stage % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
+        n_Hp = DataManager.Instance.Hp;         //시작할때 불러온다.
+        if (DataManager.Instance.stage % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
         {
             isBoss = true;
             Debug.Log("@@@@@Boss 출현@@@@@");
         }
-        Hp = Mathf.Pow(Hp, HpPow); //수정해야함
-        return Hp;
+        if(DataManager.Instance.stage % 10 == 1)
+        {
+            DataManager.Instance.subHp = n_Hp;
+            Debug.Log("저장" + DataManager.Instance.subHp);
+        }
+        n_Hp += DataManager.Instance.fixHp * Mathf.Pow(DataManager.Instance.fixHp, HpPow / DataManager.Instance.stage); 
+        return n_Hp;
     }
     
     public void reSpawn() //재생성 대기 시간

@@ -19,10 +19,6 @@ public class UIManager : MonoBehaviour
     public Text M_text;
     private bool M_isshow = false;
 
-    //State 표시
-    public GameObject S_Panel;
-    private bool S_isShow = false;
-
     //Menu 전환
     public GameObject UpgradeP;
     public GameObject MasterP;
@@ -111,21 +107,6 @@ public class UIManager : MonoBehaviour
     {
         Enemy.Instance.decreased(999999999); //추후 수정 --> 싱글톤 삭제하자!
     }
-
-    public void ShowState() //State를 표시한다.
-    {
-        if (!S_isShow)
-        {
-            S_isShow = true;
-            S_Panel.SetActive(true);
-        }
-        else
-        {
-            S_isShow = false;
-            S_Panel.SetActive(false);
-        }
-    }
-
     /// <summary>
     /// Menu의 전환
     /// </summary>

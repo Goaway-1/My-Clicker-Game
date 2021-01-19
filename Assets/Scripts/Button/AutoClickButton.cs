@@ -14,7 +14,7 @@ public class AutoClickButton : Buttons
 
         //업글 제곱
         UpcostPow = 1.39f;
-        costPow = 1.01f;
+        costPow = 0.05f;    //줄어드는 쿨다임
         currentCost = 2;
 
         DataManager.Instance.LoadAutoButton(this);
@@ -33,7 +33,7 @@ public class AutoClickButton : Buttons
         {
             DataManager.Instance.gold -= currentCost;
             level++;
-            DataManager.Instance.AutoC -= 0.02f;    //감소
+            DataManager.Instance.AutoC -= costPow;    //감소
             DataManager.Instance.SaveAutoButton(this);
             UpdateItem();
             UpdateUI();

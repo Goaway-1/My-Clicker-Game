@@ -24,7 +24,21 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
+    public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
+    {
+        get { return PlayerPrefs.GetFloat("subHp", 0f); }
+        set { PlayerPrefs.SetFloat("subHp", value); }
+    }
+    public float fixHp  //5씩 증가하는 계산 용도
+    {
+        get { return PlayerPrefs.GetFloat("fixHp", 5f); }
+        set { PlayerPrefs.SetFloat("fixHp", value); }
+    }
+    public float Hp //실질적으로 관련
+    {
+        get { return PlayerPrefs.GetFloat("Hp", 0f); }
+        set { PlayerPrefs.SetFloat("Hp", value); }
+    }
     //[HideInInspector]
     public float power  //힘
     {
@@ -189,7 +203,11 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //Stage관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void DecreaseStage()
     {
-        stage -= 9;
+        stage -= 9; //스테이지 감소
+
+        //몬스터 Hp감소
+        Hp = subHp;
+        fixHp -= 45;
     }
     //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 }

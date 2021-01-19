@@ -27,7 +27,7 @@ public class AttackButton : MonoBehaviour
     {
         StartCoroutine(Auto());
     }
-    IEnumerator Auto()
+    IEnumerator Auto()  //자동 클릭
     {
         while (true)
         {
