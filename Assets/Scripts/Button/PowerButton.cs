@@ -21,6 +21,13 @@ public class PowerButton : Buttons
         DataManager.Instance.LoadPowerButton(this);
         UpdateUI();
     }
+    private void OnEnable()
+    {
+        if (DataManager.Instance.power != 1)    //투명도 조절위함
+        {
+            isPurchased = true;
+        }
+    }
 
     private void Update()
     {
@@ -32,6 +39,7 @@ public class PowerButton : Buttons
         //if구문->돈빼고(자동저장)
         if (DataManager.Instance.gold >= currentCost)
         {
+            isPurchased = true;
             DataManager.Instance.gold -= currentCost;
             DataManager.Instance.power += costPow;  //수정
             DataManager.Instance.SavePowerButton(this);
@@ -66,7 +74,7 @@ public class PowerButton : Buttons
         }
         else
         {
-            canvasGroup.alpha = 0.6f;
+            canvasGroup.alpha = 0.4f;
         }
 
         if (currentCost <= DataManager.Instance.gold)

@@ -20,6 +20,14 @@ public class CriticalButton : Buttons
         DataManager.Instance.LoadC_Button(this);
         UpdateUI();
     }
+    private void OnEnable()
+    {
+        if (DataManager.Instance.criticalPow != 0)    //투명도 조절위함
+        {
+            isPurchased = true;
+        }
+    }
+
     private void Update()
     {
         UpdateUI();
@@ -30,6 +38,7 @@ public class CriticalButton : Buttons
         //if구문->돈빼고(자동저장)
         if (DataManager.Instance.gold >= currentCost)
         {
+            isPurchased = true;
             DataManager.Instance.gold -= currentCost;
             level++;
             DataManager.Instance.increasedCritical(startState, costPow, level);
@@ -58,7 +67,7 @@ public class CriticalButton : Buttons
         }
         else
         {
-            canvasGroup.alpha = 0.6f;
+            canvasGroup.alpha = 0.4f;
         }
 
         if (currentCost <= DataManager.Instance.gold)

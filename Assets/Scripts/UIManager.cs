@@ -107,6 +107,20 @@ public class UIManager : MonoBehaviour
     {
         Enemy.Instance.decreased(999999999); //추후 수정 --> 싱글톤 삭제하자!
     }
+
+    /// <summary>
+    /// ///////////////////////////////////////////////////
+    /// </summary>
+    float startCurrentCost = 10f;
+    float UpcostPow = 1.3f;
+    float currentCost = 10f;
+    int level = 1;
+    public void test()
+    {
+        currentCost = startCurrentCost * Mathf.Pow(UpcostPow, level);
+        Debug.Log(level + " : " + currentCost);
+        level++;
+    }
     /// <summary>
     /// Menu의 전환
     /// </summary>

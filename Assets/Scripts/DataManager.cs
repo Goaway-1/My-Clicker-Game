@@ -56,7 +56,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
     {
         get
         {
-            return PlayerPrefs.GetFloat("auto", 1f);
+            return PlayerPrefs.GetFloat("auto", 3f);
         }
         set
         {

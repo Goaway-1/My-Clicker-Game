@@ -7,7 +7,7 @@ ___
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Power| 1.0f | 10level -> +0.2f | 1 | 3stage -> +1 | None  | +0.2f |
 |DropMoney| 1~2 | 10stage -> 1 | None  | None  | None | +1 |
-|AutoClick|   |   |   |   | | |
+|AutoClick| None(3f) | -0.05f  | 10 | pow(1.3f/level) | 0.5f | +0.02f |
 |Hp| 0f | 5f * mathf(5f,0.4/stage) // 5f+5씩 | None | None | None | None |
 |AutoClick|   |   |   |   | | |
 ## __12.22__
@@ -1164,12 +1164,64 @@ ___
     ```
  - GUI 수정 
    - <img src="Capture/NGUI.gif" width = 350>
-   - 배치수정, 상태표시 창 삭제 -> 업그레이드 창에서 확인 가능
+   - 배치수정, 상태표시 창 삭제 // 업그레이드 창에서 현제 상태 확인 가능
 > **<h3>Realization</h3>**
  - null
 ___
 ## __1.20__
 > **<h3>Today Dev Story</h3>**
- - AutoClick밸런스, Misson, 스킬다양화
+ - ### 최초 업글시 투명도를 상승시켜 구매한것과 하지 않은것에 대해 구분
+    - <img src="Capture/NGUI1.gif" width=350>
+    ```c#
+    //PowerButton
+    private void OnEnable() //오브젝트 활성화시
+    {
+      if (DataManager.Instance.power != 1)    //투명도 조절위함
+      {
+        isPurchased = true;
+      }
+    }
+
+    public override void PurchaseUpgrade()
+    {
+      //if구문->돈빼고(자동저장)
+      if (DataManager.Instance.gold >= currentCost)
+      {
+        isPurchased = true; //추가
+        DataManager.Instance.gold -= currentCost;
+        DataManager.Instance.power += costPow;  //수정
+        DataManager.Instance.SavePowerButton(this);
+        level++;
+        if (level % 3 == 0)
+        {
+          UpdateItem();
+        }
+        UpdateUI();
+        if (level % 10 == 0) //10레벨마다 증가하는 폭 증가
+        {
+          costPow += 0.2f;
+        }
+      }
+    }
+   ```
+ - ### AutoClick밸런스
+    ```c#
+    float startCurrentCost = 10f;
+    float UpcostPow = 1.3f;
+    float currentCost = 10f;
+    int level = 1;
+    public void test()
+    {
+      currentCost = startCurrentCost * Mathf.Pow(UpcostPow, level);
+      Debug.Log(level + " : " + currentCost);
+      level++;
+    }
+   ```
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.20__
+> **<h3>Today Dev Story</h3>**
+ - Misson, 스킬다양화
 > **<h3>Realization</h3>**
  - null

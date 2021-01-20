@@ -9,16 +9,23 @@ public class AutoClickButton : Buttons
         upgradeName = "Auto";
 
         //시작 속성
-        startState = 1f;
-        startCurrentCost = 1;
+        float startCurrentCost = 10f;
 
         //업글 제곱
-        UpcostPow = 1.39f;
+        UpcostPow = 1.3f;
         costPow = 0.05f;    //줄어드는 쿨다임
-        currentCost = 2;
+        float currentCost = startCurrentCost;
 
         DataManager.Instance.LoadAutoButton(this);
         UpdateUI();
+    }
+
+    private void OnEnable()
+    {
+        if (DataManager.Instance.AutoC != 3)    //투명도 조절위함
+        {
+            isPurchased = true;
+        }
     }
 
     private void Update()
@@ -31,6 +38,7 @@ public class AutoClickButton : Buttons
         //if구문->돈빼고(자동저장)
         if (DataManager.Instance.gold >= currentCost)
         {
+            isPurchased = true;     //투명도 조절위함
             DataManager.Instance.gold -= currentCost;
             level++;
             DataManager.Instance.AutoC -= costPow;    //감소
@@ -58,7 +66,7 @@ public class AutoClickButton : Buttons
         }
         else
         {
-            canvasGroup.alpha = 0.6f;
+            canvasGroup.alpha = 0.4f;
         }
 
         if (currentCost <= DataManager.Instance.gold)
