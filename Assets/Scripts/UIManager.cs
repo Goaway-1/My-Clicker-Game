@@ -109,19 +109,6 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ///////////////////////////////////////////////////
-    /// </summary>
-    float startCurrentCost = 10f;
-    float UpcostPow = 1.3f;
-    float currentCost = 10f;
-    int level = 1;
-    public void test()
-    {
-        currentCost = startCurrentCost * Mathf.Pow(UpcostPow, level);
-        Debug.Log(level + " : " + currentCost);
-        level++;
-    }
-    /// <summary>
     /// Menu의 전환
     /// </summary>
     public void SwitchUpgrade()    //선택하면 Active를 비/활성화 (Button창)

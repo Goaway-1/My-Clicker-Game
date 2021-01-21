@@ -26,6 +26,9 @@ public class InventoryManger : MonoBehaviour
         }
         Panel.SetActive(false);
     }
+
+    //방안2
+
 }
 
 [System.Serializable]
@@ -35,4 +38,6 @@ public class SlotData
     public int index;           //고유 인덱스 값
     public float additionalD;   //추가 데미지
     public GameObject slotObj;  //넣을 이미지
+
+    //방안1
 }

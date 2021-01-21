@@ -60,7 +60,8 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         }
         set
         {
-            PlayerPrefs.SetFloat("auto", value);
+            float b = (float)System.Math.Round(value, 2);   //소수점 2자리로 고정
+            PlayerPrefs.SetFloat("auto", b);
         }
     }
     //[HideInInspector]

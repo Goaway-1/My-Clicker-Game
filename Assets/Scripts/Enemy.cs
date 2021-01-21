@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
 
-    public void Start()
+    public void OnEnable()
     {
         maxHP = EnemyManager.Instance.defineHp();
         currentHP = maxHP;
@@ -74,11 +74,13 @@ public class Enemy : MonoBehaviour
         DataManager.Instance.Hp = maxHP;
         DataManager.Instance.fixHp += 5;    //Hp 증가
         Destroy(this.gameObject);
+        //ObjectPoolingManager.instance.EInsertQueue(gameObject); //오브젝트풀링수정 
     }
     public void bossNotDead()   //보스가 죽지 않았을때의 판전
     {
         EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);
+        //ObjectPoolingManager.instance.EInsertQueue(gameObject);  //오브젝트풀링수정
     }
     //UI관련@@@@@
     public void showHp()

@@ -1220,8 +1220,18 @@ ___
 > **<h3>Realization</h3>**
  - null
 ___
-## __1.20__
+## __1.21__
 > **<h3>Today Dev Story</h3>**
- - Misson, 스킬다양화
+ - ### AutoClick밸런스 int형으로 진행
+ - 몬스터 오브젝트 풀링
+   - 진행도중 너무 많은 오류발생 및 관여할일이 많아짐 <ins>(추후 수정)</ins> 
+ - 모든 수 소수점 2자리 고정
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.22__
+> **<h3>Today Dev Story</h3>**
+ - Misson, 스킬다양화(밸런스)
+
 > **<h3>Realization</h3>**
  - null

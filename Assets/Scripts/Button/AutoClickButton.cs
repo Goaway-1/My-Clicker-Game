@@ -9,12 +9,12 @@ public class AutoClickButton : Buttons
         upgradeName = "Auto";
 
         //시작 속성
-        float startCurrentCost = 10f;
+        startCurrentCost = 10;
 
         //업글 제곱
         UpcostPow = 1.3f;
         costPow = 0.05f;    //줄어드는 쿨다임
-        float currentCost = startCurrentCost;
+        currentCost = startCurrentCost;
 
         DataManager.Instance.LoadAutoButton(this);
         UpdateUI();
