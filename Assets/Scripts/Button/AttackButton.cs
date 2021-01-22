@@ -75,12 +75,6 @@ public class AttackButton : MonoBehaviour
     }
     private void sumPower()    //Power 계산하는법
     {
-        if (strikePer >= rand)  //크리티컬 공격!
-        {
-            n_power *= strikePow;  //대안생각하기
-            Debug.Log("크리티컬");
-        }
-
         //Combo 순서대로 공격
         if (count == inven.slots.Count)
         {
@@ -90,23 +84,50 @@ public class AttackButton : MonoBehaviour
         {
             if (count != 2)  //원래는 3인데 0부터 시작했으니 2가 되야한다.
             {
-                n_power += n_power * inven.slots[count].additionalD;
+                skill();
             }
             else        //조건이 맞다면 3타 가능
             {
-                if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 3)    //못줄이나...?
-                {
-                    n_power += n_power * 3;
-                    Debug.Log("@@3번째 강화 공격(*3)@@"); //삭제
-                }
-                else if(inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 4)
-                {
-                    n_power = 99999999;
-                    Debug.Log("@@3번째 강화 공격(즉살)@@"); //삭제
-                }
+                skillTurn();
             }
         }
         n_power = (float)System.Math.Round(n_power, 2); //2자리 수로 고정한다.
+    }
+    private void skill()        //기본 모션 한방한방에
+    {
+        //치명타와 공격력과 구분 -> 이름으로?
+        if(inven.slots[count].type.Equals("Power"))
+        {
+            n_power += n_power * inven.slots[count].additionalD;
+            Debug.Log("추가 공격력");
+        }
+        else if(inven.slots[count].type.Equals("Critical"))
+        {
+            //if (strikePer >= rand)  //크리티컬 공격
+            //{
+            //    n_power *= strikePow;  //대안생각하기
+            //}
+            //n_power *= strikePow;  
+            n_power *= 3;  
+            Debug.Log("추가 크리티컬");
+        }
+        else if (inven.slots[count].type.Equals("Money"))
+        {
+            //dropMoney에 추가적요소 추가
+        }
+    }
+    private void skillTurn()        //마지막모션에 추가
+    {
+        if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 3)    //못줄이나...?
+        {
+            n_power += n_power * 3;
+            Debug.Log("@@3번째 강화 공격(*3)@@"); //삭제
+        }
+        else if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 4)
+        {
+            n_power = 99999999;
+            Debug.Log("@@3번째 강화 공격(즉살)@@"); //삭제
+        }
     }
     public static float getDamage()	//damage를 effect에서 호출할때 사용한다. --> 추후 수정(static이기 때문에)
     {

@@ -5041,6 +5041,7 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0.3
   i_index: 3
+  i_type: Power
 --- !u!114 &949799529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5479,6 +5480,7 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0.5
   i_index: 5
+  i_type: Critical
 --- !u!114 &1046882855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9169,6 +9171,7 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0.1
   i_index: 1
+  i_type: Power
 --- !u!114 &1733407406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10162,6 +10165,7 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0.4
   i_index: 4
+  i_type: Critical
 --- !u!114 &1846788166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10599,6 +10603,7 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0.2
   i_index: 2
+  i_type: Power
 --- !u!114 &1940461847
 MonoBehaviour:
   m_ObjectHideFlags: 0

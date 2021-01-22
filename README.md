@@ -762,6 +762,7 @@ public class InventoryManger : MonoBehaviour
       slot.index = 0;
       slot.additionalD = 0;
       slot.slotObj = go;
+      slot.type = null;  //추가 공격력 및 치명타 구분
       slots.Add(slot);
     }
     Panel.SetActive(false);  
@@ -775,6 +776,7 @@ public class SlotData   //각 slot의 데이터
     public int index;           //고유 인덱스 값
     public float additionalD;   //추가 데미지
     public GameObject slotObj;  //넣을 이미지
+    public string type;         //power인지 critical인지 구분
 }
 
 public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변경)
@@ -1231,7 +1233,88 @@ ___
 ___
 ## __1.22__
 > **<h3>Today Dev Story</h3>**
- - Misson, 스킬다양화(밸런스)
-
+ - 스킬의 객관화(string 사용하여 스킬의 효과를 지정 및 실현)
+    ```c#
+    //InventoryManager
+    public class SlotData
+    {
+      .
+      .
+      public string type;         //power인지 critical인지 추가
+    }
+    ``` 
+    ```c#
+    private void sumPower()    //Power 계산하는법
+    {
+      //Combo 순서대로 공격
+      if (count == inven.slots.Count)
+      {
+        count = 0;
+      }
+      if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
+      {
+        if (count != 2)  //원래는 3인데 0부터 시작했으니 2가 되야한다.
+        {
+          skill();
+        }
+        else        //조건이 맞다면 3타 가능
+        {
+          skillTurn();
+        }
+      }
+      n_power = (float)System.Math.Round(n_power, 2); //2자리 수로 고정한다.
+    }
+    private void skill()        //기본 모션 한방한방에
+    {
+      //치명타와 공격력과 구분 -> 이름으로?
+      if(inven.slots[count].type.Equals("Power"))
+      {
+        n_power += n_power * inven.slots[count].additionalD;
+        Debug.Log("추가 공격력");
+      }
+      else if(inven.slots[count].type.Equals("Critical"))
+      {
+        //if (strikePer >= rand)  //크리티컬 공격
+        //{
+        //    n_power *= strikePow;  //대안생각하기
+        //}
+        //n_power *= strikePow;  
+        n_power *= 3;  
+        Debug.Log("추가 크리티컬");
+      }
+      else if (inven.slots[count].type.Equals("Money"))
+      {
+        //dropMoney에 추가적요소 추가
+      }
+    }
+    private void skillTurn()        //마지막모션에 추가
+    {
+      if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 3)    //못줄이나...?
+      {
+        n_power += n_power * 3;
+        Debug.Log("@@3번째 강화 공격(*3)@@"); //삭제
+      }
+      else if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 4)
+      {
+        n_power = 99999999;
+        Debug.Log("@@3번째 강화 공격(즉살)@@"); //삭제
+      }
+    }
+    ``` 
+    ```c#
+    //itemAddButton
+    public void Add()
+    {
+      .
+      .
+      inven.slots[i].type = i_type;
+    }
+    ``` 
+> **<h3>Realization</h3>**
+ - null
+___
+## __1.23__
+> **<h3>Today Dev Story</h3>**
+ - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,Json,공격 system, GUI 개선, 사운드,이미지
 > **<h3>Realization</h3>**
  - null

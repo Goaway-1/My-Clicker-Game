@@ -8,6 +8,7 @@ public class ItemAddButton : MonoBehaviour
     public InventoryManger inven;   //추후 싱글톤하기
     public float i_additionalD;     //설정할 추가 데미지 값
     public int i_index;             //설정한 고유 index값
+    public string i_type;           //설정할 추가 관여 값(power,critical,money....)
 
     public void Add()   //추후 오브젝트 풀링으로 변경하자
     {
@@ -19,6 +20,7 @@ public class ItemAddButton : MonoBehaviour
                 inven.slots[i].isEmpty = false;
                 inven.slots[i].additionalD = i_additionalD; 
                 inven.slots[i].index = i_index;
+                inven.slots[i].type = i_type;
                 break;
             }
         }

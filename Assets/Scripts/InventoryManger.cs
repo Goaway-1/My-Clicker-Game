@@ -22,6 +22,7 @@ public class InventoryManger : MonoBehaviour
             slot.index = 0;
             slot.additionalD = 0;
             slot.slotObj = go;
+            slot.type = null;
             slots.Add(slot);
         }
         Panel.SetActive(false);
@@ -38,6 +39,7 @@ public class SlotData
     public int index;           //고유 인덱스 값
     public float additionalD;   //추가 데미지
     public GameObject slotObj;  //넣을 이미지
+    public string type;         //power인지 critical인지
 
     //방안1
 }
