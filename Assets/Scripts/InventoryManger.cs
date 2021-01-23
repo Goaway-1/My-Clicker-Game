@@ -23,6 +23,7 @@ public class InventoryManger : MonoBehaviour
             slot.additionalD = 0;
             slot.slotObj = go;
             slot.type = null;
+            slot.level = 0;
             slots.Add(slot);
         }
         Panel.SetActive(false);
@@ -40,6 +41,7 @@ public class SlotData
     public float additionalD;   //추가 데미지
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지
+    public int level;           //그 Slot의 레벨 값
 
     //방안1
 }

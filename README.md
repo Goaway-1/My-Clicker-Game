@@ -591,10 +591,10 @@ public class playerData
 ___
 ## __1.10__
 > **<h3>Today Dev Story</h3>**
- - ### Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
- - ### 화면 어느곳이던 터치(클릭)시 공격
- - ### 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
- - ### power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
+ - Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
+ - 화면 어느곳이던 터치(클릭)시 공격
+ - 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
+ - power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
 ```c#
 //몬스터 HP
 private float startHp = 5f; //초기 HP
@@ -1314,6 +1314,34 @@ ___
  - null
 ___
 ## __1.23__
+> **<h3>Today Dev Story</h3>**
+ - 콤보 레벨업과 UI구현 (JSON공부)
+   - <img src="Capture/ComboUI.gif" width=350>
+   - UI는 Update에 넣어 계속 업데이트하게 만들었고, ItemAddButton에 구현
+   - 업그레이드 버튼 시 1상승 <ins>(추후 수정)</ins>
+   ```c#
+   //디스플레이
+    public Text display;
+
+    private void Update()
+    {
+      UpdateUI();
+    }
+    public void UpdateCost()
+    {
+      i_additionalD++;
+    }
+
+    public void UpdateUI()
+    {
+      display.text = "Additional : " + i_additionalD + "\nindex : " + i_index + "\ntype : " + i_type;
+    }
+   ```
+> **<h3>Realization</h3>**
+ -  접근자 프로퍼티에 Json을 적용할수없을까? -> 없음 수정해야됌
+    - 변수 하나를 더 지정해서 사용하면 어떨까
+___
+## __1.24__
 > **<h3>Today Dev Story</h3>**
  - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,Json,공격 system, GUI 개선, 사운드,이미지
 > **<h3>Realization</h3>**
