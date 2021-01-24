@@ -451,19 +451,20 @@ public void setDamageText(float power)       //DamageText 설정
  - ### show버튼을 제작해 인터페이스창의 비/활성화 구현
 <img src= "Capture/ShowState.gif" width="350">
  - ### Master버튼을 제작해 몬스터를 죽이고,돈을 무한으로 변경(이미지)
+
 > **<h3>Realization</h3>**
- - 오브젝트 폴링에 대한 학습했다. 이는 기존 오브젝트를 생성하고 파괴하는 방식이 아닌 일정한 수많큼 오브젝트를 <mark>**생성해 놓고 돌려쓰는**</mark> 개념이다.
- - 순서를 정리하자면 pooling 클래스를 싱글톤화 한 후/ Queue 저장공간할당/ 시작과 동시에 오브젝트들을 생성한다.
- - 썻던 오브젝트를 재사용하는 것이기 때문에 사용후에는 초기화가 필수로 필요하다.
- - 오브젝트 파괴(Destory함수) 대신에 Enqueue(GameObject)를 통해서 반환하고, 생성시 DeQueue()를 통해서 미사용중인 오브젝트를 불러온다. 
- - 이는 총알같은 오브젝트에서 자주 사용하며 최적화에 도움을 준다.
+  - 오브젝트 폴링에 대한 학습했다. 이는 기존 오브젝트를 생성하고 파괴하는 방식이 아닌 일정한 수많큼 오브젝트를 <mark>**생성해 놓고 돌려쓰는**</mark> 개념이다.
+  - 순서를 정리하자면 pooling 클래스를 싱글톤화 한 후/ Queue 저장공간할당/ 시작과 동시에 오브젝트들을 생성한다.
+  - 썻던 오브젝트를 재사용하는 것이기 때문에 사용후에는 초기화가 필수로 필요하다.
+  - 오브젝트 파괴(Destory함수) 대신에 Enqueue(GameObject)를 통해서 반환하고, 생성시 DeQueue()를 통해서 미사용중인 오브젝트를 불러온다. 
+  - 이는 총알같은 오브젝트에서 자주 사용하며 최적화에 도움을 준다.
 ___
 ## __1.5__
 > **<h3>Today Dev Story</h3>**
-- ### Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
-- ### 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif" width="350">
-- ### player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif" width="350">
-- ### 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
+- Enemy의 HP 상태를 띄우기 위해서 EnemyManager에 Slider를 할당하고 Enemy가 끌어다쓰는 방식으로 구현
+- 몬스터가 없을때 사라지거나 초기화 되는 것 <ins>(추후 수정)</ins> <img src="Capture/HpGauge.gif" width="350">
+- player의 이미지와 애니메이션을 수정 <img src="Capture/Animation.gif" width="350">
+- 모든 스크립트의 싱글톤과 power와 같이 자주 쓰는 변수들을 <mark>접근자 프로퍼티</mark>로 설정했다. 더 이상 따로 호출과 적용 함수를 만들지 않고 get; set;을 통해 간결하게 적용가능하다. (아래는 예시이다.)
 ```c#
 public float power  //힘
 {
@@ -477,11 +478,11 @@ public float power  //힘
     }
 }
 ```
- - ### 접근자 프로퍼티 설정 후 DamageText에서 오류가 발생해 수정, 하지만 static으로 진행한 임시 방편 <ins>(추후수정)</ins>
+ - 접근자 프로퍼티 설정 후 DamageText에서 오류가 발생해 수정, 하지만 static으로 진행한 임시 방편 <ins>(추후수정)</ins>
 > **<h3>Realization</h3>**
-- ### int형의 값이 overflow 될수 있기에 long형으로 변환하는법
-- ### 변환했을때 접근자 프로퍼티를 설정하는 방법
-- ### 장점 : 굳이 호출하는 함수를 따로 제작 X, 시작시 호출 X, 싱글톤에서도 사용 O,
+- int형의 값이 overflow 될수 있기에 long형으로 변환하는법
+- 변환했을때 접근자 프로퍼티를 설정하는 방법
+- 장점 : 굳이 호출하는 함수를 따로 제작 X, 시작시 호출 X, 싱글톤에서도 사용 O,
 ```c#
 public long gold
 {
@@ -509,28 +510,30 @@ ___
   - Viewport를 아래로 늘린다.
   - content 아래에 이미지 삽입후 Horizional 고정 해제 후 그냥 사용가능
  2. 투명도 설정
-  - Item Button에 Canvas Group 추가 후 Alpha로 투명도 설정
-```c#
-if (isPurchased)    //구매를 했다면 투명도
-{
-  canvasGroup.alpha = 1.0f;
-}
-else   //아니라면
-{
-  canvasGroup.alpha = 0.6f;
-}
-```
+    - Item Button에 Canvas Group 추가 후 Alpha로 투명도 설정
+  
+    ```c#
+    if (isPurchased)    //구매를 했다면 투명도
+    {
+      canvasGroup.alpha = 1.0f;
+    }
+    else   //아니라면
+    {
+      canvasGroup.alpha = 0.6f;
+    }
+    ```
 ___
 ## __1.7__
 > **<h3>Today Dev Story</h3>**
  - null
 > **<h3>Realization</h3>**
   1. Slider 설정
-```c#
-slider.minValue = 0;  //최소값
-slider.maxValue = currentCost;  //최댓값
-slider.value = DataManager.Instance.gold; //현재 값
-```
+   
+    ```c#
+    slider.minValue = 0;  //최소값
+    slider.maxValue = currentCost;  //최댓값
+    slider.value = DataManager.Instance.gold; //현재 값
+    ```
 ___
 ## __1.8__
 > **<h3>Today Dev Story</h3>**
@@ -818,7 +821,7 @@ if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
 }
 count++;
 ```
- - ### 장착된 Combo 삭제 구현(1,2,3번 클릭)
+  - 장착된 Combo 삭제 구현(1,2,3번 클릭)
  - <img src="Capture/DelAdditional.gif" width=350>
 ```c#
 public class ItemDel : MonoBehaviour  //장착시 생성되는 곳에 들어간다.
@@ -850,23 +853,23 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
 }
 ```
 > **<h3>Realization</h3>**
- - ### PreFab화 된 오브젝트를 생성시에 이름을 정하는 방법
-   - Instantiate후 obj.name = "~~"으로 설정
- - ### 문자열 자르기 SubString 
-   ```c#
-   num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
-   ```
- - ### InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
+  - PreFab화 된 오브젝트를 생성시에 이름을 정하는 방법
+    - Instantiate후 obj.name = "~~"으로 설정
+  - 문자열 자르기 SubString 
+    ```c#
+    num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
+    ```
+  - InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
     ```c#
     GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
     ``` 
- - ### 본인 오브젝트에서 부모오브젝트중 Slot이라는 것(스크립트 등등)을 찾아 사용
+  - ### 본인 오브젝트에서 부모오브젝트중 Slot이라는 것(스크립트 등등)을 찾아 사용
     ```c#
     transform.parent.GetComponent<Slot>().num
     ```
 ## __1.13__
 > **<h3>Today Dev Story</h3>**
- - ### Combo 창 선택시 Scroll View의 Scroll Rect 비활성화하여 스크롤 기능을 멈춤 
+  - ### Combo 창 선택시 Scroll View의 Scroll Rect 비활성화하여 스크롤 기능을 멈춤 
     ```c#
     public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
     {
@@ -877,8 +880,8 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
       scrollRect.enabled = false; //스크롤 비활성화
       content.anchoredPosition = new Vector2(0, -100);    //초기로 고정해버림
     }
-   ```
- - ### Combo에 따른 공격 이미지 변경 <ins>(추후 변경)</ins>
+    ```
+  - ### Combo에 따른 공격 이미지 변경 <ins>(추후 변경)</ins>
   - <img src="Capture/AttackAni.gif" witdh=350>
 
     ```c#
@@ -908,7 +911,7 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
     }
     ```
 > **<h3>Realization</h3>**
- - ### 스크립트로 컴포넌트 편집방법
+  - ### 스크립트로 컴포넌트 편집방법
     ```c#
     //추가
     GameObject.AddComponent<찾을 컴포넌트>();
@@ -921,7 +924,7 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
 ___
 ## __1.14__
 > **<h3>Today Dev Story</h3>**
- - 공격 system 개발 
+  - 공격 system 개발 
     - 3번째 공격시 각 슬롯에 있는 index가 조건에 맞는다면 3번째 공격에 추가 데미지를 발생 <ins>(추후 변경)</ins>
     - Power 계산 부분 함수화 후 분리
     ```c#
@@ -961,33 +964,33 @@ ___
     }
     ```
 > **<h3>Realization</h3>**
- - [소수점 처리 관련](https://dodnet.tistory.com/4406)
- - System.Math.Round(float a, int b) : a의 소숫점을 b 자리 까지 남기고 반올림
+  - [소수점 처리 관련](https://dodnet.tistory.com/4406)
+  - System.Math.Round(float a, int b) : a의 소숫점을 b 자리 까지 남기고 반올림
 ___
 ## __1.15__
 > **<h3>Today Dev Story</h3>**
- - 아파
+  - 아파
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.16__
 > **<h3>Today Dev Story</h3>**
- - 늦은 귀가
+  - 늦은 귀가
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
  ## __1.17__
 > **<h3>Today Dev Story</h3>**
- - 공격데미지 소수점처리 
- - <img src="Capture/Damage(float).gif" width=350>
+  - 공격데미지 소수점처리 
+  - <img src="Capture/Damage(float).gif" width=350>
    
-   ```c#
-   n_power = (float)System.Math.Round(n_power,2); //2자리수까지만 표현
-   ``` 
- - [보스를 못잡아도 돈 증가오류 수정](#보스-돈-수정)
- - Combo메뉴에서 다른 메뉴변경 시 스크롤이 안되는 오류 수정
- - Auto Click 구현 (Default -> 1f) <ins>(추후 수정)</ins>
- - <img src="Capture/AutoClick.gif" width=350>
+    ```c#
+    n_power = (float)System.Math.Round(n_power,2); //2자리수까지만 표현
+    ``` 
+  - [보스를 못잡아도 돈 증가오류 수정](#보스-돈-수정)
+  - Combo메뉴에서 다른 메뉴변경 시 스크롤이 안되는 오류 수정
+  - Auto Click 구현 (Default -> 1f) <ins>(추후 수정)</ins>
+  - <img src="Capture/AutoClick.gif" width=350>
     
     ```c#
     //AttackButton 에 구현
@@ -1022,15 +1025,15 @@ ___
       }
     }
     ```
- - 애니메이션 작성 및 수정 <ins>(추후 수정)</ins>
- - <img src="Capture/NAnimation.gif" width=350>
+  - 애니메이션 작성 및 수정 <ins>(추후 수정)</ins>
+  - <img src="Capture/NAnimation.gif" width=350>
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.18__
 > **<h3>Today Dev Story</h3>**
- - ## 밸런스패치 진행
- - Power_level이 10상승할때 마다 0.2f씩 공격력 증가하는 폭이 상승, 또한 Power 증가함수를 제거
+  - ## 밸런스패치 진행
+  - Power_level이 10상승할때 마다 0.2f씩 공격력 증가하는 폭이 상승, 또한 Power 증가함수를 제거
     ```c#
     if (DataManager.Instance.gold >= currentCost)
     {
@@ -1059,47 +1062,47 @@ ___
     }
     ```
 > **<h3>Realization</h3>**
- - Awake
-   - 초기화 함수. 가장 먼저 호출
- - OnEnable
-   - 게임 오브젝트가 활성화 될때 마다 호출
- - Start
-   - 게임 시작 후, 첫번째 프레임 시작전 Update 직전에 한번 호출
- - Update
-   - 게임 오브젝트가 활성화 되어 있을때 매 프레임 마다 호출
- - LastUpdate
-   - 게임 오브젝트가 활성화 되어 있을대 Update후 매 프레임 마다 호출
- - FixedUpdate
-   - 게임 오브젝트가 활성화 되어 있을때, 설정된 고정 시간 주기로 호출
-   - 고정시간 간격 : Edit -> ProjectSetting -> Time -> Fixed Timelep
- - OnDisable
-   - 게임 오브젝트가 비활성화 될 때 마다 호출
-   - Update가 호출되지 않음.
-   - 다시 활성화 하면 OnEnable부터 호출됨
- - OnDestroy
-   - 게임 오브젝트가 삭제될때 호출
- - Invoke
-   - 타이머 대신 유니티의 MonoBehaviour에서 제공 하는 함수
-   -  Invoke("함수이름", 시간)
- - InvokeRepeating
-   - 최초 실행 시간 설정 이후, 반복 시간 설정이 가능한 함수
-   - InvokeRepeating("함수이름", 최초 실행 시간, 반복 실행 시간)
- - CancelInvoke
-   - 설정된 Invoke가 모두 취소됨
- - OnTriggerEnter
+  - Awake
+    - 초기화 함수. 가장 먼저 호출
+  - OnEnable
+    - 게임 오브젝트가 활성화 될때 마다 호출
+  - Start
+    - 게임 시작 후, 첫번째 프레임 시작전 Update 직전에 한번 호출
+  - Update
+    - 게임 오브젝트가 활성화 되어 있을때 매 프레임 마다 호출
+  - LastUpdate
+    - 게임 오브젝트가 활성화 되어 있을대 Update후 매 프레임 마다 호출
+  - FixedUpdate
+    - 게임 오브젝트가 활성화 되어 있을때, 설정된 고정 시간 주기로 호출
+    - 고정시간 간격 : Edit -> ProjectSetting -> Time -> Fixed Timelep
+  - OnDisable
+    - 게임 오브젝트가 비활성화 될 때 마다 호출
+    - Update가 호출되지 않음.
+    - 다시 활성화 하면 OnEnable부터 호출됨
+  - OnDestroy
+    - 게임 오브젝트가 삭제될때 호출
+  - Invoke
+    - 타이머 대신 유니티의 MonoBehaviour에서 제공 하는 함수
+    -  Invoke("함수이름", 시간)
+  - InvokeRepeating
+    - 최초 실행 시간 설정 이후, 반복 시간 설정이 가능한 함수
+    - InvokeRepeating("함수이름", 최초 실행 시간, 반복 실행 시간)
+  - CancelInvoke
+    - 설정된 Invoke가 모두 취소됨
+  - OnTriggerEnter
    - Trigger 속성이 True 게임 오브젝트가 충돌 하는 순간 호출
- - OnTriggerStay
-   - Trigger 속성의 오브젝트가 충돌후 충돌 해제가 되기 전까지 매 프레임 마다 호출
- - OnTriggerExit
-   - Trigger 속성의 오브젝트가 충돌해제될때 호출
+  - OnTriggerStay
+    - Trigger 속성의 오브젝트가 충돌후 충돌 해제가 되기 전까지 매 프레임 마다 호출
+  - OnTriggerExit
+    - Trigger 속성의 오브젝트가 충돌해제될때 호출
 ___
 ## __1.19__
 > **<h3>Today Dev Story</h3>**
- - ## 밸런스패치 진행
- - Enemy Hp 패치
-   - **EnemyManager**에서 Hp를 관리해주며 Mathf.Pow()를 사용해 기하급수적 증가를 이룸
-   - **Enemy**에서 ifdead()가 활성화 되었을때 Hp,MaxHp를 증가시킨다.
-   - Boss 잡지 못했을때 **DataManager**에서 DecreaseStage()를 통해 Hp와 fixHp감소
+  - ## 밸런스패치 진행
+  - Enemy Hp 패치
+    - **EnemyManager**에서 Hp를 관리해주며 Mathf.Pow()를 사용해 기하급수적 증가를 이룸
+    - **Enemy**에서 ifdead()가 활성화 되었을때 Hp,MaxHp를 증가시킨다.
+    - Boss 잡지 못했을때 **DataManager**에서 DecreaseStage()를 통해 Hp와 fixHp감소
     ```c#
     //EnemyManager.cs
     private float n_Hp = 0f;
@@ -1164,15 +1167,15 @@ ___
       fixHp -= 45;
     }
     ```
- - GUI 수정 
-   - <img src="Capture/NGUI.gif" width = 350>
-   - 배치수정, 상태표시 창 삭제 // 업그레이드 창에서 현제 상태 확인 가능
+  - GUI 수정 
+    - <img src="Capture/NGUI.gif" width = 350>
+    - 배치수정, 상태표시 창 삭제 // 업그레이드 창에서 현제 상태 확인 가능
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.20__
 > **<h3>Today Dev Story</h3>**
- - ### 최초 업글시 투명도를 상승시켜 구매한것과 하지 않은것에 대해 구분
+  - ### 최초 업글시 투명도를 상승시켜 구매한것과 하지 않은것에 대해 구분
     - <img src="Capture/NGUI1.gif" width=350>
     ```c#
     //PowerButton
@@ -1205,8 +1208,8 @@ ___
         }
       }
     }
-   ```
- - ### AutoClick밸런스
+    ```
+  - ### AutoClick밸런스
     ```c#
     float startCurrentCost = 10f;
     float UpcostPow = 1.3f;
@@ -1218,22 +1221,22 @@ ___
       Debug.Log(level + " : " + currentCost);
       level++;
     }
-   ```
+    ```
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.21__
 > **<h3>Today Dev Story</h3>**
- - ### AutoClick밸런스 int형으로 진행
- - 몬스터 오브젝트 풀링
-   - 진행도중 너무 많은 오류발생 및 관여할일이 많아짐 <ins>(추후 수정)</ins> 
- - 모든 수 소수점 2자리 고정
+  - ### AutoClick밸런스 int형으로 진행
+  - 몬스터 오브젝트 풀링
+    - 진행도중 너무 많은 오류발생 및 관여할일이 많아짐 <ins>(추후 수정)</ins> 
+  - 모든 수 소수점 2자리 고정
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.22__
 > **<h3>Today Dev Story</h3>**
- - 스킬의 객관화(string 사용하여 스킬의 효과를 지정 및 실현)
+  - 스킬의 객관화(string 사용하여 스킬의 효과를 지정 및 실현)
     ```c#
     //InventoryManager
     public class SlotData
@@ -1251,15 +1254,11 @@ ___
       {
         count = 0;
       }
-      if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
+      if (inven.slots[count].index != 0)    //0이 아닐때만 실행
       {
-        if (count != 2)  //원래는 3인데 0부터 시작했으니 2가 되야한다.
-        {
-          skill();
-        }
-        else        //조건이 맞다면 3타 가능
-        {
-          skillTurn();
+        skill();
+        if(count == 3){
+          killTurn();
         }
       }
       n_power = (float)System.Math.Round(n_power, 2); //2자리 수로 고정한다.
@@ -1311,16 +1310,16 @@ ___
     }
     ``` 
 > **<h3>Realization</h3>**
- - null
+  - null
 ___
 ## __1.23__
 > **<h3>Today Dev Story</h3>**
- - 콤보 레벨업과 UI구현 (JSON공부)
-   - <img src="Capture/ComboUI.gif" width=350>
-   - UI는 Update에 넣어 계속 업데이트하게 만들었고, ItemAddButton에 구현
-   - 업그레이드 버튼 시 1상승 <ins>(추후 수정)</ins>
-   ```c#
-   //디스플레이
+  - 콤보 레벨업과 UI구현 (JSON공부)
+    - <img src="Capture/ComboUI.gif" width=350>
+    - UI는 Update에 넣어 계속 업데이트하게 만들었고, ItemAddButton에 구현
+    - 업그레이드 버튼 시 1상승 <ins>(추후 수정)</ins>
+    ```c#
+    //디스플레이
     public Text display;
 
     private void Update()
@@ -1329,20 +1328,174 @@ ___
     }
     public void UpdateCost()
     {
-      i_additionalD++;
+      inven.slots[i_index].additionalD = ++i_additionalD;
     }
 
     public void UpdateUI()
     {
       display.text = "Additional : " + i_additionalD + "\nindex : " + i_index + "\ntype : " + i_type;
     }
-   ```
+    ```
 > **<h3>Realization</h3>**
- -  접근자 프로퍼티에 Json을 적용할수없을까? -> 없음 수정해야됌
+  -  접근자 프로퍼티에 Json을 적용할수없을까? -> 없음 수정해야됌
     - 변수 하나를 더 지정해서 사용하면 어떨까
+    - 접근자 프로퍼티는 제2의 중계자로 사용했다. (2021.01.24)
 ___
 ## __1.24__
 > **<h3>Today Dev Story</h3>**
- - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,Json,공격 system, GUI 개선, 사운드,이미지
+  - ### <span style = "color:yellow;">__Json</span>을 사용해서 모든 Data 저장__
+    - 기존 get,set은 사용하고 그 안에 json을 사용
+    - 이제 접근자 프로퍼티는 수단이 된다.
+    - 초기에 json 파일이 없을때 오류가 생긴다. 즉 로딩화면을 구현해서 만들어지면 메인화면을 실행하도록 해야겠다. <ins>(추후 수정)</ins> 
+    ```c#
+    public float power  //힘
+    {
+      get
+      {
+        Load();
+        if(playerData.power == 0) //초기값 설정
+        {
+          playerData.power = 1;
+        }
+        return playerData.power;
+      }
+      set
+      {
+        playerData.power = value;
+        Save();
+      }
+    }
+    ///////저장 및 로드
+    void Save()
+    {
+        string jsonData = JsonUtility.ToJson(playerData,true);
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+    }
+    void Load()
+    {
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        string jsonData = File.ReadAllText(path);
+        playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+    }
+    ///저장공간
+    [System.Serializable]   //직렬화
+    public class PlayerData
+    {
+      public float subHp;
+      public float fixHp;
+      public float Hp;
+      public float power;
+      public float AutoC;
+      public int gold;
+      public int goldPerTake;
+      public float criticalPer;
+      public float criticalPow;
+      public int stage;
+    }
+    ```  
+    ```c#
+    //저장 및 로드
+    void SaveCost()
+    {
+      string jsonData = JsonUtility.ToJson(playerDataCost, true);
+      string path = Path.Combine(Application.dataPath, "playerDataCost.json");
+      File.WriteAllText(path, jsonData);
+    }
+
+    public void LoadCost()
+    {
+      string path = Path.Combine(Application.dataPath, "playerDataCost.json");
+      string jsonData = File.ReadAllText(path);
+      playerDataCost = JsonUtility.FromJson<PlayerDataCost>(jsonData);
+    }
+
+    public void LoadPowerButton(PowerButton powerButton) //power업글 불러오기
+    {
+      LoadCost();
+      powerButton.currentCost = playerDataCost.P_cost;
+      powerButton.level = playerDataCost.P_level;
+      powerButton.costPow = playerDataCost.P_cost_pow;
+    }
+
+    public void SavePowerButton(PowerButton powerButton) //power업글 저장하기
+    {
+      playerDataCost.P_cost = powerButton.currentCost;
+      playerDataCost.P_level = powerButton.level;
+      playerDataCost.P_cost_pow = powerButton.costPow;
+      SaveCost();
+    }
+
+    [System.Serializable]
+    public class PlayerDataCost
+    {
+      //크리티컬 pow
+      public int C_cost;
+      public int C_level;
+
+      //크리티컬 per
+      public int C_P_cost;
+      public int C_P_level;
+
+      //파워
+      public int P_cost;
+      public float P_cost_pow;
+      public int P_level;
+
+      //Auto click
+      public int A_cost;
+      public int A_level;
+    }
+    ```
+  - 콤보 3번째에 오류 발생 (저장 순서 변경) ~~<ins>(추후 수정)</ins>~~
+  - cost를 저장하는 것은 오류 (Load) -> 초기에 로드해주니 성공
+  - 파일 생성 및 호출의 수정  
+    ```c#
+    //DataManager.cs
+    private void Awake()
+    {
+      if (!File.Exists("Assets/playerData.json"))    //파일이 없다면 생성 (추후 로딩으로 뺀다.)
+      {
+        Save();
+        SaveCost();
+      }
+      else
+      {
+        Load();
+        LoadCost();
+      }
+    }
+    //UIManager.cs // 초기화
+    public void ResetButton()   //PlayerPrefs 데이터를 모두 삭제
+    {
+      File.Delete("Assets/playerData.json");
+      File.Delete("Assets/playerDataCost.json");
+    }
+    ```
 > **<h3>Realization</h3>**
- - null
+  - 파일의 생성 및 관리
+    ```c#
+    File.Create("path");  //파일의 생성
+    File.Exists("path");  //파일의 존재 유무
+    File.Delete("path");  //파일의 삭제
+    ```
+  - 폴더의 생성 및 관리 
+    ```c#
+    Directory.CreateDirectory("path");  //폴더의 생성
+    Directory.Exists("path"); //폴더의 존재 유무
+    Directory.Delete("path"); //폴더의 삭제
+    ```
+    - 폴더 안에 파일이 남아 있으면 폴더 삭제가 되지 않는다.(파일 삭제 후 진행)
+      ```c#
+      string[] allFiles = Directory.GetFiles("Path");
+      for(int i =0;i < allFiles.Length; i++){
+        File.Delete(allFiles[i]);
+      }
+      Directory.Delete("path");
+      ```
+___
+## __1.25__
+> **<h3>Today Dev Story</h3>**
+  - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지
+> **<h3>Realization</h3>**
+  - null

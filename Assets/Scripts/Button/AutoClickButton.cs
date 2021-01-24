@@ -40,11 +40,11 @@ public class AutoClickButton : Buttons
         {
             isPurchased = true;     //투명도 조절위함
             DataManager.Instance.gold -= currentCost;
-            level++;
             DataManager.Instance.AutoC -= costPow;    //감소
-            DataManager.Instance.SaveAutoButton(this);
+            level++;
             UpdateItem();
             UpdateUI();
+            DataManager.Instance.SaveAutoButton(this);
         }
     }
     public override void UpdateItem()

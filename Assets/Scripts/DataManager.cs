@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 {
@@ -24,31 +25,69 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
 
+    //json 파일
+    public PlayerData playerData;
+    public PlayerDataCost playerDataCost;   //비용
+
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
-        get { return PlayerPrefs.GetFloat("subHp", 0f); }
-        set { PlayerPrefs.SetFloat("subHp", value); }
+        get
+        {
+            Load();
+            return playerData.subHp;
+        }
+        set
+        {
+            playerData.subHp = value;
+            Save();
+        }
     }
     public float fixHp  //5씩 증가하는 계산 용도
     {
-        get { return PlayerPrefs.GetFloat("fixHp", 5f); }
-        set { PlayerPrefs.SetFloat("fixHp", value); }
+        get
+        {
+            Load();
+            if (playerData.fixHp == 0)
+            {
+                playerData.fixHp = 5f;
+            }
+            return playerData.fixHp;
+        }
+        set
+        {
+            playerData.fixHp = value;
+            Save();
+        }
     }
     public float Hp //실질적으로 관련
     {
-        get { return PlayerPrefs.GetFloat("Hp", 0f); }
-        set { PlayerPrefs.SetFloat("Hp", value); }
+        get
+        {
+            Load();
+            return playerData.Hp;
+        }
+        set
+        {
+            playerData.Hp = value;
+            Save();
+        }
     }
-    //[HideInInspector]
+    [HideInInspector]
     public float power  //힘
     {
         get
         {
-            return PlayerPrefs.GetFloat("power", 1f);
+            Load();
+            if (playerData.power == 0)  //초기값 설정
+            {
+                playerData.power = 1;
+            }
+            return playerData.power;
         }
         set
         {
-            PlayerPrefs.SetFloat("power", value);
+            playerData.power = value;
+            Save();
         }
     }
     [HideInInspector]
@@ -56,100 +95,174 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            return PlayerPrefs.GetFloat("auto", 3f);
+            Load();
+            if (playerData.AutoC == 0)
+            {
+                playerData.AutoC = 3f;
+            }
+            return playerData.AutoC;
         }
         set
         {
+            playerData.AutoC = value;
             float b = (float)System.Math.Round(value, 2);   //소수점 2자리로 고정
-            PlayerPrefs.SetFloat("auto", b);
+            Save();
         }
     }
-    //[HideInInspector]
+    [HideInInspector]
     public int gold  //돈
     {
         get
         {
-            return PlayerPrefs.GetInt("gold", 0);
+            Load();
+            return playerData.gold;
         }
         set
         {
-            PlayerPrefs.SetInt("gold", value);
+            playerData.gold = value;
+            Save();
         }
     }
     [HideInInspector]
     public int goldPerTake  //획득되는 골드양
     {
-        get { return PlayerPrefs.GetInt("goldPerTake", 1); }
-        set { PlayerPrefs.SetInt("goldPerTake", value); }
+        get
+        {
+            Load();
+            if (playerData.goldPerTake == 0)
+            {
+                playerData.goldPerTake = 1;
+            }
+            return playerData.goldPerTake;
+        }
+        set
+        {
+            playerData.goldPerTake = value;
+            Save();
+        }
     }
-    //[HideInInspector]
+    [HideInInspector]
     public float criticalPer //치명타 확률
     {
         get
         {
-            return PlayerPrefs.GetFloat("criticalPer", 0.1f);
+            Load();
+            if (playerData.criticalPer == 0)
+            {
+                playerData.criticalPer = 0.1f;
+            }
+            return playerData.criticalPer;
         }
         set
         {
-            PlayerPrefs.SetFloat("criticalPer", value);
+            playerData.criticalPer = value;
+            Save();
         }
     }
-    // [HideInInspector]
+    [HideInInspector]
     public float criticalPow //치명타배수
     {
         get
         {
-            return PlayerPrefs.GetFloat("criticalPow", 0);
+            Load();
+            return playerData.criticalPow;
         }
         set
         {
-            PlayerPrefs.SetFloat("criticalPow", value);
+            playerData.criticalPow = value;
+            Save();
         }
     }
-    // [HideInInspector]
+    [HideInInspector]
     public int stage
     {
         get
         {
-            return PlayerPrefs.GetInt("stage", 1);
+            Load();
+            if (playerData.stage == 0)
+            {
+                playerData.stage = 1;
+            }
+            return playerData.stage;
         }
         set
         {
-            PlayerPrefs.SetInt("stage", value);
+            playerData.stage = value;
+            Save();
         }
     }
+
+    private void Awake()
+    {
+        if (!File.Exists("Assets/playerData.json"))    //파일의 생성 (추후 로딩으로 뺀다.)
+        {
+            Save();
+            SaveCost();
+        }
+        else
+        {
+            Load();
+            LoadCost();
+        }
+    }
+
+    void Save()
+    {
+        string jsonData = JsonUtility.ToJson(playerData,true);
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+    }
+
+    void Load()
+    {
+        string path = Path.Combine(Application.dataPath, "playerData.json");
+        string jsonData = File.ReadAllText(path);
+        playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+    }
+
+    void SaveCost()
+    {
+        string jsonData = JsonUtility.ToJson(playerDataCost, true);
+        string path = Path.Combine(Application.dataPath, "playerDataCost.json");
+        File.WriteAllText(path, jsonData);
+    }
+
+    public void LoadCost()
+    {
+        string path = Path.Combine(Application.dataPath, "playerDataCost.json");
+        string jsonData = File.ReadAllText(path);
+        playerDataCost = JsonUtility.FromJson<PlayerDataCost>(jsonData);
+    }
+
+    //json 파일 @@@@@@@@@@@@@@@@@@@@@@@
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadC_Button(CriticalButton criticalButton) //critical업글 불러오기
     {
-        string key = criticalButton.upgradeName;
-
-        criticalButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticalButton.startCurrentCost);
-        criticalButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        LoadCost();
+        criticalButton.currentCost = playerDataCost.C_cost;
+        criticalButton.level = playerDataCost.C_level;
     }
 
     public void SaveC_Button(CriticalButton criticalButton) //critical업글 저장하기
     {
-        string key = criticalButton.upgradeName;
-
-        PlayerPrefs.SetInt(key + "_cost", criticalButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", criticalButton.level);
+        playerDataCost.C_cost = criticalButton.currentCost;
+        playerDataCost.C_level = criticalButton.level;
+        SaveCost();
     }
 
     public void LoadC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 불러오기
     {
-        string key = criticalPerButton.upgradeName;
-
-        criticalPerButton.currentCost = PlayerPrefs.GetInt(key + "_cost", criticalPerButton.startCurrentCost);
-        criticalPerButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        LoadCost();
+        criticalPerButton.currentCost = playerDataCost.C_P_cost;
+        criticalPerButton.level = playerDataCost.C_P_level;
     }
 
     public void SaveC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 저장하기
     {
-        string key = criticalPerButton.upgradeName;
-
-        PlayerPrefs.SetInt(key + "_cost", criticalPerButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", criticalPerButton.level);
+        playerDataCost.C_P_cost = criticalPerButton.currentCost;
+        playerDataCost.C_P_level = criticalPerButton.level;
+        SaveCost();
     }
 
     public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
@@ -165,39 +278,35 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadPowerButton(PowerButton powerButton) //power업글 불러오기
     {
-        string key = powerButton.upgradeName;
-
-        powerButton.costPow = PlayerPrefs.GetFloat(key + "_costPow", 1f);
-        powerButton.currentCost = PlayerPrefs.GetInt(key + "_cost", powerButton.startCurrentCost);
-        powerButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        LoadCost();
+        powerButton.currentCost = playerDataCost.P_cost;
+        powerButton.level = playerDataCost.P_level;
+        powerButton.costPow = playerDataCost.P_cost_pow;
     }
 
     public void SavePowerButton(PowerButton powerButton) //power업글 저장하기
     {
-        string key = powerButton.upgradeName;
-
-        PlayerPrefs.SetFloat(key + "_costPow", powerButton.costPow);
-        PlayerPrefs.SetInt(key + "_cost", powerButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", powerButton.level);
+        playerDataCost.P_cost = powerButton.currentCost;
+        playerDataCost.P_level = powerButton.level;
+        playerDataCost.P_cost_pow = powerButton.costPow;
+        SaveCost();
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
     //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadAutoButton(AutoClickButton autoClickButton) //power업글 불러오기
+    public void LoadAutoButton(AutoClickButton autoClickButton) //Auto업글 불러오기
     {
-        string key = autoClickButton.upgradeName;
-
-        autoClickButton.currentCost = PlayerPrefs.GetInt(key + "_cost", autoClickButton.startCurrentCost);
-        autoClickButton.level = PlayerPrefs.GetInt(key + "_level", 1);
+        LoadCost();
+        autoClickButton.currentCost = playerDataCost.A_cost;
+        autoClickButton.level = playerDataCost.A_level;
     }
 
-    public void SaveAutoButton(AutoClickButton autoClickButton) //power업글 저장하기
+    public void SaveAutoButton(AutoClickButton autoClickButton) //Auto업글 저장하기
     {
-        string key = autoClickButton.upgradeName;
-
-        PlayerPrefs.SetInt(key + "_cost", autoClickButton.currentCost);
-        PlayerPrefs.SetInt(key + "_level", autoClickButton.level);
+        playerDataCost.A_cost = autoClickButton.currentCost;
+        playerDataCost.A_level = autoClickButton.level;
+        SaveCost();
     }
     //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -211,4 +320,40 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         fixHp -= 45;
     }
     //stage관련 끝@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+}
+
+[System.Serializable]   //직렬화
+public class PlayerData
+{
+    public float subHp;
+    public float fixHp;
+    public float Hp;
+    public float power;
+    public float AutoC;
+    public int gold;
+    public int goldPerTake;
+    public float criticalPer;
+    public float criticalPow;
+    public int stage;
+}
+
+[System.Serializable]
+public class PlayerDataCost
+{
+    //크리티컬 pow
+    public int C_cost;
+    public int C_level;
+
+    //크리티컬 per
+    public int C_P_cost;
+    public int C_P_level;
+
+    //파워
+    public int P_cost;
+    public float P_cost_pow;
+    public int P_level;
+
+    //Auto click
+    public int A_cost;
+    public int A_level;
 }

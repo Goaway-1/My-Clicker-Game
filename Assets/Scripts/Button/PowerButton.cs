@@ -42,8 +42,6 @@ public class PowerButton : Buttons
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
             DataManager.Instance.power += costPow;  //¼öÁ¤
-            DataManager.Instance.SavePowerButton(this);
-            level++;
             if (level % 3 == 0)
             {
                 UpdateItem();
@@ -53,6 +51,8 @@ public class PowerButton : Buttons
             {
                 costPow += 0.2f;
             }
+            level++;
+            DataManager.Instance.SavePowerButton(this);
         }
     }
     public override void UpdateItem()

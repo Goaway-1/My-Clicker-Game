@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;    //file사용 위함
 
 public class UIManager : MonoBehaviour
 {
@@ -96,7 +97,8 @@ public class UIManager : MonoBehaviour
 
     public void ResetButton()   //PlayerPrefs 데이터를 모두 삭제
     {
-        PlayerPrefs.DeleteAll();
+        File.Delete("Assets/playerData.json");
+        File.Delete("Assets/playerDataCost.json");
     }
 
     public void maxMoney()  //돈 급수

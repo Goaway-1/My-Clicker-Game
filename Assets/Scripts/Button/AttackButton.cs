@@ -80,13 +80,10 @@ public class AttackButton : MonoBehaviour
         {
             count = 0;
         }
-        if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
+        if (inven.slots[count].index != 0)    //0이 아닐때만 실행
         {
-            if (count != 2)  //원래는 3인데 0부터 시작했으니 2가 되야한다.
-            {
-                skill();
-            }
-            else        //조건이 맞다면 3타 가능
+            skill();
+            if (count == 3)
             {
                 skillTurn();
             }
@@ -95,7 +92,6 @@ public class AttackButton : MonoBehaviour
     }
     private void skill()        //기본 모션 한방한방에
     {
-        //치명타와 공격력과 구분 -> 이름으로?
         if(inven.slots[count].type.Equals("Power"))
         {
             n_power += n_power * inven.slots[count].additionalD;

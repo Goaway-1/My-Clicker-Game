@@ -37,7 +37,7 @@ public class ItemAddButton : MonoBehaviour
 
     public void UpdateCost()
     {
-        i_additionalD++;
+        inven.slots[i_index].additionalD = ++i_additionalD;
     }
 
     public void UpdateUI()

@@ -16,7 +16,7 @@ public class CriticalButton : Buttons
         costPow = 1.02f;
         UpcostPow = 1.39f;
         currentCost = 1;
-
+        
         DataManager.Instance.LoadC_Button(this);
         UpdateUI();
     }
@@ -40,11 +40,11 @@ public class CriticalButton : Buttons
         {
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
-            level++;
             DataManager.Instance.increasedCritical(startState, costPow, level);
-            DataManager.Instance.SaveC_Button(this);
+            level++;
             UpdateItem();
             UpdateUI();
+            DataManager.Instance.SaveC_Button(this);
         }
     }
 

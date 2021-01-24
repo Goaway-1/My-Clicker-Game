@@ -28,9 +28,6 @@ public class InventoryManger : MonoBehaviour
         }
         Panel.SetActive(false);
     }
-
-    //방안2
-
 }
 
 [System.Serializable]
@@ -42,6 +39,4 @@ public class SlotData
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지
     public int level;           //그 Slot의 레벨 값
-
-    //방안1
 }

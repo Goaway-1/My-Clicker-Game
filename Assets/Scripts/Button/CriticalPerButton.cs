@@ -40,11 +40,11 @@ public class CriticalPerButton : Buttons
         {
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
-            level++;
             DataManager.Instance.increasedCriticalPer(startState, costPow, level);
-            DataManager.Instance.SaveC_Per_Button(this);
+            level++;
             UpdateItem();
             UpdateUI();
+            DataManager.Instance.SaveC_Per_Button(this);
         }
     }
 
