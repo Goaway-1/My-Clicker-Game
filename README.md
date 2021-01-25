@@ -10,6 +10,11 @@ ___
 |AutoClick| None(3f) | -0.05f  | 10 | pow(1.3f/level) | 0.5f | +0.02f |
 |Hp| 0f | 5f * mathf(5f,0.4/stage) // 5f+5씩 | None | None | None | None |
 |AutoClick|   |   |   |   | | |
+___
+##  <span style = "color:orange;">Links </span>
+  - [Documentation](https://docs.unity3d.com/kr/current/Manual/UnityManual.html)
+  - [API](https://docs.unity3d.com/kr/current/ScriptReference/index.html)
+___
 ## __12.22__
 > **<h3>Today Dev Story</h3>**
  - 클리커게임을 위해 클릭, 돈, 클릭per돈 등을 구현만 해두었다.
@@ -1498,4 +1503,13 @@ ___
 > **<h3>Today Dev Story</h3>**
   - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지
 > **<h3>Realization</h3>**
-  - null
+  - ## <span style = "color:yellow;">ML-Agents</span>
+    - [유니티](https://unity3d.com/kr/machine-learning)
+    - [학습](https://www.youtube.com/watch?v=twcmguIedhY&list=PLctzObGsrjfwYHL1obWlVdPRbpubkuKWp) 
+    - 3D 머신러닝이다. 
+  - ## <span style = "color:yellow;">API</span>(Application Programming Interface)
+    - 응용프로그램 간에 데이터를 주고받는 방법
+      - 서버와 데이터를 주고 받으므로써 응용프로그램을 만들수있다.
+      - 인증,호출 제한 (해당 API의 메뉴얼을 읽어봐야한다.)   
+      - EX) 카카오API, 페이스북API, 알라딘API.....
+    - 미리 만들어 놓은 함수들의 집합
