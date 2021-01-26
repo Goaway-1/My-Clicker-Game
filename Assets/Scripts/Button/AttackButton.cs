@@ -69,6 +69,7 @@ public class AttackButton : MonoBehaviour
             //실질적으로 데미지를 입히고 보여주는 곳
             playerAnimation.AttackAction(count);
             EffectManager.Instance.attckShow();
+            //MissonManager.Instance.A_count++;
             Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!n 
             count++;
         }

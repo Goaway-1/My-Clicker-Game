@@ -1501,7 +1501,7 @@ ___
 ___
 ## __1.25__
 > **<h3>Today Dev Story</h3>**
-  - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지
+  - NULL
 > **<h3>Realization</h3>**
   - ## <span style = "color:yellow;">ML-Agents</span>
     - [유니티](https://unity3d.com/kr/machine-learning)
@@ -1513,3 +1513,26 @@ ___
       - 인증,호출 제한 (해당 API의 메뉴얼을 읽어봐야한다.)   
       - EX) 카카오API, 페이스북API, 알라딘API.....
     - 미리 만들어 놓은 함수들의 집합
+___
+## __1.26__
+> **<h3>Today Dev Story</h3>**
+  - Misson 구현 도중 종료
+    - Json의 저장을 어디로 할지 고민중 data? misson? 
+    ```c#
+    //MissonManager.cs  
+    private void increased_A()  //미션 A 증가
+    {
+      if (A_count_max <= A_count)
+      {
+        Debug.Log("A_count : " + A_count);
+        A_count_max += 10;
+      }
+    }
+    ```
+  
+  - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
+> **<h3>Realization</h3>**
+  - 사용자 프러퍼티 사용시 set에서 본인을 리턴한다면 스택오버플로우가 발생한다.
+    - 이와 같은 경우는 그 본인은 선언된 변수가 아니라 속성이기 때문에 오류가 발생하는 것이다.   
+    - 즉 속성 값에 데이터를 넣어주므로 계속 set이 호출되는 것이다. 
+    - json과 활용해서 사용한다면 효율적으로 사용할 수 있다고 생각한다.

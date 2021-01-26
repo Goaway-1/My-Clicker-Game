@@ -28,6 +28,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //json 파일
     public PlayerData playerData;
     public PlayerDataCost playerDataCost;   //비용
+    public PlayerMisson playerMisson;
 
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
@@ -198,11 +199,13 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         {
             Save();
             SaveCost();
+            SaveMisson();
         }
         else
         {
             Load();
             LoadCost();
+            LoadMisson();
         }
     }
 
@@ -232,6 +235,19 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         string path = Path.Combine(Application.dataPath, "playerDataCost.json");
         string jsonData = File.ReadAllText(path);
         playerDataCost = JsonUtility.FromJson<PlayerDataCost>(jsonData);
+    }
+    public void SaveMisson()
+    {
+        string jsonData = JsonUtility.ToJson(playerMisson, true);
+        string path = Path.Combine(Application.dataPath, "playerMisson.json");
+        File.WriteAllText(path, jsonData);
+    }
+
+    public void LoadMisson()
+    {
+        string path = Path.Combine(Application.dataPath, "playerMisson.json");
+        string jsonData = File.ReadAllText(path);
+        playerMisson = JsonUtility.FromJson<PlayerMisson>(jsonData);
     }
 
     //json 파일 @@@@@@@@@@@@@@@@@@@@@@@
@@ -356,4 +372,12 @@ public class PlayerDataCost
     //Auto click
     public int A_cost;
     public int A_level;
+}
+
+[System.Serializable]
+public class PlayerMisson
+{
+    //클릭하면 돈
+    public int Max_count;
+    public int count;
 }
