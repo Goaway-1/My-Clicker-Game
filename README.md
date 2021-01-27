@@ -1517,7 +1517,7 @@ ___
 ## __1.26__
 > **<h3>Today Dev Story</h3>**
   - Misson 구현 도중 종료
-    - Json의 저장을 어디로 할지 고민중 data? misson? 
+    - Json의 저장을 어디로 할지 고민중 data? __misson__ 
     ```c#
     //MissonManager.cs  
     private void increased_A()  //미션 A 증가
@@ -1536,3 +1536,89 @@ ___
     - 이와 같은 경우는 그 본인은 선언된 변수가 아니라 속성이기 때문에 오류가 발생하는 것이다.   
     - 즉 속성 값에 데이터를 넣어주므로 계속 set이 호출되는 것이다. 
     - json과 활용해서 사용한다면 효율적으로 사용할 수 있다고 생각한다.
+___
+## __1.27__
+> **<h3>Today Dev Story</h3>**
+  - Misson 구현 완료
+    - 골드 수입까지 구현
+    - 앞으로 더 많은 Misson 추가 예정
+    - <img src="Capture/Misson.gif" width=350>
+    ```c#
+    /////////////////////////////
+    public Text display_1;
+    public CanvasGroup canvasGroup; //투명도 조절을 위함
+    private bool isfill = false;
+    
+    public int A_count  //AttackCount
+    {
+      get {
+        DataManager.Instance.LoadMisson();
+        return DataManager.Instance.playerMisson.count;
+      }
+      set {
+        DataManager.Instance.playerMisson.count = value;    //굳이 이렇게?   추후 수정
+         DataManager.Instance.SaveMisson();
+      }
+    }
+
+    private int A_count_max      //AttackCount
+    {
+      get
+      {
+        DataManager.Instance.LoadMisson();
+        return DataManager.Instance.playerMisson.Max_count;
+      }
+      set
+      {
+        DataManager.Instance.playerMisson.Max_count = value;    //굳이 이렇게? 추후 수정
+        DataManager.Instance.SaveMisson();
+      }
+    }
+
+    private int missonGold = 10;    //보상 골드
+
+    private void Start()
+    {
+        canvasGroup.alpha = 0.4f; //투명도 조절
+    }
+
+    private void Update()
+    {
+      increased_A();
+      UpdateUi();
+    }
+
+    private void increased_A()  //미션 A 증가
+    {
+      if (A_count_max <= A_count)
+      {
+        canvasGroup.alpha = 1.0f;
+        isfill = true;
+        A_count_max += 10;
+      }
+    }
+
+    public void getGold()
+    {
+      if (isfill)
+      {
+        canvasGroup.alpha = 0.4f;
+        isfill = false;
+        DataManager.Instance.gold += missonGold;
+      }
+    }
+
+    private void UpdateUi()
+    {
+      display_1.text = "Max : " + DataManager.Instance.playerMisson.Max_count + "\ncount : " + DataManager.Instance.playerMisson.count;
+    }
+    ``` 
+  - 이미지 구상 및 실현
+> **<h3>Realization</h3>**
+  - null
+___
+## __1.28__
+> **<h3>Today Dev Story</h3>**
+ - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
+> **<h3>Realization</h3>**
+ - null

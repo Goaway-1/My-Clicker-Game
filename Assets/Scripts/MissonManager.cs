@@ -24,21 +24,18 @@ public class MissonManager : MonoBehaviour
     }
 
     /////////////////////////////
-    public Text display;
-
-    private int count;
-    private int maxcount;
-
+    public Text display_1;
+    public CanvasGroup canvasGroup; //투명도 조절을 위함
+    private bool isfill = false;
+    
     public int A_count  //AttackCount
     {
         get {
             DataManager.Instance.LoadMisson();
-            count = DataManager.Instance.playerMisson.count;
             return DataManager.Instance.playerMisson.count;
         }
         set {
             DataManager.Instance.playerMisson.count = value;    //굳이 이렇게?   추후 수정
-            count = value; 
             DataManager.Instance.SaveMisson();
         }
     }
@@ -48,17 +45,21 @@ public class MissonManager : MonoBehaviour
         get
         {
             DataManager.Instance.LoadMisson();
-            maxcount = DataManager.Instance.playerMisson.Max_count;
             return DataManager.Instance.playerMisson.Max_count;
         }
         set
         {
             DataManager.Instance.playerMisson.Max_count = value;    //굳이 이렇게? 추후 수정
-            maxcount = value;
             DataManager.Instance.SaveMisson();
         }
     }
 
+    private int missonGold = 10;    //보상 골드
+
+    private void Start()
+    {
+        canvasGroup.alpha = 0.4f;
+    }
     private void Update()
     {
         increased_A();
@@ -69,13 +70,34 @@ public class MissonManager : MonoBehaviour
     {
         if (A_count_max <= A_count)
         {
-            Debug.Log("A_count : " + A_count);
+            canvasGroup.alpha = 1.0f;
+            isfill = true;
             A_count_max += 10;
         }
     }
-   
+
+    public void getGold()
+    {
+        if (isfill)
+        {
+            canvasGroup.alpha = 0.4f;
+            isfill = false;
+            DataManager.Instance.gold += missonGold;
+        }
+    }
+    //private void increased_B()  //미션 B 증가
+    //{
+    //    if (A_count_max <= A_count)
+    //    {
+    //        Debug.Log("count : " + A_count);
+    //        A_count_max += 10;
+    //    }
+    //}
+
     private void UpdateUi()
     {
-        display.text = "Max : " + maxcount + "\ncount : " + count;
+        display_1.text = "Max : " + DataManager.Instance.playerMisson.Max_count + "\ncount : " + DataManager.Instance.playerMisson.count;
+
+        //display.text = "Max : " + DataManager.Instance.playerMisson.Max_count + "\ncount : " + DataManager.Instance.playerMisson.count;
     }
 }

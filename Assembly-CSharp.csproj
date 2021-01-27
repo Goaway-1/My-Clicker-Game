@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Button\AutoClickButton.cs" />
      <Compile Include="Assets\Scripts\Button\CriticalButton.cs" />
      <Compile Include="Assets\Scripts\Effect.cs" />
+     <Compile Include="Assets\Scripts\MissonManager.cs" />
      <Compile Include="Assets\Scripts\Button\ItemAddButton.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\Scripts\Button\PowerButton.cs" />
@@ -67,7 +68,6 @@
      <Compile Include="Assets\Scripts\Slot.cs" />
      <Compile Include="Assets\Scripts\DataManager.cs" />
      <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
-     <Compile Include="Assets\Scripts\MissonManager.cs" />
  <Reference Include="UnityEngine">
  <HintPath>D:/Unity/2020.2.0f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

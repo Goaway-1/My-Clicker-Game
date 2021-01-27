@@ -236,6 +236,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         string jsonData = File.ReadAllText(path);
         playerDataCost = JsonUtility.FromJson<PlayerDataCost>(jsonData);
     }
+
     public void SaveMisson()
     {
         string jsonData = JsonUtility.ToJson(playerMisson, true);
