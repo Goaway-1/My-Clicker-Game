@@ -1619,6 +1619,7 @@ ___
 ___
 ## __1.28__
 > **<h3>Today Dev Story</h3>**
+ - 배경 구하고, 이미지 작성 
  - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
 > **<h3>Realization</h3>**
- - null
+ - Git 공부
