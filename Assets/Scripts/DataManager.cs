@@ -28,7 +28,8 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //json 파일
     public PlayerData playerData;
     public PlayerDataCost playerDataCost;   //비용
-    public PlayerMisson playerMisson;
+    public PlayerMisson playerMisson;    
+    public SlotSave slotSave;
 
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
@@ -200,12 +201,14 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
             Save();
             SaveCost();
             SaveMisson();
+            SaveSlot();
         }
         else
         {
             Load();
             LoadCost();
             LoadMisson();
+            LoadSlot();
         }
     }
 
@@ -249,6 +252,19 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         string path = Path.Combine(Application.dataPath, "playerMisson.json");
         string jsonData = File.ReadAllText(path);
         playerMisson = JsonUtility.FromJson<PlayerMisson>(jsonData);
+    }
+
+    public void SaveSlot()
+    {
+        string jsonData = JsonUtility.ToJson(slotSave, true);
+        string path = Path.Combine(Application.dataPath, "SlotSave.json");
+        File.WriteAllText(path, jsonData);
+    }
+    public void LoadSlot()
+    {
+        string path = Path.Combine(Application.dataPath, "SlotSave.json");
+        string jsonData = File.ReadAllText(path);
+        slotSave = JsonUtility.FromJson<SlotSave>(jsonData);
     }
 
     //json 파일 @@@@@@@@@@@@@@@@@@@@@@@
@@ -381,4 +397,9 @@ public class PlayerMisson
     //클릭하면 돈
     public int Max_count;
     public int count;
+    public int isfill;  //돈 받을 수 잇어
+
+    //stage 비례
+    public int S_Max_count;
+    public int S_isfill;
 }

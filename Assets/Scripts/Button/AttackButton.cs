@@ -23,8 +23,12 @@ public class AttackButton : MonoBehaviour
 	public int count = 0;
 	public InventoryManger inven;       //추후 싱글톤 & ItemAddButton과 동시에
 
+    //Misson 관련
+    MissonA missonA;
+
     private void Start()
     {
+        missonA = GameObject.Find("MissonA").GetComponent<MissonA>();
         StartCoroutine(Auto());
     }
     IEnumerator Auto()  //자동 클릭
@@ -69,7 +73,7 @@ public class AttackButton : MonoBehaviour
             //실질적으로 데미지를 입히고 보여주는 곳
             playerAnimation.AttackAction(count);
             EffectManager.Instance.attckShow();
-            MissonManager.Instance.A_count++;   //미션 관련@@
+            missonA.A_count++;  //미션 관련
             Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!n 
             count++;
         }

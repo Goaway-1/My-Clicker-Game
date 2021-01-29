@@ -30,6 +30,21 @@ public class ItemAddButton : MonoBehaviour
                 inven.slots[i].additionalD = i_additionalD; 
                 inven.slots[i].index = i_index;
                 inven.slots[i].type = i_type;
+                switch (i)  //데이터의 저장
+                {
+                    case 0:
+                        DataManager.Instance.slotSave.index_1 = i_index;
+                        break;
+                    case 1:
+                        DataManager.Instance.slotSave.index_2 = i_index;
+                        break;
+                    case 2:
+                        DataManager.Instance.slotSave.index_3 = i_index;
+                        break;
+                    default:
+                        break;
+                }
+                DataManager.Instance.SaveSlot();
                 break;
             }
         }

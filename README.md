@@ -1619,7 +1619,116 @@ ___
 ___
 ## __1.28__
 > **<h3>Today Dev Story</h3>**
- - 배경 구하고, 이미지 작성 
- - Misson, 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
+  - 배경 구하고, 이미지 작성 
 > **<h3>Realization</h3>**
- - Git 공부
+  - Git 공부
+___
+## __1.29__
+> **<h3>Today Dev Story</h3>** 
+  - Misson 수정
+    - MissonManager를 지우고 Missons와 MissonA를 만들어서 Missons를 상속받아 사용
+    - 추후 Misson 다양화 및 수정  <ins>(추후수정)</ins> 
+    ```c#
+    public void OnClick() //AttackButton
+    {
+      ...
+      ...
+      ...
+      //실질적으로 데미지를 입히고 보여주는 곳
+      playerAnimation.AttackAction(count);
+      EffectManager.Instance.attckShow();
+      missonA.A_count++;  //미션 관련
+      Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!n 
+      count++;
+      
+    }
+    ```  
+    ```c#
+    public abstract class Missons : MonoBehaviour
+    {
+    public Text display;
+    public CanvasGroup canvasGroup; //투명도 조절을 위함
+
+    public int missonGold = 10;    //보상 골드
+
+    public abstract void Increased();  //미션 조건 증가
+
+    public abstract void GetGold();     //보상 수여
+
+    public abstract void UpdateUi();    //UI의 갱신
+    }
+    ```
+  - Combo의 Json 저장 및 삭제 구현 (로드는 아직)
+    ```c#
+    //삭제
+    private void Update()
+    {
+      if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+      {
+        switch (Input.inputString)  //데이터의 삭제
+        {
+          case "1":
+            DataManager.Instance.slotSave.index_1 = 0;
+            break;
+          case "2":
+            DataManager.Instance.slotSave.index_2 = 0;
+            break;
+          case "3":
+            DataManager.Instance.slotSave.index_3 = 0;
+            break;
+          default:
+             break;
+        }
+        DataManager.Instance.SaveSlot();
+        Destroy(this.gameObject);
+      }
+    }
+    //추가
+    public void Add()   //추후 오브젝트 풀링으로 변경하자
+    {
+      for (int i = 0; i < inven.slots.Count; i++)   //빈곳에 넣는다.
+      {
+        if (inven.slots[i].isEmpty)
+        {
+          Instantiate(slotItem, inven.slots[i].slotObj.transform, false);
+          inven.slots[i].isEmpty = false;
+          inven.slots[i].additionalD = i_additionalD; 
+          inven.slots[i].index = i_index;
+          inven.slots[i].type = i_type;
+          switch (i)  //데이터의 저장
+          {
+            case 0:
+              DataManager.Instance.slotSave.index_1 = i_index;
+              break;
+            case 1:
+              DataManager.Instance.slotSave.index_2 = i_index;
+              break;
+            case 2:
+              DataManager.Instance.slotSave.index_3 = i_index;
+              break;
+            default:
+              break;
+          }
+          DataManager.Instance.SaveSlot();
+          break;
+        }
+      }
+    }
+    ```  
+> **<h3>Realization</h3>**
+  - 원하는 오브젝트 찾는 방법(반복되게 사용시 성능 저하발생)
+    ```c#
+    GameObject.Find("이름");                        //이름
+    GameObject.FindWithTag("태그명");               //태그
+    GameObject.FindGameObjectWithTag("태그명");     //태그
+    ```
+  - 상속보다는 <span style = "color:yellow;">컴포넌트 패턴</span>이 더 좋다
+    - 유연한 재사용의 가능
+    - 기획자의 프로그래머 의존도가 저하
+    - 독립성 덕분에 기능 추가와 삭제가 용이 
+___
+## __1.30__
+> **<h3>Today Dev Story</h3>** 
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
+> **<h3>Realization</h3>**
+  -

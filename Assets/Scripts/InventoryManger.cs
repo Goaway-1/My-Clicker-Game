@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class InventoryManger : MonoBehaviour
 {
@@ -15,9 +16,9 @@ public class InventoryManger : MonoBehaviour
         GameObject slotPanel = GameObject.Find("Slot_Panel");
         for (int i = 0; i < maxSlot; i++)
         {
+            SlotData slot = new SlotData();
             GameObject go = Instantiate(slotPrefab, slotPanel.transform, false);
             go.name = "Slot_" + i;
-            SlotData slot = new SlotData();
             slot.isEmpty = true;
             slot.index = 0;
             slot.additionalD = 0;
@@ -27,8 +28,10 @@ public class InventoryManger : MonoBehaviour
             slots.Add(slot);
         }
         Panel.SetActive(false);
+        //DataManager.Instance.LoadSlot();
     }
 }
+
 
 [System.Serializable]
 public class SlotData
@@ -39,4 +42,12 @@ public class SlotData
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지
     public int level;           //그 Slot의 레벨 값
+}
+
+[System.Serializable]
+public class SlotSave
+{
+    public int index_1;
+    public int index_2;
+    public int index_3;
 }
