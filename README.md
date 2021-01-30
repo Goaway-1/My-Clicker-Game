@@ -14,6 +14,7 @@ ___
 ##  <span style = "color:orange;">Links </span>
   - [Documentation](https://docs.unity3d.com/kr/current/Manual/UnityManual.html)
   - [API](https://docs.unity3d.com/kr/current/ScriptReference/index.html)
+  - [최적화](https://nogan.tistory.com/7)
 ___
 ## __12.22__
 > **<h3>Today Dev Story</h3>**
@@ -863,6 +864,8 @@ public class Slot : MonoBehaviour //Slot 배경에 들어간다.
   - 문자열 자르기 SubString 
     ```c#
     num = int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("_") + 1));   //번호 추출
+    ///
+    num.ToString("f2"); //길이 제한
     ```
   - InventoryManager라는 오브젝트를 찾아 InventoryManager(스크립트)를 찾음
     ```c#
@@ -1729,6 +1732,12 @@ ___
 ___
 ## __1.30__
 > **<h3>Today Dev Story</h3>** 
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지, Json으로 데이터저장(combo)
+  - combo Json 로드실패
+  - 이미지 선택중
+  - 모든 panel이 꺼져있을때 오류 방생.... -> 데이터의 저장을 항상 켜져있는곳으로 수정 예정 -> 해당 메뉴 활성화 시 load 
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지,저장 2자리수
 > **<h3>Realization</h3>**
-  -
+  - MonoBehaviour
+    - 유니티의 모든 컴포넌트는 이 클래스를 상속한다. 
+  - 메시지 기반 방식
+    - 오브젝트를 찾기위해서 메시지를 보낸다.(브로트캐스팅방식)  

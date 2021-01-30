@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
         //고정관련
         scrollRect = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         content = GameObject.Find("Content").GetComponent<RectTransform>();
+
+        StartCoroutine(PowerOnOff());
     }
 
     void Update()
@@ -145,6 +147,20 @@ public class UIManager : MonoBehaviour
         ComboP.SetActive(false);
         MissonP.SetActive(true);
         scrollRect.enabled = true; //스크롤 활성화
+    }
+
+    IEnumerator PowerOnOff()
+    {
+        //켜기
+        UpgradeP.SetActive(true);
+        MasterP.SetActive(true);
+        ComboP.SetActive(true);
+        MissonP.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        //끄기
+        MasterP.SetActive(false);
+        ComboP.SetActive(false);
+        MissonP.SetActive(false);
     }
     /// <summary>
     /// Menu의 전환

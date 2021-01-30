@@ -3,9 +3,9 @@
     "C_level": 0,
     "C_P_cost": 0,
     "C_P_level": 0,
-    "P_cost": 12,
-    "P_cost_pow": 0.800000011920929,
-    "P_level": 35,
+    "P_cost": 0,
+    "P_cost_pow": 0.0,
+    "P_level": 0,
     "A_cost": 0,
     "A_level": 0
 }
