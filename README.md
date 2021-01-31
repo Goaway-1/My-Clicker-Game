@@ -263,13 +263,13 @@ public class MoveBackground : MonoBehaviour
 }
 ```
 
-1. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
+1. Material을 이용해서 TextureOffset을 이용해 그림 자체의 offsetX를 이동시키기 {이미지를 default 변환, Wrap Mode -> Repeat로 설정 및 Martial 생성(shader -> Unlit/Transparent로 설정)}
 
 > Material 설정방법
-<img src="Capture/Material_1.gif" width="350">
+<img src="Capture/Material_1.gif" heigth="350">
 
 > 결과
-<img src="Capture/Material_2.gif" width="350">
+<img src="Capture/Material_2.gif" heigth="350">
 
 ```c#
 [System.Serializable]
@@ -787,13 +787,19 @@ public class SlotData   //각 slot의 데이터
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지 구분
 }
-
+```
+- ### 미션-데이터-수정
+```c#
 public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변경)
 {
   public GameObject slotItem;
   public InventoryManger inven;
   public float i_additionalD;   //설정할 추가 데미지 값
   public int i_index;           //설정한 고유 index값
+  public string i_type;           //설정할 추가 관여 값(power,critical,money....)
+
+  //디스플레이
+  public Text display;
 
   public void Add()   //추후 오브젝트 풀링으로 변경하자
   {
@@ -805,8 +811,24 @@ public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변
         inven.slots[i].isEmpty = false;
         inven.slots[i].additionalD = i_additionalD; 
         inven.slots[i].index = i_index;
+        inven.slots[i].type = i_type;
+        switch (i)  //데이터의 저장
+        {
+          case 0:
+            DataManager.Instance.slotSave.index_1 = i_index;
+            break;
+          case 1:
+            DataManager.Instance.slotSave.index_2 = i_index;
+            break;
+          case 2:
+            DataManager.Instance.slotSave.index_3 = i_index;
+            break;
+          default:
+            break;
+        }
+        DataManager.Instance.SaveSlot();
         break;
-     }
+      }
     }
   }
 }
@@ -827,17 +849,33 @@ if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
 }
 count++;
 ```
-  - 장착된 Combo 삭제 구현(1,2,3번 클릭)
+  - 장착된 Combo 삭제 구현(1,2,3번 클릭) 
+    - #### Combo-수정
  - <img src="Capture/DelAdditional.gif" width=350>
 ```c#
 public class ItemDel : MonoBehaviour  //장착시 생성되는 곳에 들어간다.
 {
     private void Update()
     {
-        if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+      if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+      {
+        switch (Input.inputString)  //데이터의 삭제
         {
-            Destroy(this.gameObject);
+          case "1":
+            DataManager.Instance.slotSave.index_1 = 0;
+            break;
+          case "2":
+            DataManager.Instance.slotSave.index_2 = 0;
+            break;
+          case "3":
+            DataManager.Instance.slotSave.index_3 = 0;
+            break;
+          default:
+            break;
         }
+      DataManager.Instance.SaveSlot();
+      Destroy(this.gameObject);
+      }
     }
 }
 public class Slot : MonoBehaviour //Slot 배경에 들어간다.
@@ -1662,30 +1700,8 @@ ___
     }
     ```
   - Combo의 Json 저장 및 삭제 구현 (로드는 아직)
+    - [콤보 삭제 수정(저장기능)](#Combo-수정)
     ```c#
-    //삭제
-    private void Update()
-    {
-      if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
-      {
-        switch (Input.inputString)  //데이터의 삭제
-        {
-          case "1":
-            DataManager.Instance.slotSave.index_1 = 0;
-            break;
-          case "2":
-            DataManager.Instance.slotSave.index_2 = 0;
-            break;
-          case "3":
-            DataManager.Instance.slotSave.index_3 = 0;
-            break;
-          default:
-             break;
-        }
-        DataManager.Instance.SaveSlot();
-        Destroy(this.gameObject);
-      }
-    }
     //추가
     public void Add()   //추후 오브젝트 풀링으로 변경하자
     {
@@ -1741,3 +1757,74 @@ ___
     - 유니티의 모든 컴포넌트는 이 클래스를 상속한다. 
   - 메시지 기반 방식
     - 오브젝트를 찾기위해서 메시지를 보낸다.(브로트캐스팅방식)  
+  - 스코프
+    - 변수의 유효범위
+  - 배열 -> int[] a = new int[5]; 
+  - 클래스와 오브젝트는 객체지향의 핵심이다.
+    - 클래스는 틀, 오브젝트는 사물 
+    - 클래스로 만든 변수는 int와 다르게 참조 타입임으로 new를 사용해야한다.
+    - 참조타입에 대입시 주소를 바꾸는 것임으로 가비지가 생기지만 값타입인 경우 본체내에 저장하기에 문제가 없다.
+___
+## __1.31__
+> **<h3>Today Dev Story</h3>** 
+  - ### Misson의 데이터 저장시 SetActive가 false로 되어 있으면 저장이 되지 않는 오류 발생
+    - <img src="Capture/DataSave.png" height=300>
+    - 데이터의 저장을 밖으로 빼놨다. 항상 저장이 진행되도록
+  - ### combo수정
+    - 콤보창을 활성화 할때 로드가 된다. 
+    - [콤보 저장 수정](#미션-데이터-수정)
+    - Combo창을 키지 않고 시작할때도 로드 되야한다. <ins>(추후 수정)</ins>
+    ```c#
+    //UIManager
+    public void SwitchCombo()    //선택하면 Active를 비/활성화 (Misson창)
+    {
+      UpgradeP.SetActive(false);
+      MasterP.SetActive(false);
+      ComboP.SetActive(true);
+      MissonP.SetActive(false);
+      scrollRect.enabled = false; //스크롤 비활성화
+      content.anchoredPosition = new Vector2(0, -100);    //초기로 고정해버림
+      inventoryManger.Load();
+    }
+    ```
+    ```c#
+    //InventoryManager
+    public void Load()  //데이터의 로드
+    {
+      DataManager.Instance.LoadSlot();    //호출
+      for (int i = 0; i < 3; i++)
+      {
+        switch (i)
+        {
+          case 0:
+            num = DataManager.Instance.slotSave.index_1;
+            itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+            itemAddButton.Add();
+            break;
+          case 1:
+            num = DataManager.Instance.slotSave.index_2;
+            itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+            itemAddButton.Add();
+            break;
+          case 2:
+            num = DataManager.Instance.slotSave.index_3;
+            itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+            itemAddButton.Add();
+            break;
+          default:
+            break;
+        }
+      }
+    }
+    ```
+  - offsetX를 활용, 배경의 스크롤 수정 진행 <ins>(추후 수정)</ins>
+    
+    <img src="Capture/After/UIupdate.gif" height = 350>
+> **<h3>Realization</h3>**
+  - null
+___
+## __2.01__
+> **<h3>Today Dev Story</h3>** 
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지,저장 2자리수 
+> **<h3>Realization</h3>**
+  - null

@@ -58,7 +58,7 @@ public class MissonA : Missons   //Click미션!
     private void FixedUpdate()
     {
         Increased();
-        UpdateUi();
+        UpdateUi();     //switch 할때 할까 고민중.(최적화 관련)
     }
 
     public override void Increased()  //미션 A 증가

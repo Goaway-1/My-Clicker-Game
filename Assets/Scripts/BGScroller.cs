@@ -4,42 +4,56 @@ using UnityEngine;
 
 public class BGScroller : MonoBehaviour
 {
-	public float speed;
-	private float x;
-	public float PontoDeDestino;
-	public float PontoOriginal;
+    [SerializeField]
+    BGScrollData[] ScrollDatas;
 
-	private float currentTime = 0;
-	private float MoveTime = 0.6f;	//배경이 움직이는 시간
+    private float currentTime = 0;
+    private float MoveTime = 0.6f;	//배경이 움직이는 시간
 
     void Update()
-	{
-		if (EnemyManager.Instance.isMove)  //isMove가 true일때만 배경을 움직인다.
-		{
-			Move();
-		}
+    {
+        if (EnemyManager.Instance.isMove)  //isMove가 true일때만 배경을 움직인다.
+        {
+            updateScroll();
+        }
         else
         {
-			currentTime = 0;
+            currentTime = 0;
         }
 
-		if (currentTime >= MoveTime && EnemyManager.Instance.isMove)	//일정 시간이 지나면 배경을 정지한다. 
-		{
-			EnemyManager.Instance.isMove = false;
-		}
-	}
+        if (currentTime >= MoveTime && EnemyManager.Instance.isMove)    //일정 시간이 지나면 배경을 정지한다. 
+        {
+            EnemyManager.Instance.isMove = false;
+        }
+    }
 
-    void Move()
+    void updateScroll()
     {
-		currentTime += Time.deltaTime;
-		x = transform.position.x;
-		x += speed * Time.deltaTime;
-		transform.position = new Vector3(x, transform.position.y, transform.position.z);
+        currentTime += Time.deltaTime;
+        for (int i = 0; i < ScrollDatas.Length; i++)
+        {
+            SetTextureOffset(ScrollDatas[i]);
+        }
+    }
 
-		if (x <= PontoDeDestino)
-		{
-			x = PontoOriginal;
-			transform.position = new Vector3(x, transform.position.y, transform.position.z);
-		}
-	}
+    void SetTextureOffset(BGScrollData scrollData)
+    {
+        //값들을 증가 시킨다.
+        scrollData.OffsetX += (float)(scrollData.Speed) * Time.deltaTime;
+        if (scrollData.OffsetX > 1)
+        {
+            scrollData.OffsetX = scrollData.OffsetX % 1.0f;
+        }
+        Vector2 offset = new Vector2(scrollData.OffsetX, 0);
+
+        //텍스쳐 이동
+        scrollData.RenderForScroll.material.SetTextureOffset("_MainTex", offset);
+    }
+}
+[System.Serializable]
+public class BGScrollData
+{
+    public Renderer RenderForScroll;
+    public float Speed;
+    public float OffsetX;
 }

@@ -28,7 +28,7 @@ public class AttackButton : MonoBehaviour
 
     private void Start()
     {
-        missonA = GameObject.Find("MissonA").GetComponent<MissonA>();
+        missonA = GameObject.Find("AData").GetComponent<MissonA>();
         StartCoroutine(Auto());
     }
     IEnumerator Auto()  //자동 클릭
@@ -97,6 +97,7 @@ public class AttackButton : MonoBehaviour
     }
     private void skill()        //기본 모션 한방한방에
     {
+        //데이터의 호출이 필요할듯
         if(inven.slots[count].type.Equals("Power"))
         {
             n_power += n_power * inven.slots[count].additionalD;
@@ -119,6 +120,7 @@ public class AttackButton : MonoBehaviour
     }
     private void skillTurn()        //마지막모션에 추가
     {
+        //데이터의 호출이 필요할듯
         if (inven.slots[0].index == 1 && inven.slots[1].index == 2 && inven.slots[2].index == 3)    //못줄이나...?
         {
             n_power += n_power * 3;

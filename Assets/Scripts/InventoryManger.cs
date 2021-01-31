@@ -11,7 +11,10 @@ public class InventoryManger : MonoBehaviour
     public GameObject Panel;    //Panel의 setactive를 사용하기 위함
 
     //로드
-    public ItemAddButton itemAddButton;
+    ItemAddButton itemAddButton;
+    int num;
+
+
     public void Start()
     {
         Panel.SetActive(true);  //Panel이 활성화 되어 있지 않으면 item창이 생성되지 않아서 켰다가 끄게 만들었다.
@@ -30,9 +33,33 @@ public class InventoryManger : MonoBehaviour
             slots.Add(slot);
         }
         Panel.SetActive(false);
-        ////로드
-        DataManager.Instance.LoadSlot();
-        //itemAddButton.test();
+    }
+    public void Load()  //데이터의 로드
+    {
+        DataManager.Instance.LoadSlot();    //호출
+        for (int i = 0; i < 3; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    num = DataManager.Instance.slotSave.index_1;
+                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+                    itemAddButton.Add();
+                    break;
+                case 1:
+                    num = DataManager.Instance.slotSave.index_2;
+                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+                    itemAddButton.Add();
+                    break;
+                case 2:
+                    num = DataManager.Instance.slotSave.index_3;
+                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
+                    itemAddButton.Add();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
 

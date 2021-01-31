@@ -30,6 +30,9 @@ public class UIManager : MonoBehaviour
     private ScrollRect scrollRect;
     private RectTransform content;
 
+    //로드
+    InventoryManger inventoryManger;
+
     private void Start()
     {
         currentTime = 10f;
@@ -39,6 +42,9 @@ public class UIManager : MonoBehaviour
         //고정관련
         scrollRect = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         content = GameObject.Find("Content").GetComponent<RectTransform>();
+
+        //데이터 로드
+        inventoryManger = GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
 
         StartCoroutine(PowerOnOff());
     }
@@ -139,6 +145,7 @@ public class UIManager : MonoBehaviour
         MissonP.SetActive(false);
         scrollRect.enabled = false; //스크롤 비활성화
         content.anchoredPosition = new Vector2(0, -100);    //초기로 고정해버림
+        inventoryManger.Load();
     }
     public void SwitchMisson()    //선택하면 Active를 비/활성화 (Misson창)
     {
