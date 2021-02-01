@@ -1827,4 +1827,10 @@ ___
 > **<h3>Today Dev Story</h3>** 
   - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지,저장 2자리수 
 > **<h3>Realization</h3>**
-  - null
+  - OnTriggerEnter, OncollisionEnter 2가지로 충돌이 구분
+    - OnCollisionEnter (일반 충돌)
+      - 일반적인 콜라이더를 가진 두 게임 오브젝트가 충돌할때 실행
+      - 충돌시 서로 밀어냄
+    - OnTriggerEnter (트리커 충돌)
+      - 두 오브젝트 중 하나가 트리거 콜라이더라면 실행
+      - 충돌시 그냥 통과     
