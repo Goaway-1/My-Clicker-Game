@@ -1393,6 +1393,7 @@ ___
     - 기존 get,set은 사용하고 그 안에 json을 사용
     - 이제 접근자 프로퍼티는 수단이 된다.
     - 초기에 json 파일이 없을때 오류가 생긴다. 즉 로딩화면을 구현해서 만들어지면 메인화면을 실행하도록 해야겠다. <ins>(추후 수정)</ins> 
+    - ### 데이터의-저장-2자리로-수정(21.2.3)
     ```c#
     public float power  //힘
     {
@@ -1407,7 +1408,7 @@ ___
       }
       set
       {
-        playerData.power = value;
+        playerData.power = (float)System.Math.Round(value, 2); //데이터의-저장-2자리로-수정(21.2.3)
         Save();
       }
     }
@@ -1825,7 +1826,7 @@ ___
 ___
 ## __2.01__
 > **<h3>Today Dev Story</h3>** 
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지,저장 2자리수 
+  - null
 > **<h3>Realization</h3>**
   - OnTriggerEnter, OncollisionEnter 2가지로 충돌이 구분
     - OnCollisionEnter (일반 충돌)
@@ -1834,3 +1835,49 @@ ___
     - OnTriggerEnter (트리커 충돌)
       - 두 오브젝트 중 하나가 트리거 콜라이더라면 실행
       - 충돌시 그냥 통과     
+___
+## __2.02__
+> **<h3>Today Dev Story</h3>** 
+  - null
+> **<h3>Realization</h3>**
+  - null 
+___
+## __2.03__
+> **<h3>Today Dev Story</h3>** 
+  - 플레이 시 Combo창이 활성화 되야만 액션 존재
+    - 메뉴의 전체를 시작시 1회 비/활성화를 진행
+    ```c#
+    //UIManager.cs 
+    StartCoroutine(PowerOnoff()); //start에 존재
+    ///////
+    IEnumerator PowerOnOff()
+    {
+      //켜기
+      UpgradeP.SetActive(true);
+      MasterP.SetActive(true);
+      ComboP.SetActive(true);
+      MissonP.SetActive(true);
+      inventoryManger.Load();
+      yield return new WaitForSeconds(0.5f);
+      //끄기
+      MasterP.SetActive(false);
+      ComboP.SetActive(false);
+      MissonP.SetActive(false);
+    }
+    ``` 
+  - [데이터들의 저장을 2자리수로 변환](#데이터의-저장-2자리로-수정(21.2.3))
+    
+    <img src="Capture/After/DataPoint.png" height=300> 
+    
+    - float형 모두
+    - 그러나 적용이 될때가 있고 안될때가 있다. 
+> **<h3>Realization</h3>**
+  - Profiler
+    - Window - Analysis - Profiler
+    - 성능을 알려준다.
+___
+## __2.04__
+> **<h3>Today Dev Story</h3>** 
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지
+> **<h3>Realization</h3>**
+  - null

@@ -40,7 +40,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.subHp = value;
+            playerData.subHp = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -57,7 +57,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.fixHp = value;
+            playerData.fixHp = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -70,7 +70,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.Hp = value;
+            playerData.Hp = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -88,7 +88,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.power = value;
+            playerData.power = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -157,7 +157,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.criticalPer = value;
+            playerData.criticalPer = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -171,7 +171,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
         }
         set
         {
-            playerData.criticalPow = value;
+            playerData.criticalPow = (float)System.Math.Round(value, 2);
             Save();
         }
     }
@@ -321,7 +321,7 @@ public class DataManager : MonoBehaviour //²ø¾î´Ù ¾²´Â ´À³¦
     {
         playerDataCost.P_cost = powerButton.currentCost;
         playerDataCost.P_level = powerButton.level;
-        playerDataCost.P_cost_pow = powerButton.costPow;
+        playerDataCost.P_cost_pow = (float)System.Math.Round(powerButton.costPow,2);
         SaveCost();
     }
     //ÆÄ¿ö°ü·Ã @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

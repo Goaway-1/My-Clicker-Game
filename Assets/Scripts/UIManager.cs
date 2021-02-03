@@ -163,6 +163,7 @@ public class UIManager : MonoBehaviour
         MasterP.SetActive(true);
         ComboP.SetActive(true);
         MissonP.SetActive(true);
+        inventoryManger.Load();
         yield return new WaitForSeconds(0.5f);
         //²ô±â
         MasterP.SetActive(false);
