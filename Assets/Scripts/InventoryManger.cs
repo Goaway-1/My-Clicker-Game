@@ -79,6 +79,7 @@ public class SlotData
 public class SlotSave
 {
     public int index_1;
+
     public int index_2;
     public int index_3;
 }

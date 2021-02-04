@@ -6,6 +6,7 @@ using System.IO;    //file사용 위함
 
 public class UIManager : MonoBehaviour
 {
+    public Text stageDisplay;
     public Text goldDisplay;
 
     //timer
@@ -38,7 +39,7 @@ public class UIManager : MonoBehaviour
         currentTime = 10f;
         Slider.SetActive(false);
         timeSlider.value = currentTime / MaxTime;
-        
+
         //고정관련
         scrollRect = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         content = GameObject.Find("Content").GetComponent<RectTransform>();
@@ -46,20 +47,25 @@ public class UIManager : MonoBehaviour
         //데이터 로드
         inventoryManger = GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
 
-        StartCoroutine(PowerOnOff());
+        PowerOnOff();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        GoldStageDisplay();
+        StageDisplay();
+        GoldDisplay();
     }
 
-    public void GoldStageDisplay() //골드와 stage를 화면 상에 출력한다.
+    public void StageDisplay() //골드와 stage를 화면 상에 출력한다.
     {
-        goldDisplay.text = "Gold : " + DataManager.Instance.gold + "\tStage : " + DataManager.Instance.stage;
+        stageDisplay.text = "\tStage : " + DataManager.Instance.stage;
         currentDisplay.text = (int)currentTime + "초";
     }
-    
+    public void GoldDisplay() //골드와 stage를 화면 상에 출력한다.
+    {
+        goldDisplay.text = "Gold\n" + DataManager.Instance.gold;
+    }
+
     public void DecreaseTime()  //보스 생성시 시간 감소
     {
         Slider.SetActive(true);
@@ -156,19 +162,15 @@ public class UIManager : MonoBehaviour
         scrollRect.enabled = true; //스크롤 활성화
     }
 
-    IEnumerator PowerOnOff()
+    void PowerOnOff()
     {
         //켜기
-        UpgradeP.SetActive(true);
-        MasterP.SetActive(true);
-        ComboP.SetActive(true);
-        MissonP.SetActive(true);
-        inventoryManger.Load();
-        yield return new WaitForSeconds(0.5f);
+        SwitchUpgrade();
+        SwitchMaster();
+        SwitchCombo();
+        SwitchMisson();
         //끄기
-        MasterP.SetActive(false);
-        ComboP.SetActive(false);
-        MissonP.SetActive(false);
+        SwitchUpgrade();
     }
     /// <summary>
     /// Menu의 전환

@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AutoClickButton : Buttons
 {
+    [SerializeField]
+    private Text mainDisplay;
+
     private void Start()
     {
         upgradeName = "Auto";
@@ -28,7 +32,7 @@ public class AutoClickButton : Buttons
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateUI();
     }
@@ -54,6 +58,7 @@ public class AutoClickButton : Buttons
     public override void UpdateUI()
     {
         upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nAutoClick : " + DataManager.Instance.AutoC + "\nCost" + currentCost;
+        mainDisplay.text = "Atuo\n" + DataManager.Instance.AutoC;
 
         slider.minValue = 0;
         slider.maxValue = currentCost;

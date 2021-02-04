@@ -1,12 +1,12 @@
 {
     "subHp": 0.0,
-    "fixHp": 30.0,
-    "Hp": 106.22000122070313,
-    "power": 10.0,
-    "AutoC": 0.0,
-    "gold": 9999941,
+    "fixHp": 20.0,
+    "Hp": 46.88999938964844,
+    "power": 1.600000023841858,
+    "AutoC": 2.950000047683716,
+    "gold": 2,
     "goldPerTake": 0,
     "criticalPer": 0.0,
     "criticalPow": 0.0,
-    "stage": 6
+    "stage": 4
 }

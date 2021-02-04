@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PowerButton : Buttons
 {
+    [SerializeField]
+    private Text mainDisplay;
+
     private void Start()
     {
         upgradeName = "Power";
@@ -62,6 +65,7 @@ public class PowerButton : Buttons
     public override void UpdateUI()
     {
         upgradeDisplay.text = upgradeName + "\nLevel : " + level + "\nPower : " + DataManager.Instance.power + "\nCost" + currentCost;
+        mainDisplay.text = "Power\n" + DataManager.Instance.power;
 
         slider.minValue = 0;
         slider.maxValue = currentCost;

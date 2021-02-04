@@ -1845,24 +1845,22 @@ ___
 ## __2.03__
 > **<h3>Today Dev Story</h3>** 
   - 플레이 시 Combo창이 활성화 되야만 액션 존재
-    - 메뉴의 전체를 시작시 1회 비/활성화를 진행
+    - 메뉴의 전체를 시작시 1회 비/활성화를 진행 
+    - ### Coroutline-수정(2.4일-수정)
+      - <span style = "color:yellow;">코루틴 진행 시 성능저하 발생</span>, 일반 메서드로 진행  
     ```c#
     //UIManager.cs 
-    StartCoroutine(PowerOnoff()); //start에 존재
+    PowerOnoff(); //start에 존재
     ///////
-    IEnumerator PowerOnOff()
+    void PowerOnOff()
     {
       //켜기
-      UpgradeP.SetActive(true);
-      MasterP.SetActive(true);
-      ComboP.SetActive(true);
-      MissonP.SetActive(true);
-      inventoryManger.Load();
-      yield return new WaitForSeconds(0.5f);
+      SwitchUpgrade();
+      SwitchMaster();
+      SwitchCombo();
+      SwitchMisson();
       //끄기
-      MasterP.SetActive(false);
-      ComboP.SetActive(false);
-      MissonP.SetActive(false);
+      SwitchUpgrade();
     }
     ``` 
   - [데이터들의 저장을 2자리수로 변환](#데이터의-저장-2자리로-수정(21.2.3))
@@ -1878,6 +1876,39 @@ ___
 ___
 ## __2.04__
 > **<h3>Today Dev Story</h3>** 
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링,공격 system, GUI 개선, 사운드,이미지
+  - [Combo창활성화 수정](#Coroutline-수정(2.4일-수정))
+    - 코루틴은 성능 저하 촉구 (일반 메서드 사용)
+    <img src="Capture/After/Profiler.gif" height = 200> 
+  - GUI수정
+   
+    <img src="Capture/After/UIupdate2_4.gif" height = 350>  
+  - 카메라를 통한 화면 고정
+    - 레터박스 사용 (비율외의 곳은 검은색으로 채움)  
+    ```c#
+    private void Awake()
+    {
+      Camera camera = gameObject.GetComponent<Camera>();
+      Rect rect = camera.rect;
+      float scaleheight = ((float)Screen.width / Screen.height) / ((float)9 / 16);    //내 스마트폰의 기록을 가져온다.
+      float scalewidth = 1f / scaleheight;
+      if( scaleheight < 1)    //상하로 긴 경우
+      {
+        rect.height = scaleheight;
+        rect.y = (1f - scaleheight) / 2f;
+      }
+      else        //좌우로 긴 경우
+      {
+        rect.width = scalewidth;
+        rect.x = (1f - scalewidth) / 2f;
+      }
+      camera.rect = rect;
+    }
+    ``` 
 > **<h3>Realization</h3>**
   - null
+___
+## __2.05__
+> **<h3>Today Dec Story</h3>**
+  - 
+> **<h3>Today Dec Story</h3>**
+  -
