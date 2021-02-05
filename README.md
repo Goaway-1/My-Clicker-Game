@@ -1292,6 +1292,7 @@ ___
       public string type;         //power인지 critical인지 추가
     }
     ``` 
+    - ### 스킬-발동-수정
     ```c#
     private void sumPower()    //Power 계산하는법
     {
@@ -1909,6 +1910,20 @@ ___
 ___
 ## __2.05__
 > **<h3>Today Dec Story</h3>**
-  - 
+  - 안드로이드로 구동 테스트 결과 심한 지연 발생
+    - Json의 저장파일 오류일 가능성
+    - 안드로이드의 Json 공부 예정
+  - 때릴때마다 돈이 나오게 할까?
+  - [스킬 변화](#스킬-발동-수정)
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장,사운드,이미지, 부활
 > **<h3>Today Dec Story</h3>**
-  -
+  - [내일 들을 것_안드로이드_Json](https://www.youtube.com/watch?v=z-eBBEw8gbw&t=601s)  
+
+Combo
+|Skill|Index|Increased Type|Additional ID|Upgrade Additional|5|
+|---|---|---|---|---|---|---|
+|item1(Outline Punch)|1|Power|0|+1|5|
+|item2(Kick)|2|Power|0|+1|5|
+|item3(Strite Punch)|3|Critical|0|+0.2%|5|
+|item4|4|BossTime|0|+0.1|5|
+|item5|5|Money|0|+0.1%|5|

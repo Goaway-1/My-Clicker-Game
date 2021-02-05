@@ -97,25 +97,30 @@ public class AttackButton : MonoBehaviour
     }
     private void skill()        //기본 모션 한방한방에
     {
-        //데이터의 호출이 필요할듯
-        if(inven.slots[count].type.Equals("Power"))
+        switch (inven.slots[count].type)
         {
-            n_power += n_power * inven.slots[count].additionalD;
-            Debug.Log("추가 공격력");
-        }
-        else if(inven.slots[count].type.Equals("Critical"))
-        {
-            //if (strikePer >= rand)  //크리티컬 공격
-            //{
-            //    n_power *= strikePow;  //대안생각하기
-            //}
-            //n_power *= strikePow;  
-            n_power *= 3;  
-            Debug.Log("추가 크리티컬");
-        }
-        else if (inven.slots[count].type.Equals("Money"))
-        {
-            //dropMoney에 추가적요소 추가
+            case "Power":
+                n_power += n_power * inven.slots[count].additionalD;
+                Debug.Log("추가 공격력");
+                break;
+            case "Critical":
+                if (strikePer >= rand)  //크리티컬 공격
+                {
+                    n_power *= strikePow;  //대안생각하기
+                }
+                n_power *= strikePow;
+                Debug.Log("추가 크리티컬");
+                break;
+            case "Moeny":
+                //dropMoney에 추가적요소 추가
+                Debug.Log("추가 돈");
+                break;
+            case "BossTime":
+                //BossTime에 추가적요소 추가
+                Debug.Log("추가 보스타임");
+                break;
+            default:
+                break;
         }
     }
     private void skillTurn()        //마지막모션에 추가
