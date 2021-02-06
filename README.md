@@ -322,7 +322,9 @@ ___
    - #### 보스-돈-수정
    - #### 골드 증가 수정(10stage마다)
  - 타이머할때만 slider.setative 활성화
+
 <img src= "Capture/BossTimer.gif" width="350">
+
 ```c#
 //UIManager 내부
 public void DecreaseTime()  //시간 감소
@@ -358,9 +360,12 @@ public void bossNotDead()   //보스가 죽지 않았을때의 판전
     Destroy(this.gameObject);
 }
 ```
- - ### 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
- - ### 동시에 오브젝트 풀링을 사용해서 최적화
+  - 공격시 데미지를 텍스트로 띄우기 위해서 text를 사용하려 했으나 기존 text는 panel위에서 사용해야하기 때문에 3D에 있는 3D Text를 사용 
+  - 동시에 오브젝트 풀링을 사용해서 최적화
+  - ### Effect-위치수정
+
 <img src = "Capture/ObjectPooling.gif" width="350">
+
 ```c#
   ///ObjectPooling 기획
   public static ObjectPoolingManager instance;
@@ -371,18 +376,18 @@ public void bossNotDead()   //보스가 죽지 않았을때의 판전
   void Start()
   {
     instance = this;
-
-    for (int i = 0; i < 100; i++)
+    GameObject effectpos = GameObject.Find("EffectManager");
+    for (int i = 0; i < 30; i++)    //추후 개수 수정
     {
-      GameObject t_object = Instantiate(m_goPrefab, Vector3.zero, Quaternion.identity);   //프리펩을 게임내의 객체로 생성한뒤 큐에 저장
-      m_queue.Enqueue(t_object);
-      t_object.SetActive(false);
+      GameObject D_object = Instantiate(D_goPrefab, effectpos.transform, false);   //프리펩을 게임내의 객체로 생성한뒤 큐에 저장
+      D_queue.Enqueue(D_object);
+      D_object.SetActive(false);
     }
   }
 
   public void InsertQueue(GameObject p_object) //사용한 객체를 풀에 반납하는 함수
   {
-    m_queue.Enqueue(p_object);
+    D_queue.Enqueue(p_object);
     p_object.SetActive(false);
   }
 
@@ -1292,7 +1297,7 @@ ___
       public string type;         //power인지 critical인지 추가
     }
     ``` 
-    - ### 스킬-발동-수정
+    - ### 스킬-발동-수정(2.5)
     ```c#
     private void sumPower()    //Power 계산하는법
     {
@@ -1312,25 +1317,30 @@ ___
     }
     private void skill()        //기본 모션 한방한방에
     {
-      //치명타와 공격력과 구분 -> 이름으로?
-      if(inven.slots[count].type.Equals("Power"))
+      switch (inven.slots[count].type)
       {
-        n_power += n_power * inven.slots[count].additionalD;
-        Debug.Log("추가 공격력");
-      }
-      else if(inven.slots[count].type.Equals("Critical"))
-      {
-        //if (strikePer >= rand)  //크리티컬 공격
-        //{
-        //    n_power *= strikePow;  //대안생각하기
-        //}
-        //n_power *= strikePow;  
-        n_power *= 3;  
-        Debug.Log("추가 크리티컬");
-      }
-      else if (inven.slots[count].type.Equals("Money"))
-      {
-        //dropMoney에 추가적요소 추가
+        case "Power":
+          n_power += n_power * inven.slots[count].additionalD;
+          Debug.Log("추가 공격력 : " + n_power);
+          break;
+        case "Critical":
+          if (strikePer >= rand)  //크리티컬 공격
+          {
+            n_power *= 2;  //대안생각하기
+            Debug.Log("추가 크리티컬 : " + n_power);
+          }
+          Debug.Log("추가 크리티컬이나 일반 공격");
+          break;
+        case "Gold":
+          DataManager.Instance.gold += (int)inven.slots[count].additionalD;
+          Debug.Log("추가 돈");
+          break;
+        case "BossTime":
+          //BossTime에 추가적요소 추가
+          Debug.Log("추가 보스타임");
+          break;
+        default:
+          break;
       }
     }
     private void skillTurn()        //마지막모션에 추가
@@ -1914,16 +1924,28 @@ ___
     - Json의 저장파일 오류일 가능성
     - 안드로이드의 Json 공부 예정
   - 때릴때마다 돈이 나오게 할까?
-  - [스킬 변화](#스킬-발동-수정)
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장,사운드,이미지, 부활
+  - [스킬 변화](#스킬-발동-수정(2.5))
 > **<h3>Today Dec Story</h3>**
   - [내일 들을 것_안드로이드_Json](https://www.youtube.com/watch?v=z-eBBEw8gbw&t=601s)  
+___
+## __2.06__
+> **<h3>Today Dec Story</h3>**
+  - 일반 평타에 대한 설정값 변경 [어제자와 동일](#스킬-발동-수정(2.5))
+  - [Effect의 생성 위치 변경 (EffectManager의 위치로 설정)](#Effect-위치수정)
+    - 보기좋게 변경
+<img src="Capture/After/NewEffect.gif" height=350>
+
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장,사운드,이미지, 부활
+> **<h3>Today Dec Story</h3>**
+  - 
 
 Combo
+
+
 |Skill|Index|Increased Type|Additional ID|Upgrade Additional|5|
 |---|---|---|---|---|---|---|
 |item1(Outline Punch)|1|Power|0|+1|5|
 |item2(Kick)|2|Power|0|+1|5|
 |item3(Strite Punch)|3|Critical|0|+0.2%|5|
 |item4|4|BossTime|0|+0.1|5|
-|item5|5|Money|0|+0.1%|5|
+|item5|5|Gold|0|+0.1%|5|

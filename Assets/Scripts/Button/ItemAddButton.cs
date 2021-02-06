@@ -10,6 +10,7 @@ public class ItemAddButton : MonoBehaviour
     public float i_additionalD;     //설정할 추가 데미지 값
     public int i_index;             //설정한 고유 index값
     public string i_type;           //설정할 추가 관여 값(power,critical,money....)
+    public int i_level;           //업글할 레벨값
 
     //디스플레이
     public Text display;
@@ -30,7 +31,8 @@ public class ItemAddButton : MonoBehaviour
                 inven.slots[i].additionalD = i_additionalD; 
                 inven.slots[i].index = i_index;
                 inven.slots[i].type = i_type;
-                switch (i)  //데이터의 저장
+                inven.slots[i].level = i_level;
+                switch (i)  //데이터의 저장   --> 추가
                 {
                     case 0:
                         DataManager.Instance.slotSave.index_1 = i_index;

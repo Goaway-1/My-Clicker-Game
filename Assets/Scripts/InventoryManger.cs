@@ -14,10 +14,8 @@ public class InventoryManger : MonoBehaviour
     ItemAddButton itemAddButton;
     int num;
 
-
     public void Start()
     {
-        Panel.SetActive(true);  //Panel이 활성화 되어 있지 않으면 item창이 생성되지 않아서 켰다가 끄게 만들었다.
         GameObject slotPanel = GameObject.Find("Slot_Panel");
         for (int i = 0; i < maxSlot; i++)
         {
@@ -65,7 +63,7 @@ public class InventoryManger : MonoBehaviour
 
 
 [System.Serializable]
-public class SlotData
+public class SlotData   //저장은 안했네...?
 {
     public bool isEmpty;
     public int index;           //고유 인덱스 값
@@ -79,6 +77,9 @@ public class SlotData
 public class SlotSave
 {
     public int index_1;
+    public float additionalD1;
+    public string type1;
+    public int level1;
 
     public int index_2;
     public int index_3;

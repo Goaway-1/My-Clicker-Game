@@ -46,7 +46,7 @@ public class AttackButton : MonoBehaviour
         {
             n_power = DataManager.Instance.power;
             strikePer = DataManager.Instance.criticalPer;
-            strikePow = DataManager.Instance.criticalPow;
+            strikePow = DataManager.Instance.criticalPow;   //삭제 예정 (어차피 무조건 2배로 할거라서)
 
             //랜덤값을 정하는중
             num1 = Random.Range(0, 100);    //정수 ->(int형 쓸까?)
@@ -101,18 +101,18 @@ public class AttackButton : MonoBehaviour
         {
             case "Power":
                 n_power += n_power * inven.slots[count].additionalD;
-                Debug.Log("추가 공격력");
+                Debug.Log("추가 공격력 : " + n_power);
                 break;
             case "Critical":
                 if (strikePer >= rand)  //크리티컬 공격
                 {
-                    n_power *= strikePow;  //대안생각하기
+                    n_power *= 2;  //대안생각하기
+                    Debug.Log("추가 크리티컬 : " + n_power);
                 }
-                n_power *= strikePow;
-                Debug.Log("추가 크리티컬");
+                Debug.Log("추가 크리티컬이나 일반 공격");
                 break;
-            case "Moeny":
-                //dropMoney에 추가적요소 추가
+            case "Gold":
+                DataManager.Instance.gold += (int)inven.slots[count].additionalD;
                 Debug.Log("추가 돈");
                 break;
             case "BossTime":

@@ -2886,6 +2886,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 1
   i_type: Power
+  i_level: 0
   display: {fileID: 1070245946}
 --- !u!114 &565208862
 MonoBehaviour:
@@ -5242,6 +5243,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 3
   i_type: Critical
+  i_level: 0
   display: {fileID: 1643918434}
 --- !u!114 &949799529
 MonoBehaviour:
@@ -5337,6 +5339,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949799526}
   m_CullTransparentMesh: 1
+--- !u!1 &967001209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967001210}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967001210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967001209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978452569
 GameObject:
   m_ObjectHideFlags: 0
@@ -5722,7 +5754,8 @@ MonoBehaviour:
   inven: {fileID: 828456382}
   i_additionalD: 0
   i_index: 5
-  i_type: Money
+  i_type: Gold
+  i_level: 0
   display: {fileID: 1043689805}
 --- !u!114 &1046882855
 MonoBehaviour:
@@ -7697,6 +7730,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 1
   i_type: Power
+  i_level: 0
   display: {fileID: 231452916}
 --- !u!114 &1329851324
 MonoBehaviour:
@@ -8265,6 +8299,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 1
   i_type: Power
+  i_level: 0
   display: {fileID: 1594292751}
 --- !u!114 &1369353583
 MonoBehaviour:
@@ -10194,6 +10229,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 1
   i_type: Power
+  i_level: 0
   display: {fileID: 444634751}
 --- !u!114 &1733407406
 MonoBehaviour:
@@ -10849,6 +10885,9 @@ MonoBehaviour:
     S_isfill: 0
   slotSave:
     index_1: 0
+    additionalD1: 0
+    type1: 
+    level1: 0
     index_2: 0
     index_3: 0
 --- !u!4 &1804046618
@@ -11226,6 +11265,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 4
   i_type: BossTime
+  i_level: 0
   display: {fileID: 844476402}
 --- !u!114 &1846788166
 MonoBehaviour:
@@ -11855,6 +11895,7 @@ MonoBehaviour:
   i_additionalD: 0
   i_index: 2
   i_type: Power
+  i_level: 0
   display: {fileID: 1489612449}
 --- !u!114 &1940461847
 MonoBehaviour:

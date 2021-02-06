@@ -1,11 +1,11 @@
 {
-    "C_cost": 0,
-    "C_level": 0,
-    "C_P_cost": 0,
-    "C_P_level": 0,
+    "C_cost": 5,
+    "C_level": 5,
+    "C_P_cost": 195680,
+    "C_P_level": 37,
     "P_cost": 2,
     "P_cost_pow": 0.20000000298023225,
-    "P_level": 4,
+    "P_level": 6,
     "A_cost": 10,
     "A_level": 1
 }
