@@ -30,7 +30,8 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     public PlayerDataCost playerDataCost;   //비용
     public PlayerMisson playerMisson;    
     public SlotSave slotSave;
-
+    public SlotData slotData;       //추후 배열로 바꿔야 한다.
+    
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
         get
@@ -265,6 +266,21 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         string path = Path.Combine(Application.dataPath, "SlotSave.json");
         string jsonData = File.ReadAllText(path);
         slotSave = JsonUtility.FromJson<SlotSave>(jsonData);
+    }
+
+    [ContextMenu("Etest")]
+    public void SaveCombo()
+    {
+        string jsonData = JsonUtility.ToJson(slotData, true);
+        string path = Path.Combine(Application.dataPath, "ComboSave.json");
+        File.WriteAllText(path, jsonData);
+    }
+    
+    public void LoadCombo()
+    {
+        string path = Path.Combine(Application.dataPath, "ComboSave.json");
+        string jsonData = File.ReadAllText(path);
+        slotData = JsonUtility.FromJson<SlotData>(jsonData);
     }
 
     //json 파일 @@@@@@@@@@@@@@@@@@@@@@@

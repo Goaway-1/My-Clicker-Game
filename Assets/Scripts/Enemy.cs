@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     {
         maxHP = EnemyManager.Instance.defineHp();
         currentHP = maxHP;
-        Debug.Log(maxHP);
+        Debug.Log("HP : " + maxHP);
     }
 
     public void Update()

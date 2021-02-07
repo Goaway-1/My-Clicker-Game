@@ -49,7 +49,7 @@ public class EnemyManager : MonoBehaviour
     {
         startPos = new Vector3(4, 1.7f,-1f); //추후 수정
     }
-    void Update()
+    void FixedUpdate()
     {
         if (isBoss)            //타이머를 실행
         {
@@ -65,7 +65,6 @@ public class EnemyManager : MonoBehaviour
         if (DataManager.Instance.stage % 10 == 0 && isBoss == false)  //10단위 stage라면 보스 출현
         {
             isBoss = true;
-            Debug.Log("@@@@@Boss 출현@@@@@");
         }
         if(DataManager.Instance.stage % 10 == 1)
         {

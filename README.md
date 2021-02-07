@@ -1933,17 +1933,93 @@ ___
   - 일반 평타에 대한 설정값 변경 [어제자와 동일](#스킬-발동-수정(2.5))
   - [Effect의 생성 위치 변경 (EffectManager의 위치로 설정)](#Effect-위치수정)
     - 보기좋게 변경
-<img src="Capture/After/NewEffect.gif" height=350>
 
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장,사운드,이미지, 부활
+      <img src="Capture/After/NewEffect.gif" height=350>
+
 > **<h3>Today Dec Story</h3>**
-  - 
+  - FindObjectsOfType은 배열로 오브젝트를 반환
+    - Find계열의 메서드들은 많은 메모리 소모, 반복문에서 사용하지 않는다.
+  - gameObject.Transform.LookAt() 
+    - Rocation을 전환   
+___
+## __2.07__
+> **<h3>Today Dec Story</h3>**
+  - InventoryManager의 OnEnable에서 __Combo__ 데이터의 로드를 진행, UpdateCost에서 데이터의 저장을 진행 
+    - 데이터가 5가지인데 배열로 하지 못해서 고민중 
+    - <ins>(추후 수정)</ins>
+  - 스킬 BossTime&Gold 증가 구현  
+    - 구체화는 아직
+    - <ins>(추후 수정)</ins>
+    ```c#
+    //UIManager.cs에 isCreasedTime 추가
+    public bool isCreasedTime = false;  //시간 증가 콤보 사용 가능할때 변환
+    ////
+    //AttackButton.cs
+    private void Start()
+    {
+        ...
+        ...
+        ...
+        //skill관련
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+    }
+    private void skill()        //기본 모션 한방한방에
+    {
+      switch (inven.slots[count].type)
+      {
+        case "Power":
+          n_power += n_power * inven.slots[count].additionalD;
+          break;
+        case "Critical":
+          if (strikePer >= rand)  //크리티컬 공격
+          {
+            n_power *= inven.slots[count].additionalD;  //대안생각하기
+          }
+          else
+          {
+            Debug.Log("추가 크리티컬이지만 일반 공격");
+          }
+          break;
+        case "Gold":
+          DataManager.Instance.gold += (int)inven.slots[count].additionalD;
+          break;
+        case "BossTime":
+          if (uiManager.isCreasedTime)
+          {
+            uiManager.currentTime += inven.slots[count].additionalD;
+            //uiManager.currentTime += 1;
+            Debug.Log("추가 보스타임");
+          }
+          break;
+        default:
+          break;
+      }
+    }
+    ``` 
+> **<h3>Today Dec Story</h3>**
+  - EventSystem
+    - UI관련 오브젝트의 터치,드래그 등 상호작용을 전달하는 역할
+    - 수정 및 접근할 필요도 이유도 존재 X 
+  - Json의 배열 저장
+    - JsonUtility.FromJson<JsonTest[]>(jsonData); --> 사용
+      - 해봤으나 적용되지 않음 
+    - [Wrapper 사용](https://debuglog.tistory.com/36) 
+      - 3시간 정도 해봤으나 구현에 어려움을 겪음... 
+    - newtonsoft 사용
+___
+## __2.08__
+> **<h3>Today Dec Story</h3>**
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활
+> **<h3>Today Dec Story</h3>**
+  - null
+
+
+
 
 Combo
 
-
 |Skill|Index|Increased Type|Additional ID|Upgrade Additional|5|
-|---|---|---|---|---|---|---|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |item1(Outline Punch)|1|Power|0|+1|5|
 |item2(Kick)|2|Power|0|+1|5|
 |item3(Strite Punch)|3|Critical|0|+0.2%|5|

@@ -52,9 +52,12 @@ public class ItemAddButton : MonoBehaviour
         }
     }
 
-    public void UpdateCost()
+    public void UpdateCost()    //¼öÁ¤
     {
         inven.slots[i_index].additionalD = ++i_additionalD;
+        DataManager.Instance.slotData.additionalD++;
+        DataManager.Instance.slotData.level++;
+        DataManager.Instance.SaveCombo();
     }
 
     public void UpdateUI()

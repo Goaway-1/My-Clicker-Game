@@ -12,9 +12,10 @@ public class UIManager : MonoBehaviour
     //timer
     public Slider timeSlider;
     public GameObject Slider;
-    private float currentTime = 10f;  //시작시간
+    public float currentTime = 10f;  //시작시간
     const float MaxTime = 10f;      //최대시간(변경 X) -->static으로 선언된다.
     public Text currentDisplay;    //화면에 보여질 시간
+    public bool isCreasedTime = false;  //시간 증가 콤보 가능한가요?
 
     //Menu
     public Animator M_Ani;
@@ -56,12 +57,12 @@ public class UIManager : MonoBehaviour
         GoldDisplay();
     }
 
-    public void StageDisplay() //골드와 stage를 화면 상에 출력한다.
+    public void StageDisplay() //stage를 화면 상에 출력한다.
     {
         stageDisplay.text = "\tStage : " + DataManager.Instance.stage;
         currentDisplay.text = (int)currentTime + "초";
     }
-    public void GoldDisplay() //골드와 stage를 화면 상에 출력한다.
+    public void GoldDisplay() //골드를 화면 상에 출력한다.
     {
         goldDisplay.text = "Gold\n" + DataManager.Instance.gold;
     }
@@ -69,6 +70,7 @@ public class UIManager : MonoBehaviour
     public void DecreaseTime()  //보스 생성시 시간 감소
     {
         Slider.SetActive(true);
+        isCreasedTime = true; 
         StartCoroutine(wait());
     }
     IEnumerator wait()   //시간 감소를 위한 대기시간을 위해 만듦
@@ -91,6 +93,7 @@ public class UIManager : MonoBehaviour
         }
         Slider.SetActive(false);
         currentTime = 10f;  //다시 초기화 해준다.
+        isCreasedTime = false;
     }
 
     public void ShowMenu() //메뉴의 생성 및 소멸관리

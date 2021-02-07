@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class AttackButton : MonoBehaviour
 {
     public PlayerAnimation playerAnimation;
@@ -26,10 +25,16 @@ public class AttackButton : MonoBehaviour
     //Misson 관련
     MissonA missonA;
 
+    //BossTime 증가 관련
+    UIManager uiManager;
+
     private void Start()
     {
         missonA = GameObject.Find("AData").GetComponent<MissonA>();
         StartCoroutine(Auto());
+
+        //skill관련
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
     IEnumerator Auto()  //자동 클릭
     {
@@ -101,23 +106,30 @@ public class AttackButton : MonoBehaviour
         {
             case "Power":
                 n_power += n_power * inven.slots[count].additionalD;
-                Debug.Log("추가 공격력 : " + n_power);
+                //Debug.Log("추가 공격력 : " + n_power);
                 break;
             case "Critical":
                 if (strikePer >= rand)  //크리티컬 공격
                 {
-                    n_power *= 2;  //대안생각하기
-                    Debug.Log("추가 크리티컬 : " + n_power);
+                    n_power *= inven.slots[count].additionalD;  //대안생각하기
+                    //Debug.Log("추가 크리티컬 : " + n_power);
                 }
-                Debug.Log("추가 크리티컬이나 일반 공격");
+                else
+                {
+                    //Debug.Log("추가 크리티컬이지만 일반 공격");
+                }
                 break;
             case "Gold":
                 DataManager.Instance.gold += (int)inven.slots[count].additionalD;
-                Debug.Log("추가 돈");
+                //Debug.Log("추가 골드" + inven.slots[count].additionalD);
                 break;
             case "BossTime":
-                //BossTime에 추가적요소 추가
-                Debug.Log("추가 보스타임");
+                if (uiManager.isCreasedTime)
+                {
+                    uiManager.currentTime += inven.slots[count].additionalD;
+                    //uiManager.currentTime += 1;
+                    Debug.Log("추가 보스타임");
+                }
                 break;
             default:
                 break;

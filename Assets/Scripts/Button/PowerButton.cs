@@ -36,10 +36,10 @@ public class PowerButton : Buttons
     {
         UpdateUI();
     }
-
+    
     public override void PurchaseUpgrade()
     {
-        //if±¸¹®->µ·»©°í(ÀÚµ¿ÀúÀå)
+        //if±¸¹® -> µ·»©°í(ÀÚµ¿ÀúÀå)
         if (DataManager.Instance.gold >= currentCost)
         {
             isPurchased = true;
@@ -58,6 +58,7 @@ public class PowerButton : Buttons
             DataManager.Instance.SavePowerButton(this);
         }
     }
+
     public override void UpdateItem()
     {
         currentCost += 1;

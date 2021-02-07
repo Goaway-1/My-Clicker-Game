@@ -12,7 +12,21 @@ public class InventoryManger : MonoBehaviour
 
     //로드
     ItemAddButton itemAddButton;
-    int num;
+    private int num;
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            ItemAddButton aa = GameObject.Find("Add_item" + i).GetComponent<ItemAddButton>();
+            //json로드 ---> 순서에 따라 저장해야되는뎅.... --> 새로운 저장 파일을 만들까?
+            DataManager.Instance.LoadCombo();
+            aa.i_additionalD = DataManager.Instance.slotData.additionalD;
+            aa.i_index = DataManager.Instance.slotData.index;  //굳이?
+            aa.i_type = DataManager.Instance.slotData.type;    //굳이?
+            aa.i_level = DataManager.Instance.slotData.level;
+        }
+    }
 
     public void Start()
     {
