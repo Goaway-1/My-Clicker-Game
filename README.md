@@ -2011,17 +2011,26 @@ ___
 > **<h3>Today Dec Story</h3>**
   - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활
 > **<h3>Today Dec Story</h3>**
-  - null
-
+  - 텍스트가 잘보이기 위해서 그림자 효과를 추가한다.
+    - Add Component > UI > Effects > Shadow
+  - 씬 로드
+    - SceneManager.LoadScence("씬이름");  
+  - 벡터 정규화(방향 벡터)
+    - Vector2(3,3)은 방향과 크기가 포함됌, Normalized Vector를 사용하면 방향(1)과 크기를 분리
+    - Vector3.normalized
+    - <span style = "color:yellow;">목적지 - 현재 위치 = 목적지까지 방향과 거리</span>
+  - 내적을 사용하면 두 물체 사이의 각도를 알 수 있다.
+  - 외적을 사용하면 표면에 수직인 방향을 알 수 있습니다. (노말벡터)
+  - 벡터의 길이 ()
 
 
 
 Combo
 
-|Skill|Index|Increased Type|Additional ID|Upgrade Additional|5|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|item1(Outline Punch)|1|Power|0|+1|5|
-|item2(Kick)|2|Power|0|+1|5|
-|item3(Strite Punch)|3|Critical|0|+0.2%|5|
-|item4|4|BossTime|0|+0.1|5|
-|item5|5|Gold|0|+0.1%|5|
+|Skill|Index|Increased Type|Additional|Upgrade Additional|StartCost|UpgradeCost||
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|item1(Outline Punch)|1|Power|0|+1|5|pow||
+|item2(Kick)|2|Power|0|+1.25|7|||
+|item3(Strite Punch)|3|Critical|0|+0.2%|5|||
+|item4|4|BossTime|0|+0.1|5|||
+|item5|5|Gold|0|+0.1%|5|||
