@@ -271,46 +271,80 @@ public class MoveBackground : MonoBehaviour
 > 결과
 <img src="Capture/Material_2.gif" heigth="350">
 
+- ### 구름은-항상-움직이게-수정
 ```c#
 [System.Serializable]
 public class BGScrollData
 {
-    public Renderer RenderForScroll;
-    public float Speed;
-    public float OffsetX;
+  public Renderer RenderForScroll;
+  public float Speed;
+  public float OffsetX;
+  public bool Always;   //(2.9일 추가) 구름의 움직임을 위함
 }
 
 public class BGScroller : MonoBehaviour
 {
-    [SerializeField]
-    BGScrollData[] ScrollDatas;
+  [SerializeField]
+  BGScrollData[] ScrollDatas;
 
-    void Update()
+  void Update()
+  {
+    if (EnemyManager.Instance.isMove)  //isMove가 true일때만 배경을 움직인다.
     {
-        updateScroll();
+      updateScroll();
+    }
+    else
+    {
+      currentTime = 0;
     }
 
-    void updateScroll()
+    if (currentTime >= MoveTime && EnemyManager.Instance.isMove)    //일정 시간이 지나면 배경을 정지한다. 
     {
-        for (int i = 0; i < ScrollDatas.Length; i++)
-        {
-            SetTextureOffset(ScrollDatas[i]);
-        }
+      EnemyManager.Instance.isMove = false;
     }
+  }
 
-    void SetTextureOffset(BGScrollData scrollData)
+  void updateScroll()
+  {
+    for (int i = 0; i < ScrollDatas.Length; i++)
     {
-        //값들을 증가 시킨다.
-        scrollData.OffsetX += (float)(scrollData.Speed) * Time.deltaTime;
-        if(scrollData.OffsetX > 1)
-        {
-            scrollData.OffsetX = scrollData.OffsetX % 1.0f;
-        }
-        Vector2 offset = new Vector2(scrollData.OffsetX, 0);
-
-        //텍스쳐 이동
-        scrollData.RenderForScroll.material.SetTextureOffset("_MainTex", offset);
+      if (!ScrollDatas[i].Always) //(2.9일 추가)
+      {
+        SetTextureOffset(ScrollDatas[i]);
+      }
     }
+  }
+
+  void SetTextureOffset(BGScrollData scrollData)
+  {
+    //값들을 증가 시킨다.
+    scrollData.OffsetX += (float)(scrollData.Speed) * Time.deltaTime;
+    if(scrollData.OffsetX > 1)
+    {
+      scrollData.OffsetX = scrollData.OffsetX % 1.0f;
+    }
+    Vector2 offset = new Vector2(scrollData.OffsetX, 0);
+
+    //텍스쳐 이동
+    scrollData.RenderForScroll.material.SetTextureOffset("_MainTex", offset);
+  }
+
+  IEnumerator set(BGScrollData scrollData)    //(2.9일 추가)
+  {
+    while (true)
+    {
+      scrollData.OffsetX += (float)(scrollData.Speed) * Time.deltaTime;
+      if (scrollData.OffsetX > 1)
+      {
+        scrollData.OffsetX = scrollData.OffsetX % 1.0f;
+      }
+      Vector2 offset = new Vector2(scrollData.OffsetX, 0);
+
+      //텍스쳐 이동
+      scrollData.RenderForScroll.material.SetTextureOffset("_MainTex", offset);
+      yield return new WaitForSeconds(0f);
+    }
+  }
 }
 ```
 - 나는 1번안을 통해서 사용했다. (이유 : 이미지의 offsetX값을 수정하기엔 이미지가 이상있어서)
@@ -2009,7 +2043,7 @@ ___
 ___
 ## __2.08__
 > **<h3>Today Dec Story</h3>**
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활
+  - null
 > **<h3>Today Dec Story</h3>**
   - 텍스트가 잘보이기 위해서 그림자 효과를 추가한다.
     - Add Component > UI > Effects > Shadow
@@ -2019,18 +2053,32 @@ ___
     - Vector2(3,3)은 방향과 크기가 포함됌, Normalized Vector를 사용하면 방향(1)과 크기를 분리
     - Vector3.normalized
     - <span style = "color:yellow;">목적지 - 현재 위치 = 목적지까지 방향과 거리</span>
-  - 내적을 사용하면 두 물체 사이의 각도를 알 수 있다.
-  - 외적을 사용하면 표면에 수직인 방향을 알 수 있습니다. (노말벡터)
-  - 벡터의 길이 ()
+  - 내적을 사용하면 두 물체 사이의 각도를 알 수 있다. (Vector3.Dot(a,b))
+  - 외적을 사용하면 표면에 수직인 방향을 알 수 있습니다. (노말벡터) (Vector3.Cross(a,b)) 
+  - 벡터의 길이 (Vector3.magnitude)
+___
+## __2.09__
+> **<h3>Today Dec Story</h3>**
+  - [구름은 항상 움직이도록 BGScroller 수정](#구름은-항상-움직이게-수정)
+  
+    <img src="Capture/After/Cloud.gif" height= 250> 
 
-
+> **<h3>Today Dec Story</h3>**
+  - None
+___
+## __2.10__
+> **<h3>Today Dec Story</h3>**
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
+> **<h3>Today Dec Story</h3>**
+  - None
 
 Combo
 
-|Skill|Index|Increased Type|Additional|Upgrade Additional|StartCost|UpgradeCost||
+|Skill|Index|Increased Type|Additional|Upgrade Additional|StartCost|UpgradeCost|Condition|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|item1(Outline Punch)|1|Power|0|+1|5|pow||
-|item2(Kick)|2|Power|0|+1.25|7|||
-|item3(Strite Punch)|3|Critical|0|+0.2%|5|||
-|item4|4|BossTime|0|+0.1|5|||
-|item5|5|Gold|0|+0.1%|5|||
+|Default|None|None|None|None|None|None|0 Stage|
+|item1(Outline Punch)|1|Power|0|+1|5|pow|10 Stage|
+|item2(Kick)|2|Power|0|+1.25|7|pow|30 Stage|
+|item3(Strite Punch)|3|Critical|0|+0.2%|5|pow|20 Stage|
+|item4|4|BossTime|0|+0.1|5|pow|10 Stage|
+|item5|5|Gold|0|+0.1%|10|pow|50 Stage|

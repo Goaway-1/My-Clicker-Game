@@ -10664,15 +10664,19 @@ MonoBehaviour:
   - RenderForScroll: {fileID: 1091796638}
     Speed: 0.05
     OffsetX: 0
+    Always: 0
   - RenderForScroll: {fileID: 267962183}
     Speed: 0.1
     OffsetX: 0
+    Always: 0
   - RenderForScroll: {fileID: 591391444}
     Speed: 0.08
     OffsetX: 0
+    Always: 1
   - RenderForScroll: {fileID: 551470063}
     Speed: 0.14
     OffsetX: 0
+    Always: 0
 --- !u!1 &1793593332
 GameObject:
   m_ObjectHideFlags: 0
@@ -10890,6 +10894,13 @@ MonoBehaviour:
     level1: 0
     index_2: 0
     index_3: 0
+  slotData:
+    isEmpty: 0
+    index: 0
+    additionalD: 0
+    slotObj: {fileID: 0}
+    type: 
+    level: 0
 --- !u!4 &1804046618
 Transform:
   m_ObjectHideFlags: 0
@@ -12794,7 +12805,9 @@ MonoBehaviour:
   goldDisplay: {fileID: 922688086}
   timeSlider: {fileID: 1365624894}
   Slider: {fileID: 1365624893}
+  currentTime: 10
   currentDisplay: {fileID: 830901351}
+  isCreasedTime: 0
   M_Ani: {fileID: 1736846518}
   M_text: {fileID: 443571627}
   UpgradeP: {fileID: 867040751}
