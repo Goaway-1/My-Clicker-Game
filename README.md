@@ -1760,6 +1760,7 @@ ___
           inven.slots[i].additionalD = i_additionalD; 
           inven.slots[i].index = i_index;
           inven.slots[i].type = i_type;
+          inven.slots[i].cost = i_cost;
           switch (i)  //데이터의 저장
           {
             case 0:
@@ -1890,9 +1891,11 @@ ___
 ## __2.03__
 > **<h3>Today Dev Story</h3>** 
   - 플레이 시 Combo창이 활성화 되야만 액션 존재
-    - 메뉴의 전체를 시작시 1회 비/활성화를 진행 
+    - ~~메뉴의 전체를 시작시 1회 비/활성화를 진행~~ 
     - ### Coroutline-수정(2.4일-수정)
-      - <span style = "color:yellow;">코루틴 진행 시 성능저하 발생</span>, 일반 메서드로 진행  
+      - <span style = "color:yellow;">코루틴 진행 시 성능저하 발생</span>, ~~일반 메서드로 진행~~  
+    - ## 삭제된 메서드
+      - ### InventoryManager에서-진행  
     ```c#
     //UIManager.cs 
     PowerOnoff(); //start에 존재
@@ -2068,9 +2071,67 @@ ___
 ___
 ## __2.10__
 > **<h3>Today Dec Story</h3>**
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
+  - Critical Pow 삭제
+    - Skill 사용 시 Critical이 적용 되기에 기존 Pow는 삭제 (json 또한) 
+  - 초기 Combo 호출 수정 [이전 Combo 호출 방식](#InventoryManager에서-진행)
+    -  Josn 호출과 로드 성공 기존 존재하던 SlotSave 활용
+    ```c#
+    private void OnEnable()
+    {
+      ui = FindObjectOfType<UIManager>();
+      ui.SwitchOn();
+      for (int i = 1; i <= 5; i++)
+      {
+        ItemAddButton skill = GameObject.Find("Add_item" + i).GetComponent<ItemAddButton>();
+            
+        DataManager.Instance.LoadSlot();
+        switch (i)  //사실 배열로 받으면 훨씬 짧다.
+        {
+          case 1:
+            skill.i_additionalD = DataManager.Instance.slotSave.additionalD_1;
+            skill.i_level = DataManager.Instance.slotSave.level_1;
+            kill.i_cost = DataManager.Instance.slotSave.cost_1;
+            break;
+          ...
+          ...
+          ...
+          }
+        }
+      }
+    ```
+    ```c#
+    [System.Serializable]
+    public class SlotSave      
+    {
+      //상단에 들어가는 부분
+      public int index_1;
+      public int index_2;
+      public int index_3;
+
+      //각각 값을 할당해주는곳
+      public float additionalD_1;   //추가 데미지
+      public int level_1;           //그 Slot의 레벨 값
+      public int cost_1;           //그 Slot의 돈
+
+      public float additionalD_2;   //추가 데미지
+      public int level_2;           //그 Slot의 레벨 값
+      public int cost_2;           //그 Slot의 돈
+
+      ...
+      ...
+      ...
+    }
+    ```
+  - 이미지 만듦 
 > **<h3>Today Dec Story</h3>**
   - None
+___
+## __2.11__
+> **<h3>Today Dec Story</h3>**
+- 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
+> **<h3>Today Dec Story</h3>**
+  - None
+
 
 Combo
 

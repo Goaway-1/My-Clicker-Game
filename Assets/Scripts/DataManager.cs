@@ -30,8 +30,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     public PlayerDataCost playerDataCost;   //비용
     public PlayerMisson playerMisson;    
     public SlotSave slotSave;
-    public SlotData slotData;       //추후 배열로 바꿔야 한다.
-    
+
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
         get
@@ -152,7 +151,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
             Load();
             if (playerData.criticalPer == 0)
             {
-                playerData.criticalPer = 0.1f;
+                playerData.criticalPer = 0.3f;
             }
             return playerData.criticalPer;
         }
@@ -267,39 +266,9 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         string jsonData = File.ReadAllText(path);
         slotSave = JsonUtility.FromJson<SlotSave>(jsonData);
     }
-
-    [ContextMenu("Etest")]
-    public void SaveCombo()
-    {
-        string jsonData = JsonUtility.ToJson(slotData, true);
-        string path = Path.Combine(Application.dataPath, "ComboSave.json");
-        File.WriteAllText(path, jsonData);
-    }
-    
-    public void LoadCombo()
-    {
-        string path = Path.Combine(Application.dataPath, "ComboSave.json");
-        string jsonData = File.ReadAllText(path);
-        slotData = JsonUtility.FromJson<SlotData>(jsonData);
-    }
-
     //json 파일 @@@@@@@@@@@@@@@@@@@@@@@
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    public void LoadC_Button(CriticalButton criticalButton) //critical업글 불러오기
-    {
-        LoadCost();
-        criticalButton.currentCost = playerDataCost.C_cost;
-        criticalButton.level = playerDataCost.C_level;
-    }
-
-    public void SaveC_Button(CriticalButton criticalButton) //critical업글 저장하기
-    {
-        playerDataCost.C_cost = criticalButton.currentCost;
-        playerDataCost.C_level = criticalButton.level;
-        SaveCost();
-    }
-
     public void LoadC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 불러오기
     {
         LoadCost();
@@ -389,10 +358,6 @@ public class PlayerData
 [System.Serializable]
 public class PlayerDataCost
 {
-    //크리티컬 pow
-    public int C_cost;
-    public int C_level;
-
     //크리티컬 per
     public int C_P_cost;
     public int C_P_level;

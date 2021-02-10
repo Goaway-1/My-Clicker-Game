@@ -1,8 +1,20 @@
 {
     "index_1": 1,
-    "additionalD1": 0.0,
-    "type1": "",
-    "level1": 0,
-    "index_2": 3,
-    "index_3": 0
+    "index_2": 2,
+    "index_3": 3,
+    "additionalD_1": 8.0,
+    "level_1": 8,
+    "cost_1": 80,
+    "additionalD_2": 16.0,
+    "level_2": 16,
+    "cost_2": 160,
+    "additionalD_3": 3.0,
+    "level_3": 3,
+    "cost_3": 30,
+    "additionalD_4": 2.0,
+    "level_4": 2,
+    "cost_4": 20,
+    "additionalD_5": 1.0,
+    "level_5": 1,
+    "cost_5": 10
 }

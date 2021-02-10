@@ -12,19 +12,48 @@ public class InventoryManger : MonoBehaviour
 
     //로드
     ItemAddButton itemAddButton;
+    UIManager ui;
     private int num;
 
     private void OnEnable()
     {
-        for (int i = 0; i < 5; i++)
+        ui = FindObjectOfType<UIManager>();
+        ui.SwitchOn();
+        for (int i = 1; i <= 5; i++)
         {
-            ItemAddButton aa = GameObject.Find("Add_item" + i).GetComponent<ItemAddButton>();
-            //json로드 ---> 순서에 따라 저장해야되는뎅.... --> 새로운 저장 파일을 만들까?
-            DataManager.Instance.LoadCombo();
-            aa.i_additionalD = DataManager.Instance.slotData.additionalD;
-            aa.i_index = DataManager.Instance.slotData.index;  //굳이?
-            aa.i_type = DataManager.Instance.slotData.type;    //굳이?
-            aa.i_level = DataManager.Instance.slotData.level;
+            ItemAddButton skill = GameObject.Find("Add_item" + i).GetComponent<ItemAddButton>();
+            
+            DataManager.Instance.LoadSlot();
+            switch (i)  //사실 배열로 받으면 훨씬 짧다.
+            {
+                case 1:
+                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_1;
+                    skill.i_level = DataManager.Instance.slotSave.level_1;
+                    skill.i_cost = DataManager.Instance.slotSave.cost_1;
+                    break;
+                case 2:
+                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_2;
+                    skill.i_level = DataManager.Instance.slotSave.level_2;
+                    skill.i_cost = DataManager.Instance.slotSave.cost_2;
+                    break;
+                case 3:
+                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_3;
+                    skill.i_level = DataManager.Instance.slotSave.level_3;
+                    skill.i_cost = DataManager.Instance.slotSave.cost_3;
+                    break;
+                case 4:
+                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_4;
+                    skill.i_level = DataManager.Instance.slotSave.level_4;
+                    skill.i_cost = DataManager.Instance.slotSave.cost_4;
+                    break;
+                case 5:
+                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_5;
+                    skill.i_level = DataManager.Instance.slotSave.level_5;
+                    skill.i_cost = DataManager.Instance.slotSave.cost_5;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -44,7 +73,8 @@ public class InventoryManger : MonoBehaviour
             slot.level = 0;
             slots.Add(slot);
         }
-        Panel.SetActive(false);
+        //Panel.SetActive(false);
+        ui.SwitchUpgrade(); //비활성화
     }
     public void Load()  //데이터의 로드
     {
@@ -77,7 +107,7 @@ public class InventoryManger : MonoBehaviour
 
 
 [System.Serializable]
-public class SlotData   //저장은 안했네...?
+public class SlotData   //저장 안해도 돼 상단 example 생성용
 {
     public bool isEmpty;
     public int index;           //고유 인덱스 값
@@ -85,16 +115,33 @@ public class SlotData   //저장은 안했네...?
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지
     public int level;           //그 Slot의 레벨 값
+    public int cost;           //강화 비용
 }
 
 [System.Serializable]
-public class SlotSave
+public class SlotSave       //이 클래스는 단지 상단에 박아 넣는 용도 --> 아니다 얘를 쓰자
 {
     public int index_1;
-    public float additionalD1;
-    public string type1;
-    public int level1;
-
     public int index_2;
     public int index_3;
+
+    public float additionalD_1;   //추가 데미지
+    public int level_1;           //그 Slot의 레벨 값
+    public int cost_1;           //그 Slot의 돈
+
+    public float additionalD_2;   //추가 데미지
+    public int level_2;           //그 Slot의 레벨 값
+    public int cost_2;           //그 Slot의 돈
+
+    public float additionalD_3;   //추가 데미지
+    public int level_3;           //그 Slot의 레벨 값
+    public int cost_3;           //그 Slot의 돈
+
+    public float additionalD_4;   //추가 데미지
+    public int level_4;           //그 Slot의 레벨 값
+    public int cost_4;           //그 Slot의 돈
+
+    public float additionalD_5;   //추가 데미지
+    public int level_5;           //그 Slot의 레벨 값
+    public int cost_5;           //그 Slot의 돈
 }

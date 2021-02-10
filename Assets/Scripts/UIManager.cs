@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     //로드
     InventoryManger inventoryManger;
 
-    private void Start()
+    private void OnEnable()
     {
         currentTime = 10f;
         Slider.SetActive(false);
@@ -47,8 +47,6 @@ public class UIManager : MonoBehaviour
 
         //데이터 로드
         inventoryManger = GameObject.Find("InventoryManager").GetComponent<InventoryManger>();
-
-        PowerOnOff();
     }
 
     void FixedUpdate()
@@ -165,15 +163,12 @@ public class UIManager : MonoBehaviour
         scrollRect.enabled = true; //스크롤 활성화
     }
 
-    void PowerOnOff()
+    public void SwitchOn()  //모든 창을 활성화
     {
-        //켜기
-        SwitchUpgrade();
-        SwitchMaster();
-        SwitchCombo();
-        SwitchMisson();
-        //끄기
-        SwitchUpgrade();
+        UpgradeP.SetActive(true);
+        MasterP.SetActive(true);
+        ComboP.SetActive(true);
+        MissonP.SetActive(true);
     }
     /// <summary>
     /// Menu의 전환

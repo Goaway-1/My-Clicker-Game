@@ -51,7 +51,6 @@ public class AttackButton : MonoBehaviour
         {
             n_power = DataManager.Instance.power;
             strikePer = DataManager.Instance.criticalPer;
-            strikePow = DataManager.Instance.criticalPow;   //삭제 예정 (어차피 무조건 2배로 할거라서)
 
             //랜덤값을 정하는중
             num1 = Random.Range(0, 100);    //정수 ->(int형 쓸까?)
