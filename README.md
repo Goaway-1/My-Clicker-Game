@@ -6,10 +6,10 @@ ___
 |Value|StartValue|UpgradeValue|StartCost|UpgradeCost|MaxValue|Rebirth|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Power| 1.0f | 10level -> +0.2f | 1 | 3stage -> +1 | None  | +0.2f |
+|Critical| 10% | +0.25f | 20 | None | 70% | +0.25f |
 |DropMoney| 1~2 | 10stage -> 1 | None  | None  | None | +1 |
 |AutoClick| None(3f) | -0.05f  | 10 | pow(1.3f/level) | 0.5f | +0.02f |
 |Hp| 0f | 5f * mathf(5f,0.4/stage) // 5f+5씩 | None | None | None | None |
-|AutoClick|   |   |   |   | | |
 ___
 ##  <span style = "color:orange;">Links </span>
   - [Documentation](https://docs.unity3d.com/kr/current/Manual/UnityManual.html)
@@ -2128,7 +2128,13 @@ ___
 ___
 ## __2.11__
 > **<h3>Today Dec Story</h3>**
-- 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
+  - None
+> **<h3>Today Dec Story</h3>**
+  - None
+___
+## __2.12__
+> **<h3>Today Dec Story</h3>**
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
   - None
 
