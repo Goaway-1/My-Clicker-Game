@@ -22,7 +22,7 @@ public class CriticalPerButton : Buttons
 
     private void OnEnable() //오브젝트 활성화시
     {
-        if (DataManager.Instance.criticalPer != 0.1f)    //투명도 조절위함
+        if (DataManager.Instance.criticalPer != 10f)    //투명도 조절위함
         {
             isPurchased = true;
         }

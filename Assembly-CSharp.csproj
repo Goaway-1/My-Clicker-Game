@@ -79,7 +79,6 @@
     <Compile Include="Assets\Scripts\RebirthManager.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
-    <Compile Include="Assets\PleaseDel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -58,34 +58,41 @@ public class ItemAddButton : MonoBehaviour
     {
         if(DataManager.Instance.gold > i_cost)
         {
-            i_additionalD++;    //추후 수정
-            i_level++;
-            i_cost += 10;   //추후 수정
             switch (int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("m") + 1)))
             {
-                case 1:
+                case 1: //power
+                    i_additionalD += 0.1f;    
+                    i_cost += 10;
                     DataManager.Instance.slotSave.additionalD_1 = i_additionalD;
-                    DataManager.Instance.slotSave.level_1 = i_level;
+                    DataManager.Instance.slotSave.level_1 = ++i_level;
                     DataManager.Instance.slotSave.cost_1 = i_cost;
                     break;
-                case 2:
+                case 2: //power
+                    i_additionalD += 0.5f;
+                    i_cost += 10;
                     DataManager.Instance.slotSave.additionalD_2 = i_additionalD;
-                    DataManager.Instance.slotSave.level_2 = i_level;
+                    DataManager.Instance.slotSave.level_2 = ++i_level;
                     DataManager.Instance.slotSave.cost_2 = i_cost;
                     break;
-                case 3:
+                case 3: //Critical
+                    i_additionalD += 0.01f;
+                    i_cost += 10;
                     DataManager.Instance.slotSave.additionalD_3 = i_additionalD;
-                    DataManager.Instance.slotSave.level_3 = i_level;
+                    DataManager.Instance.slotSave.level_3 = ++i_level;
                     DataManager.Instance.slotSave.cost_3 = i_cost;
                     break;
-                case 4:
+                case 4: //BossTime
+                    i_additionalD += 0.1f;
+                    i_cost += 10;
                     DataManager.Instance.slotSave.additionalD_4 = i_additionalD;
-                    DataManager.Instance.slotSave.level_4 = i_level;
+                    DataManager.Instance.slotSave.level_4 = ++i_level;
                     DataManager.Instance.slotSave.cost_4 = i_cost;
                     break;
-                case 5:
+                case 5: //Gold
+                    i_additionalD++;
+                    i_cost += 10;
                     DataManager.Instance.slotSave.additionalD_5 = i_additionalD;
-                    DataManager.Instance.slotSave.level_5 = i_level;
+                    DataManager.Instance.slotSave.level_5 = ++i_level;
                     DataManager.Instance.slotSave.cost_5 = i_cost;
                     break;
                 default:

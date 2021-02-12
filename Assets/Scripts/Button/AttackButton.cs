@@ -104,30 +104,21 @@ public class AttackButton : MonoBehaviour
         switch (inven.slots[count].type)
         {
             case "Power":
-                n_power += n_power * inven.slots[count].additionalD;
-                //Debug.Log("추가 공격력 : " + n_power);
+                n_power += inven.slots[count].additionalD;
                 break;
             case "Critical":
                 if (strikePer >= rand)  //크리티컬 공격
                 {
-                    n_power *= inven.slots[count].additionalD;  //대안생각하기
-                    //Debug.Log("추가 크리티컬 : " + n_power);
-                }
-                else
-                {
-                    //Debug.Log("추가 크리티컬이지만 일반 공격");
+                    n_power += n_power * inven.slots[count].additionalD;
                 }
                 break;
             case "Gold":
                 DataManager.Instance.gold += (int)inven.slots[count].additionalD;
-                //Debug.Log("추가 골드" + inven.slots[count].additionalD);
                 break;
             case "BossTime":
                 if (uiManager.isCreasedTime)
                 {
                     uiManager.currentTime += inven.slots[count].additionalD;
-                    //uiManager.currentTime += 1;
-                    Debug.Log("추가 보스타임");
                 }
                 break;
             default:

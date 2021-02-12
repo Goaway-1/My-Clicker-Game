@@ -31,6 +31,10 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     public PlayerMisson playerMisson;    
     public SlotSave slotSave;
 
+    //재활용하는 인덱스들
+    string jsonData;
+    string path;
+
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
         get
@@ -151,7 +155,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
             Load();
             if (playerData.criticalPer == 0)
             {
-                playerData.criticalPer = 0.3f;
+                playerData.criticalPer = 10f;
             }
             return playerData.criticalPer;
         }
@@ -196,8 +200,9 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     private void Awake()
     {
-        if (!File.Exists("Assets/playerData.json"))    //파일의 생성 (추후 로딩으로 뺀다.)
+        if (!File.Exists(Application.persistentDataPath + "/playerData.json"))    //파일의 생성 (추후 로딩으로 뺀다.)
         {
+            Debug.Log("새롭게 생성");
             Save();
             SaveCost();
             SaveMisson();
@@ -205,6 +210,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         }
         else
         {
+            Debug.Log("기존 로드");
             Load();
             LoadCost();
             LoadMisson();
@@ -214,56 +220,56 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
 
     void Save()
     {
-        string jsonData = JsonUtility.ToJson(playerData,true);
-        string path = Path.Combine(Application.dataPath, "playerData.json");
+        jsonData = JsonUtility.ToJson(playerData, true);
+        path = Path.Combine(Application.persistentDataPath, "playerData.json");
         File.WriteAllText(path, jsonData);
     }
 
     void Load()
     {
-        string path = Path.Combine(Application.dataPath, "playerData.json");
-        string jsonData = File.ReadAllText(path);
+        path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        jsonData = File.ReadAllText(path);
         playerData = JsonUtility.FromJson<PlayerData>(jsonData);
     }
 
     void SaveCost()
     {
-        string jsonData = JsonUtility.ToJson(playerDataCost, true);
-        string path = Path.Combine(Application.dataPath, "playerDataCost.json");
+        jsonData = JsonUtility.ToJson(playerDataCost, true);
+        path = Path.Combine(Application.persistentDataPath, "playerDataCost.json");
         File.WriteAllText(path, jsonData);
     }
 
     public void LoadCost()
     {
-        string path = Path.Combine(Application.dataPath, "playerDataCost.json");
-        string jsonData = File.ReadAllText(path);
+        path = Path.Combine(Application.persistentDataPath, "playerDataCost.json");
+        jsonData = File.ReadAllText(path);
         playerDataCost = JsonUtility.FromJson<PlayerDataCost>(jsonData);
     }
 
     public void SaveMisson()
     {
-        string jsonData = JsonUtility.ToJson(playerMisson, true);
-        string path = Path.Combine(Application.dataPath, "playerMisson.json");
+        jsonData = JsonUtility.ToJson(playerMisson, true);
+        path = Path.Combine(Application.persistentDataPath, "playerMisson.json");
         File.WriteAllText(path, jsonData);
     }
 
     public void LoadMisson()
     {
-        string path = Path.Combine(Application.dataPath, "playerMisson.json");
-        string jsonData = File.ReadAllText(path);
+        path = Path.Combine(Application.persistentDataPath, "playerMisson.json");
+        jsonData = File.ReadAllText(path);
         playerMisson = JsonUtility.FromJson<PlayerMisson>(jsonData);
     }
 
     public void SaveSlot()
     {
-        string jsonData = JsonUtility.ToJson(slotSave, true);
-        string path = Path.Combine(Application.dataPath, "SlotSave.json");
+        jsonData = JsonUtility.ToJson(slotSave, true);
+        path = Path.Combine(Application.persistentDataPath, "SlotSave.json");
         File.WriteAllText(path, jsonData);
     }
     public void LoadSlot()
     {
-        string path = Path.Combine(Application.dataPath, "SlotSave.json");
-        string jsonData = File.ReadAllText(path);
+        path = Path.Combine(Application.persistentDataPath, "SlotSave.json");
+        jsonData = File.ReadAllText(path);
         slotSave = JsonUtility.FromJson<SlotSave>(jsonData);
     }
     //json 파일 @@@@@@@@@@@@@@@@@@@@@@@

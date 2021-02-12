@@ -156,10 +156,10 @@ RectTransform:
   m_Father: {fileID: 867040752}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -644.43317}
-  m_SizeDelta: {x: 1020, y: 221.77327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &67440845
 CanvasGroup:
@@ -3015,7 +3015,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4708,7 +4708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &867040752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5109,7 +5109,7 @@ MonoBehaviour:
   i_index: 3
   i_type: Critical
   i_level: 0
-  i_cost: 5
+  i_cost: 10
   display: {fileID: 1643918434}
 --- !u!114 &949799529
 MonoBehaviour:
@@ -5622,7 +5622,7 @@ MonoBehaviour:
   i_index: 5
   i_type: Gold
   i_level: 0
-  i_cost: 5
+  i_cost: 15
   display: {fileID: 1043689805}
 --- !u!114 &1046882855
 MonoBehaviour:
@@ -6669,10 +6669,10 @@ RectTransform:
   m_Father: {fileID: 867040752}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -896.2064}
-  m_SizeDelta: {x: 1020, y: 221.77327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1221331230
 CanvasGroup:
@@ -7864,10 +7864,10 @@ RectTransform:
   m_Father: {fileID: 867040752}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -392.65988}
-  m_SizeDelta: {x: 1020, y: 221.77327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1336861991
 CanvasGroup:
@@ -8433,10 +8433,10 @@ RectTransform:
   m_Father: {fileID: 867040752}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -1147.9796}
-  m_SizeDelta: {x: 1020, y: 221.77327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1388492263
 CanvasGroup:
@@ -8483,7 +8483,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9618,10 +9618,10 @@ RectTransform:
   m_Father: {fileID: 867040752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: -140.88663}
-  m_SizeDelta: {x: 1020, y: 221.77327}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1629521327
 CanvasGroup:
@@ -10054,7 +10054,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10363,11 +10363,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotItem: {fileID: 8188490676515184867, guid: 5d09a2c448f3c83459385a9153820cc8, type: 3}
   inven: {fileID: 828456382}
-  i_additionalD: 0
+  i_additionalD: 0.01
   i_index: 1
   i_type: Power
   i_level: 0
-  i_cost: 10
+  i_cost: 5
   display: {fileID: 444634751}
 --- !u!114 &1733407406
 MonoBehaviour:
@@ -11418,7 +11418,7 @@ MonoBehaviour:
   i_index: 4
   i_type: BossTime
   i_level: 0
-  i_cost: 5
+  i_cost: 20
   display: {fileID: 844476402}
 --- !u!114 &1846788166
 MonoBehaviour:
@@ -12046,11 +12046,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotItem: {fileID: 9064174416206990756, guid: 828d0a2aa9dcbc04281a8fb4c3731c46, type: 3}
   inven: {fileID: 828456382}
-  i_additionalD: 0
+  i_additionalD: 0.015
   i_index: 2
   i_type: Power
   i_level: 0
-  i_cost: 5
+  i_cost: 7
   display: {fileID: 1489612449}
 --- !u!114 &1940461847
 MonoBehaviour:

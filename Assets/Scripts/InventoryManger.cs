@@ -18,35 +18,55 @@ public class InventoryManger : MonoBehaviour
     private void OnEnable()
     {
         ui = FindObjectOfType<UIManager>();
+        DataManager.Instance.LoadSlot();
         ui.SwitchOn();
         for (int i = 1; i <= 5; i++)
         {
             ItemAddButton skill = GameObject.Find("Add_item" + i).GetComponent<ItemAddButton>();
             
-            DataManager.Instance.LoadSlot();
             switch (i)  //사실 배열로 받으면 훨씬 짧다.
             {
                 case 1:
+                    if(DataManager.Instance.slotSave.additionalD_1 == 0)    //초기값 설정
+                    {
+                        DataManager.Instance.slotSave.additionalD_1 = 0.1f;
+                    }
                     skill.i_additionalD = DataManager.Instance.slotSave.additionalD_1;
                     skill.i_level = DataManager.Instance.slotSave.level_1;
                     skill.i_cost = DataManager.Instance.slotSave.cost_1;
                     break;
                 case 2:
+                    if (DataManager.Instance.slotSave.additionalD_2 == 0)
+                    {
+                        DataManager.Instance.slotSave.additionalD_2 = 0.5f;
+                    }
                     skill.i_additionalD = DataManager.Instance.slotSave.additionalD_2;
                     skill.i_level = DataManager.Instance.slotSave.level_2;
                     skill.i_cost = DataManager.Instance.slotSave.cost_2;
                     break;
                 case 3:
+                    if (DataManager.Instance.slotSave.additionalD_3 == 0)
+                    {
+                        DataManager.Instance.slotSave.additionalD_3 = 0.05f;
+                    }
                     skill.i_additionalD = DataManager.Instance.slotSave.additionalD_3;
                     skill.i_level = DataManager.Instance.slotSave.level_3;
                     skill.i_cost = DataManager.Instance.slotSave.cost_3;
                     break;
                 case 4:
+                    if (DataManager.Instance.slotSave.additionalD_4 == 0)
+                    {
+                        DataManager.Instance.slotSave.additionalD_4 = 0.1f;
+                    }
                     skill.i_additionalD = DataManager.Instance.slotSave.additionalD_4;
                     skill.i_level = DataManager.Instance.slotSave.level_4;
                     skill.i_cost = DataManager.Instance.slotSave.cost_4;
                     break;
                 case 5:
+                    if (DataManager.Instance.slotSave.additionalD_5 == 0)
+                    {
+                        DataManager.Instance.slotSave.additionalD_5 = 1f;
+                    }
                     skill.i_additionalD = DataManager.Instance.slotSave.additionalD_5;
                     skill.i_level = DataManager.Instance.slotSave.level_5;
                     skill.i_cost = DataManager.Instance.slotSave.cost_5;
@@ -73,7 +93,8 @@ public class InventoryManger : MonoBehaviour
             slot.level = 0;
             slots.Add(slot);
         }
-        //Panel.SetActive(false);
+        Load();
+        Panel.SetActive(false);
         ui.SwitchUpgrade(); //비활성화
     }
     public void Load()  //데이터의 로드

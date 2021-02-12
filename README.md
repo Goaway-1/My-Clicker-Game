@@ -14,6 +14,7 @@ ___
 ##  <span style = "color:orange;">Links </span>
   - [Documentation](https://docs.unity3d.com/kr/current/Manual/UnityManual.html)
   - [API](https://docs.unity3d.com/kr/current/ScriptReference/index.html)
+  - [Microsoft_c#](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/)
   - [최적화](https://nogan.tistory.com/7)
 ___
 ## __12.22__
@@ -786,66 +787,72 @@ public void SwitchMisson()    //Misson창 활성화
 ____
 ## __1.12__
 > **<h3>Today Dev Story</h3>**
- - ### Combo창을 만들어 버튼을 누르면 창에 이미지를 삽입 (List사용)
- - ### 버튼 클릭시 slot 하위에 이미지만 생성 <ins>추후 수정(오브젝트 풀링 사용)</ins>
- - <img src="Capture/SaveItem.gif" width=350> <img src="Capture/SavedItem.gif" width=300>
-```c#
-public class InventoryManger : MonoBehaviour
-{
-  public List<SlotData> slots = new List<SlotData>(); //List사용
-  private int maxSlot = 3;
-  public GameObject slotPrefab;
-  public GameObject Panel;    //Panel의 setactive를 사용하기 위함
+ - Combo창을 만들어 버튼을 누르면 창에 이미지를 삽입 (List사용)
+ - 버튼 클릭시 slot 하위에 이미지만 생성 <ins>추후 수정(오브젝트 풀링 사용)</ins>
+  
+  <img src="Capture/SaveItem.gif" width=300>
+  <img src="Capture/SavedItem.gif" width=300>
 
-  public void Start()
+  - ### 시작시-Combo창-활성화-수정(2.12)
+  ```c#
+  public class InventoryManger : MonoBehaviour
   {
-    Panel.SetActive(true);  //Panel이 활성화 되어 있지 않으면 item창이 생성되지 않아서 켰다가 끄게 만들었다.
-    GameObject slotPanel = GameObject.Find("Slot_Panel");
-    for (int i = 0; i < maxSlot; i++)
-    {
-      GameObject go = Instantiate(slotPrefab, slotPanel.transform, false); //미리 공간만 만들어 둔다.
-      go.name = "Slot" + i;
-      SlotData slot = new SlotData();
-      slot.isEmpty = true;
-      slot.index = 0;
-      slot.additionalD = 0;
-      slot.slotObj = go;
-      slot.type = null;  //추가 공격력 및 치명타 구분
-      slots.Add(slot);
-    }
-    Panel.SetActive(false);  
-  }
-}
+    public List<SlotData> slots = new List<SlotData>(); //List사용
+    private int maxSlot = 3;
+    public GameObject slotPrefab;
+    public GameObject Panel;    //Panel의 setactive를 사용하기 위함
 
-[System.Serializable]
-public class SlotData   //각 slot의 데이터
-{
+    public void Start()
+    {
+      Panel.SetActive(true);  //Panel이 활성화 되어 있지 않으면 item창이  생성되지 않아서 켰다가 끄게 만들었다.
+      GameObject slotPanel = GameObject.Find("Slot_Panel");
+      for (int i = 0; i < maxSlot; i++)
+      {
+        GameObject go = Instantiate(slotPrefab, slotPanel.transform, false); //미리 공간만 만들어 둔다.
+        go.name = "Slot" + i;
+        SlotData slot = new SlotData();
+        slot.isEmpty = true;
+        slot.index = 0;
+        slot.additionalD = 0;
+        slot.slotObj = go;
+        slot.type = null;  //추가 공격력 및 치명타 구분
+        slots.Add(slot);
+      }
+      Load();   //자체 로드를 통해서 수정(2.12)
+      Panel.SetActive(false);
+      ui.SwitchUpgrade(); //비활성화
+    }
+  }
+
+  [System.Serializable]
+  public class SlotData   //각 slot의 데이터
+  {
     public bool isEmpty;
     public int index;           //고유 인덱스 값
     public float additionalD;   //추가 데미지
     public GameObject slotObj;  //넣을 이미지
     public string type;         //power인지 critical인지 구분
-}
-```
-- ### 미션-데이터-수정
-```c#
-public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변경)
-{
-  public GameObject slotItem;
-  public InventoryManger inven;
-  public float i_additionalD;   //설정할 추가 데미지 값
-  public int i_index;           //설정한 고유 index값
-  public string i_type;           //설정할 추가 관여 값(power,critical,money....)
-
-  //디스플레이
-  public Text display;
-
-  public void Add()   //추후 오브젝트 풀링으로 변경하자
+  }
+  ```
+  - ### 미션-데이터-수정
+  ```c#
+  public class ItemAddButton : MonoBehaviour  //아이템추가 버튼 (추후 변경)
   {
-    for (int i = 0; i < inven.slots.Count; i++)   //빈곳에 넣는다.
+    public GameObject slotItem;
+    public InventoryManger inven;
+    public float i_additionalD;   //설정할 추가 데미지 값
+    public int i_index;           //설정한 고유 index값
+    public string i_type;           //설정할 추가 관여 값(power,critical,money....)
+
+    //디스플레이
+    public Text display;
+
+    public void Add()   //추후 오브젝트 풀링으로 변경하자
     {
-      if (inven.slots[i].isEmpty)
+      for (int i = 0; i < inven.slots.Count; i++)   //빈곳에 넣는다.
       {
+        if (inven.slots[i].isEmpty)
+        {
         Instantiate(slotItem, inven.slots[i].slotObj.transform, false);
         inven.slots[i].isEmpty = false;
         inven.slots[i].additionalD = i_additionalD; 
@@ -1963,7 +1970,7 @@ ___
   - 때릴때마다 돈이 나오게 할까?
   - [스킬 변화](#스킬-발동-수정(2.5))
 > **<h3>Today Dec Story</h3>**
-  - [내일 들을 것_안드로이드_Json](https://www.youtube.com/watch?v=z-eBBEw8gbw&t=601s)  
+  - null
 ___
 ## __2.06__
 > **<h3>Today Dec Story</h3>**
@@ -2074,7 +2081,8 @@ ___
   - Critical Pow 삭제
     - Skill 사용 시 Critical이 적용 되기에 기존 Pow는 삭제 (json 또한) 
   - 초기 Combo 호출 수정 [이전 Combo 호출 방식](#InventoryManager에서-진행)
-    -  Josn 호출과 로드 성공 기존 존재하던 SlotSave 활용
+    - Josn 호출과 로드 성공 기존 존재하던 SlotSave 활용
+    - ### 초기값-설정
     ```c#
     private void OnEnable()
     {
@@ -2088,6 +2096,10 @@ ___
         switch (i)  //사실 배열로 받으면 훨씬 짧다.
         {
           case 1:
+            if(DataManager.Instance.slotSave.additionalD_1 == 0)    //초기값 설정 (2.12)
+            {
+              DataManager.Instance.slotSave.additionalD_1 = 0.01f;
+            }
             skill.i_additionalD = DataManager.Instance.slotSave.additionalD_1;
             skill.i_level = DataManager.Instance.slotSave.level_1;
             kill.i_cost = DataManager.Instance.slotSave.cost_1;
@@ -2134,18 +2146,98 @@ ___
 ___
 ## __2.12__
 > **<h3>Today Dec Story</h3>**
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, Combo 업그레이드 저장(json),사운드,이미지, 부활(0.12버전에서 할 예정)
-> **<h3>Today Dec Story</h3>**
-  - None
+  - [초기 Combo 호출 완벽 수정완료](#시작시-Combo창-활성화-수정(2.12))
+    - 이제는 시작 시 자동으로 skill 사용가능 
+    - InventoryManager의 OnEnable에서 [skill의 초기값 설정](#초기값-설정) 
+  - Json 로컬 주소를 수정
+    - Application.dataPath --> Application.persistentDataPath
+    ```c#
+    void Save() //수정 전
+      {
+        jsonData = JsonUtility.ToJson(playerData, true);
+        path = Path.Combine(Application.dataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+      }
 
+    void Save() //수정 후 
+      {
+        jsonData = JsonUtility.ToJson(playerData, true);
+        path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        File.WriteAllText(path, jsonData);
+      }
+    ```
+> **<h3>Today Dec Story</h3>**
+  - [전처리(Preprocessor Directive)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/preprocessor-directives/)
+    - 컴파일러가 소스코드를 컴파일하기 이전에 전처리기 지시어로 표현된 영역을 미리 처리하는것
+    - 항상 #으로 시작 #define(항상 상단에), #if ~ #endif, #ifdef  
+    - <span style = "color:yellow;">#define</span> <-> <span style = "color:yellow;">#undef</span>(비활성화)
+      - 이것을 활용해서 #if ~ #endif를 활용
+      - 해당 .cs에서만 사용 가능 --> 프로젝트에 가서 Bulid/General/Conditional symbols에서 심볼을 정의하면 전역에서 사용가능//복수로 사용하고 싶다면 ;를 사용하여 구분한다.
+      - 안드로이드나 윈도우 환경을 방향킬르 설정할때 쓸 수 있을듯 
+      ```c#
+      #define TEST_ENV
+
+      public string GetServer(){
+        string server;
+      #if (TEST_ENV)
+        server = "TESTSERVER";
+      #else
+        server = "PRODSERVER";
+      #endif
+        return server;
+      }
+      ``` 
+    - <span style = "color:yellow;">region</span>
+      - 일정 코드 영역을 묶는 역할
+      - 코드 옆의 -,+를 통해 쉽게 볼 수 있다.
+      ```c#
+      #region Fields
+      private bool debug;
+      private string key;
+      #region 
+      ```
+    - <span style = "color:yellow;">warning & error</span>
+      - warning은 경고 표시 시 사용 exe파일에는 영향이 없다.
+      - error는 오류 표시 시 사용 컴파일이 진행되지 않는다.
+      ```c#
+      #define ENTER_EDITION
+
+      #if (!ENTER_EDITION)
+      #warning This class should be used in ENTER_EDITION
+      #error This class should be used in ENTER_EDITION
+      #endif
+      ```  
+    - <span style = "color:yellow;">pragma</span>
+      - 일시적으로 경고가 뜨는 부분을 가리고 싶을때  
+      - 컴파일러 고유의 전처리기를 나타낼때 표현
+      ```c#
+      #pragma warning disable //비활성화
+        if(false){
+          ...
+          ...
+        }
+      #pragma warning restore
+      /////에러 코드로 정지하는 방법
+      #pragma warning disable 169
+      ``` 
+  - json 안드로이드
+    - Json 파일 저장 시 로컬 주소를 Application.dataPath가 아닌 <span style = "color:yellow;">Application.persistentDataPath</span>를 사용한다.
+  - [내일 들을 것_안드로이드_Json](https://www.youtube.com/watch?v=z-eBBEw8gbw&t=601s)  
+    - 7분 30초
+___
+## __2.13__
+> **<h3>Today Dec Story</h3>**
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, json 암호화 ,사운드,이미지, 부활(0.12버전에서 할 예정)
+> **<h3>Today Dec Story</h3>**
+  - null
 
 Combo
 
-|Skill|Index|Increased Type|Additional|Upgrade Additional|StartCost|UpgradeCost|Condition|
+|Skill|Index|Increased Type|Default Additional|Upgrade Additional|StartCost|UpgradeCost|Condition|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Default|None|None|None|None|None|None|0 Stage|
-|item1(Outline Punch)|1|Power|0|+1|5|pow|10 Stage|
-|item2(Kick)|2|Power|0|+1.25|7|pow|30 Stage|
-|item3(Strite Punch)|3|Critical|0|+0.2%|5|pow|20 Stage|
-|item4|4|BossTime|0|+0.1|5|pow|10 Stage|
-|item5|5|Gold|0|+0.1%|10|pow|50 Stage|
+|item1(Outline Punch)|1|Power|+0.1|+0.1|5|pow|10 Stage|
+|item2(Kick)|2|Power|+0.5|+0.5|15|pow|20 Stage|
+|item3(Strite Punch)|3|Critical|+5%(0.05%)|+1%(0.01%)|10|pow|20 Stage|
+|item4|4|BossTime|+0.1|+0.1|20|pow(존나 비싸야해)|10 Stage|
+|item5|5|Gold|+1|+1|20|pow|50 Stage|
