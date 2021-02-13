@@ -2150,7 +2150,11 @@ ___
     - 이제는 시작 시 자동으로 skill 사용가능 
     - InventoryManager의 OnEnable에서 [skill의 초기값 설정](#초기값-설정) 
   - Json 로컬 주소를 수정
+    
+    <img src="Capture/After/Before_Encoding.png" height=300 title="암호화 이전"> 
+
     - Application.dataPath --> Application.persistentDataPath
+    - ### 암호화-이전(2.12)
     ```c#
     void Save() //수정 전
       {
@@ -2170,66 +2174,125 @@ ___
   - [전처리(Preprocessor Directive)](https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/preprocessor-directives/)
     - 컴파일러가 소스코드를 컴파일하기 이전에 전처리기 지시어로 표현된 영역을 미리 처리하는것
     - 항상 #으로 시작 #define(항상 상단에), #if ~ #endif, #ifdef  
-    - <span style = "color:yellow;">#define</span> <-> <span style = "color:yellow;">#undef</span>(비활성화)
-      - 이것을 활용해서 #if ~ #endif를 활용
-      - 해당 .cs에서만 사용 가능 --> 프로젝트에 가서 Bulid/General/Conditional symbols에서 심볼을 정의하면 전역에서 사용가능//복수로 사용하고 싶다면 ;를 사용하여 구분한다.
-      - 안드로이드나 윈도우 환경을 방향킬르 설정할때 쓸 수 있을듯 
-      ```c#
-      #define TEST_ENV
+      <details>
+      <summary>활용 예시</summary>
+      <div markdown="1">
+    
+      - <span style = "color:yellow;">#define</span> <-> <span style = "color:yellow;">#undef</span>(비활성화)
+        - 이것을 활용해서 #if ~ #endif를 활용
+        - 해당 .cs에서만 사용 가능 --> 프로젝트에 가서 Bulid/General/Conditional symbols에서 심볼을 정의하면 전역에서 사용가능//복수로 사용하고 싶다면 ;를 사용하여 구분한다.
+        - 안드로이드나 윈도우 환경을 방향킬르 설정할때 쓸 수 있을듯 
+        ```c#
+        #define TEST_ENV
 
-      public string GetServer(){
-        string server;
-      #if (TEST_ENV)
-        server = "TESTSERVER";
-      #else
-        server = "PRODSERVER";
-      #endif
-        return server;
-      }
-      ``` 
-    - <span style = "color:yellow;">region</span>
-      - 일정 코드 영역을 묶는 역할
-      - 코드 옆의 -,+를 통해 쉽게 볼 수 있다.
-      ```c#
-      #region Fields
-      private bool debug;
-      private string key;
-      #region 
-      ```
-    - <span style = "color:yellow;">warning & error</span>
-      - warning은 경고 표시 시 사용 exe파일에는 영향이 없다.
-      - error는 오류 표시 시 사용 컴파일이 진행되지 않는다.
-      ```c#
-      #define ENTER_EDITION
-
-      #if (!ENTER_EDITION)
-      #warning This class should be used in ENTER_EDITION
-      #error This class should be used in ENTER_EDITION
-      #endif
-      ```  
-    - <span style = "color:yellow;">pragma</span>
-      - 일시적으로 경고가 뜨는 부분을 가리고 싶을때  
-      - 컴파일러 고유의 전처리기를 나타낼때 표현
-      ```c#
-      #pragma warning disable //비활성화
-        if(false){
-          ...
-          ...
+        public string GetServer(){
+          string server;
+        #if (TEST_ENV)
+          server = "TESTSERVER";
+        #else
+          server = "PRODSERVER";
+        #endif
+          return server;
         }
-      #pragma warning restore
-      /////에러 코드로 정지하는 방법
-      #pragma warning disable 169
-      ``` 
+        ``` 
+      - <span style = "color:yellow;">region</span>
+        - 일정 코드 영역을 묶는 역할
+        - 코드 옆의 -,+를 통해 쉽게 볼 수 있다.
+        ```c#
+        #region Fields
+        private bool debug;
+        private string key;
+        #region 
+        ```
+      - <span style = "color:yellow;">warning & error</span>
+        - warning은 경고 표시 시 사용 exe파일에는 영향이 없다.
+        - error는 오류 표시 시 사용 컴파일이 진행되지 않는다.
+        ```c#
+        #define ENTER_EDITION
+
+        #if (!ENTER_EDITION)
+        #warning This class should be used in ENTER_EDITION
+        #error This class should be used in ENTER_EDITION
+        #endif
+        ```  
+      - <span style = "color:yellow;">pragma</span>
+        - 일시적으로 경고가 뜨는 부분을 가리고 싶을때  
+        - 컴파일러 고유의 전처리기를 나타낼때 표현
+        ```c#
+        #pragma warning disable //비활성화
+          if(false){
+            ...
+            ...
+          }
+        #pragma warning restore
+        /////에러 코드로 정지하는 방법
+        #pragma warning disable 169
+        ``` 
+      </div>
+      </details>
   - json 안드로이드
-    - Json 파일 저장 시 로컬 주소를 Application.dataPath가 아닌 <span style = "color:yellow;">Application.persistentDataPath</span>를 사용한다.
+    - Json 파일 저장 시 로컬 주소를 Application.dataPath & Application.streamingAssetsPath가 아닌 <span style = "color:yellow;">Application.persistentDataPath</span>를 사용한다.
+    - 1번은 에디터에서만 사용 가능 하며,2번은 다른 곳에서도 사용 가능 하지만 폴더(Assets/streamingAssets)를 만들어 주어야한다.
+    - EX) C:/Users/민식/AppData/LocalLow/namaan/My Clicker Game
   - [내일 들을 것_안드로이드_Json](https://www.youtube.com/watch?v=z-eBBEw8gbw&t=601s)  
     - 7분 30초
 ___
 ## __2.13__
 > **<h3>Today Dec Story</h3>**
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, json 암호화 ,사운드,이미지, 부활(0.12버전에서 할 예정)
+  - <span style = "color:yellow;">__암호화__</span>
+
+    <img src="Capture/After/After_Encoding.png" height=300 title="암호화 이후"> 
+
+    - 데이터를 바이트 형식으로 반환 후 다시 문자열로 전환 후 저장
+    - [json 암호화 이전 코드](#암호화-이전(2.12))
+      <details>
+      <summary>수정된 코드</summary>
+      <div markdown="1">
+    
+      ```c#
+      void Save()
+      {
+        jsonData = JsonUtility.ToJson(playerData, true);
+        path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        File.WriteAllText(path, Encoding(jsonData));  //마지막에 암호화
+      }
+
+      void Load()
+      {
+        path = Path.Combine(Application.persistentDataPath, "playerData.json");
+        jsonData = File.ReadAllText(path);
+        playerData = JsonUtility.FromJson<PlayerData>(Decoding(jsonData));  //마지막에 복호화
+      }
+      ////
+      private string Encoding(string jsonData)   //암호화 메서드
+      {
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);    //바이트로 전환  
+        string code = System.Convert.ToBase64String(bytes);             //다시 문자로 전환
+        return code;
+      }
+      private string Decoding(string jsonData)   //복호화 메서드
+      {
+        byte[] bytes = System.Convert.FromBase64String(jsonData);
+        string code = System.Text.Encoding.UTF8.GetString(bytes);
+        return code;
+      }
+      ``` 
+      </div>
+      </details>
+  - 화면 비율 조정
+    - 해상도별 앵커 조정필요 (번거로움)
+    - 고정 해상도 사용권장
 > **<h3>Today Dec Story</h3>**
   - null
+___
+## __2.14__
+> **<h3>Today Dec Story</h3>**
+  - json의 배열을 사용해 볼까 고민중
+    -  불러오는것에 있어 오류가 생성될거 같다.
+  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
+> **<h3>Today Dec Story</h3>**
+  - null
+
 
 Combo
 
