@@ -25,57 +25,48 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     }
     //싱글톤@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    //json 파일
-    public PlayerData playerData;
-    public PlayerDataCost playerDataCost;   //비용
-    public PlayerMisson playerMisson;    
-    public SlotSave slotSave;
-
-    //재활용하는 인덱스들
-    string jsonData;
-    string path;
 
     public float subHp  //보스를 잡지 못했을 때 HP를 줄이기 위한 용도
     {
         get
         {
-            Load();
-            return playerData.subHp;
+            Json.Instance.Load();
+            return Json.Instance.playerData.subHp;
         }
         set
         {
-            playerData.subHp = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.subHp = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     public float fixHp  //5씩 증가하는 계산 용도
     {
         get
         {
-            Load();
-            if (playerData.fixHp == 0)
+            Json.Instance.Load();
+            if (Json.Instance.playerData.fixHp == 0)
             {
-                playerData.fixHp = 5f;
+                Json.Instance.playerData.fixHp = 5f;
             }
-            return playerData.fixHp;
+            return Json.Instance.playerData.fixHp;
         }
         set
         {
-            playerData.fixHp = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.fixHp = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     public float Hp //실질적으로 관련
     {
         get
         {
-            Load();
-            return playerData.Hp;
+            Json.Instance.Load();
+            return Json.Instance.playerData.Hp;
         }
         set
         {
-            playerData.Hp = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.Hp = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -83,17 +74,17 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            if (playerData.power == 0)  //초기값 설정
+            Json.Instance.Load();
+            if (Json.Instance.playerData.power == 0)  //초기값 설정
             {
-                playerData.power = 1;
+                Json.Instance.playerData.power = 1;
             }
-            return playerData.power;
+            return Json.Instance.playerData.power;
         }
         set
         {
-            playerData.power = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.power = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -101,18 +92,18 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            if (playerData.AutoC == 0)
+            Json.Instance.Load();
+            if (Json.Instance.playerData.AutoC == 0)
             {
-                playerData.AutoC = 3f;
+                Json.Instance.playerData.AutoC = 3f;
             }
-            return playerData.AutoC;
+            return Json.Instance.playerData.AutoC;
         }
         set
         {
-            playerData.AutoC = value;
+            Json.Instance.playerData.AutoC = value;
             float b = (float)System.Math.Round(value, 2);   //소수점 2자리로 고정
-            Save();
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -120,13 +111,13 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            return playerData.gold;
+            Json.Instance.Load();
+            return Json.Instance.playerData.gold;
         }
         set
         {
-            playerData.gold = value;
-            Save();
+            Json.Instance.playerData.gold = value;
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -134,17 +125,17 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            if (playerData.goldPerTake == 0)
+            Json.Instance.Load();
+            if (Json.Instance.playerData.goldPerTake == 0)
             {
-                playerData.goldPerTake = 1;
+                Json.Instance.playerData.goldPerTake = 1;
             }
-            return playerData.goldPerTake;
+            return Json.Instance.playerData.goldPerTake;
         }
         set
         {
-            playerData.goldPerTake = value;
-            Save();
+            Json.Instance.playerData.goldPerTake = value;
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -152,17 +143,17 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            if (playerData.criticalPer == 0)
+            Json.Instance.Load();
+            if (Json.Instance.playerData.criticalPer == 0)
             {
-                playerData.criticalPer = 10f;
+                Json.Instance.playerData.criticalPer = 10f;
             }
-            return playerData.criticalPer;
+            return Json.Instance.playerData.criticalPer;
         }
         set
         {
-            playerData.criticalPer = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.criticalPer = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -170,13 +161,13 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            return playerData.criticalPow;
+            Json.Instance.Load();
+            return Json.Instance.playerData.criticalPow;
         }
         set
         {
-            playerData.criticalPow = (float)System.Math.Round(value, 2);
-            Save();
+            Json.Instance.playerData.criticalPow = (float)System.Math.Round(value, 2);
+            Json.Instance.Save();
         }
     }
     [HideInInspector]
@@ -184,123 +175,41 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     {
         get
         {
-            Load();
-            if (playerData.stage == 0)
+            Json.Instance.Load();
+            if (Json.Instance.playerData.stage == 0)
             {
-                playerData.stage = 1;
+                Json.Instance.playerData.stage = 1;
             }
-            return playerData.stage;
+            return Json.Instance.playerData.stage;
         }
         set
         {
-            playerData.stage = value;
-            Save();
+            Json.Instance.playerData.stage = value;
+            Json.Instance.Save();
         }
     }
 
     private void Awake()
     {
-        if (!File.Exists(Application.persistentDataPath + "/playerData.json"))    //파일의 생성 (추후 로딩으로 뺀다.)
-        {
-            Debug.Log("새롭게 생성");
-            Save();
-            SaveCost();
-            SaveMisson();
-            SaveSlot();
-        }
-        else
-        {
-            Debug.Log("기존 로드");
-            Load();
-            LoadCost();
-            LoadMisson();
-            LoadSlot();
-        }
+        Json.Instance.Load();
+        Json.Instance.LoadCost();
+        Json.Instance.LoadMisson();
+        Json.Instance.LoadSlot();
     }
-
-    void Save()
-    {
-        jsonData = JsonUtility.ToJson(playerData, true);
-        path = Path.Combine(Application.persistentDataPath, "playerData.json");
-        File.WriteAllText(path, Encoding(jsonData));
-    }
-
-    void Load()
-    {
-        path = Path.Combine(Application.persistentDataPath, "playerData.json");
-        jsonData = File.ReadAllText(path);
-        playerData = JsonUtility.FromJson<PlayerData>(Decoding(jsonData));
-    }
-
-    void SaveCost()
-    {
-        jsonData = JsonUtility.ToJson(playerDataCost, true);
-        path = Path.Combine(Application.persistentDataPath, "playerDataCost.json");
-        File.WriteAllText(path, Encoding(jsonData));
-    }
-
-    public void LoadCost()
-    {
-        path = Path.Combine(Application.persistentDataPath, "playerDataCost.json");
-        jsonData = File.ReadAllText(path);
-        playerDataCost = JsonUtility.FromJson<PlayerDataCost>(Decoding(jsonData));
-    }
-
-    public void SaveMisson()
-    {
-        jsonData = JsonUtility.ToJson(playerMisson, true);
-        path = Path.Combine(Application.persistentDataPath, "playerMisson.json");
-        File.WriteAllText(path, Encoding(jsonData));
-    }
-
-    public void LoadMisson()
-    {
-        path = Path.Combine(Application.persistentDataPath, "playerMisson.json");
-        jsonData = File.ReadAllText(path);
-        playerMisson = JsonUtility.FromJson<PlayerMisson>(Decoding(jsonData));
-    }
-
-    public void SaveSlot()
-    {
-        jsonData = JsonUtility.ToJson(slotSave, true);
-        path = Path.Combine(Application.persistentDataPath, "SlotSave.json");
-        File.WriteAllText(path, Encoding(jsonData));
-    }
-    public void LoadSlot()
-    {
-        path = Path.Combine(Application.persistentDataPath, "SlotSave.json");
-        jsonData = File.ReadAllText(path);
-        slotSave = JsonUtility.FromJson<SlotSave>(Decoding(jsonData));
-    }
-
-    private string Encoding(string jsonData)   //암호화   
-    {
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonData);    //바이트로 전환  
-        string code = System.Convert.ToBase64String(bytes);             //다시 문자로 전환
-        return code;
-    }
-    private string Decoding(string jsonData)   //복호화
-    {
-        byte[] bytes = System.Convert.FromBase64String(jsonData);
-        string code = System.Text.Encoding.UTF8.GetString(bytes);
-        return code;
-    }
-
-    //json 파일 @@@@@@@@@@@@@@@@@@@@@@@
 
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 불러오기
     {
-        LoadCost();
-        criticalPerButton.currentCost = playerDataCost.C_P_cost;
-        criticalPerButton.level = playerDataCost.C_P_level;
+        Json.Instance.LoadCost();
+        criticalPerButton.currentCost = Json.Instance.playerDataCost.C_P_cost;
+        criticalPerButton.level = Json.Instance.playerDataCost.C_P_level;
     }
 
     public void SaveC_Per_Button(CriticalPerButton criticalPerButton) //critical업글 저장하기
     {
-        playerDataCost.C_P_cost = criticalPerButton.currentCost;
-        playerDataCost.C_P_level = criticalPerButton.level;
-        SaveCost();
+        Json.Instance.playerDataCost.C_P_cost = criticalPerButton.currentCost;
+        Json.Instance.playerDataCost.C_P_level = criticalPerButton.level;
+        Json.Instance.SaveCost();
     }
 
     public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
@@ -316,18 +225,18 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadPowerButton(PowerButton powerButton) //power업글 불러오기
     {
-        LoadCost();
-        powerButton.currentCost = playerDataCost.P_cost;
-        powerButton.level = playerDataCost.P_level;
-        powerButton.costPow = playerDataCost.P_cost_pow;
+        Json.Instance.LoadCost();
+        powerButton.currentCost = Json.Instance.playerDataCost.P_cost;
+        powerButton.level = Json.Instance.playerDataCost.P_level;
+        powerButton.costPow = Json.Instance.playerDataCost.P_cost_pow;
     }
 
     public void SavePowerButton(PowerButton powerButton) //power업글 저장하기
     {
-        playerDataCost.P_cost = powerButton.currentCost;
-        playerDataCost.P_level = powerButton.level;
-        playerDataCost.P_cost_pow = (float)System.Math.Round(powerButton.costPow,2);
-        SaveCost();
+        Json.Instance.playerDataCost.P_cost = powerButton.currentCost;
+        Json.Instance.playerDataCost.P_level = powerButton.level;
+        Json.Instance.playerDataCost.P_cost_pow = (float)System.Math.Round(powerButton.costPow,2);
+        Json.Instance.SaveCost();
     }
     //파워관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -335,16 +244,16 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
     //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void LoadAutoButton(AutoClickButton autoClickButton) //Auto업글 불러오기
     {
-        LoadCost();
-        autoClickButton.currentCost = playerDataCost.A_cost;
-        autoClickButton.level = playerDataCost.A_level;
+        Json.Instance.LoadCost();
+        autoClickButton.currentCost = Json.Instance.playerDataCost.A_cost;
+        autoClickButton.level = Json.Instance.playerDataCost.A_level;
     }
 
     public void SaveAutoButton(AutoClickButton autoClickButton) //Auto업글 저장하기
     {
-        playerDataCost.A_cost = autoClickButton.currentCost;
-        playerDataCost.A_level = autoClickButton.level;
-        SaveCost();
+        Json.Instance.playerDataCost.A_cost = autoClickButton.currentCost;
+        Json.Instance.playerDataCost.A_level = autoClickButton.level;
+        Json.Instance.SaveCost();
     }
     //자동클릭관련 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 

@@ -9,30 +9,30 @@ public class MissonB : Missons  //Stage미션!
     {
         get
         {
-            DataManager.Instance.LoadMisson();
-            if (DataManager.Instance.playerMisson.S_Max_count == 0)
+            Json.Instance.LoadMisson();
+            if (Json.Instance.playerMisson.S_Max_count == 0)
             {
-                DataManager.Instance.playerMisson.S_Max_count = 10;
+                Json.Instance.playerMisson.S_Max_count = 10;
             }
-            return DataManager.Instance.playerMisson.S_Max_count;
+            return Json.Instance.playerMisson.S_Max_count;
         }
         set
         {
-            DataManager.Instance.playerMisson.S_Max_count = value;    
-            DataManager.Instance.SaveMisson();
+            Json.Instance.playerMisson.S_Max_count = value;
+            Json.Instance.SaveMisson();
         }
     }
     public int isfill    //보상 조건
     {
         get
         {
-            DataManager.Instance.LoadMisson();
-            return DataManager.Instance.playerMisson.S_isfill;
+            Json.Instance.LoadMisson();
+            return Json.Instance.playerMisson.S_isfill;
         }
         set
         {
-            DataManager.Instance.playerMisson.S_isfill = value;    
-            DataManager.Instance.SaveMisson();
+            Json.Instance.playerMisson.S_isfill = value;
+            Json.Instance.SaveMisson();
         }
     }
 

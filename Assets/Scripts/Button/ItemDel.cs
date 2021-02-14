@@ -11,18 +11,18 @@ public class ItemDel : MonoBehaviour
             switch (Input.inputString)  //데이터의 삭제
             {
                 case "1":
-                    DataManager.Instance.slotSave.index_1 = 0;
+                    Json.Instance.slotSave.index_1 = 0;
                     break;
                 case "2":
-                    DataManager.Instance.slotSave.index_2 = 0;
+                    Json.Instance.slotSave.index_2 = 0;
                     break;
                 case "3":
-                    DataManager.Instance.slotSave.index_3 = 0;
+                    Json.Instance.slotSave.index_3 = 0;
                     break;
                 default:
                     break;
             }
-            DataManager.Instance.SaveSlot();
+            Json.Instance.SaveSlot();
             Destroy(this.gameObject);
         }
     }

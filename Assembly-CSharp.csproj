@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\BGScroller.cs" />
     <Compile Include="Assets\Scripts\InventoryManger.cs" />
     <Compile Include="Assets\Scripts\Button\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Json.cs" />
     <Compile Include="Assets\Scripts\Misson\MissonB.cs" />
     <Compile Include="Assets\Scripts\Misson\Missons.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
@@ -71,12 +72,12 @@
     <Compile Include="Assets\Scripts\Button\AutoClickButton.cs" />
     <Compile Include="Assets\Scripts\Effect.cs" />
     <Compile Include="Assets\Scripts\Button\ItemAddButton.cs" />
+    <Compile Include="Assets\Scripts\LoadingManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Misson\MissonA.cs" />
     <Compile Include="Assets\Scripts\Button\PowerButton.cs" />
     <Compile Include="Assets\Scripts\Button\ItemDel.cs" />
     <Compile Include="Assets\Scripts\Slot.cs" />
-    <Compile Include="Assets\Scripts\RebirthManager.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
   </ItemGroup>

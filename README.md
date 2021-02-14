@@ -3,6 +3,7 @@
 ## Description for Dev Stroy
 `Expain My third project and I want to make use of various tools useful. :)`
 ___
+## Default
 |Value|StartValue|UpgradeValue|StartCost|UpgradeCost|MaxValue|Rebirth|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Power| 1.0f | 10level -> +0.2f | 1 | 3stage -> +1 | None  | +0.2f |
@@ -10,6 +11,17 @@ ___
 |DropMoney| 1~2 | 10stage -> 1 | None  | None  | None | +1 |
 |AutoClick| None(3f) | -0.05f  | 10 | pow(1.3f/level) | 0.5f | +0.02f |
 |Hp| 0f | 5f * mathf(5f,0.4/stage) // 5f+5씩 | None | None | None | None |
+
+## SKill
+
+|Skill|Index|Increased Type|Default Additional|Upgrade Additional|StartCost|UpgradeCost|Condition|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Default|None|None|None|None|None|None|0 Stage|
+|item1(Outline Punch)|1|Power|+0.1|+0.1|5|pow|10 Stage|
+|item2(Kick)|2|Power|+0.5|+0.5|15|pow|20 Stage|
+|item3(Strite Punch)|3|Critical|+5%(0.05%)|+1%(0.01%)|10|pow|20 Stage|
+|item4|4|BossTime|+0.1|+0.1|20|pow(존나 비싸야해)|10 Stage|
+|item5|5|Gold|+1|+1|20|pow|50 Stage|
 ___
 ##  <span style = "color:orange;">Links </span>
   - [Documentation](https://docs.unity3d.com/kr/current/Manual/UnityManual.html)
@@ -2287,20 +2299,113 @@ ___
 ___
 ## __2.14__
 > **<h3>Today Dec Story</h3>**
-  - json의 배열을 사용해 볼까 고민중
-    -  불러오는것에 있어 오류가 생성될거 같다.
-  - 스킬다양화(밸런스), 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
+  - ### 로딩
+    - 씬의 전환 시 다음 씬에서 사용될 리소스들을 물리적인 저장소에서 읽어와서 메모리에 올린다.
+    - LoadScene는 __동기 방식__ 이기 때문에 씬을 다 불러오기 전까지는 다른 작업 불가
+    - LoadSceneAsync는 __비동기 방식__ 이기에 작업 도중 다른 작업 겸행가능 
+    - <span style = "color:yellow;">Json.cs 생성 후 인스턴스화, 이제 DataManager.cs에서 사용하던 Save()등의 함수는 Json.cs로 옮겨짐</span> 
+      - LoadingScene과 MainScene 모두 사용위함
+      ```c#
+      DataManager.Instance.PlayerData.Stage = 0;  //수정 전
+      Json.Instance.PlayerData.Stage = 0;         //수정 후
+      ```  
+    1. __로딩 씬을 불러들여 다음 씬을 비동기로 호출하는 방법__
+        
+        <img src="Capture/After/Loading.gif" width=300 title="로딩 구현">  
+        <details>
+        <summary>코드 보기</summary>
+        <div markdown="1">
+
+        ```c#
+        using System.Collections;
+        using System.Collections.Generic;
+        using UnityEngine;
+        using UnityEngine.UI;
+        using UnityEngine.SceneManagement;
+        using System.IO;
+
+        public class LoadingManager : MonoBehaviour
+        {
+          [SerializeField]
+          string nextScene;
+
+          [SerializeField]
+          Image progressBar;
+
+          GameObject Go;
+          bool isReady = false;
+
+          AsyncOperation op;  //로딩 진행 상황
+
+          void Start()
+          {
+            Go = GameObject.Find("Touch");
+            StartCoroutine(LoadSceneProcess()); 
+          }
+
+          private void FixedUpdate()
+          {
+          #if UNITY_STANDALONE || UNITY_WEBPLAYER || UNITY_EDITOR         //pc의 경우
+            if (isReady && Input.GetKeyDown(KeyCode.Space))
+            {
+              op.allowSceneActivation = true;
+            }
+          #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE       //phone의 경우
+            if (isReady && Input.touchCount != 0)
+            {
+              op.allowSceneActivation = true;
+            }
+          #endif
+          }
+
+          IEnumerator LoadSceneProcess()
+          {
+            op = SceneManager.LoadSceneAsync(nextScene);
+            op.allowSceneActivation = false;
+
+            float timer = 0f;
+            while (!op.isDone)
+            {
+              if (!File.Exists(Application.persistentDataPath + "/playerData.json"))    //파일의 로드
+              {
+                Json.Instance.Save();
+                Json.Instance.SaveCost();
+                Json.Instance.SaveMisson();
+                Json.Instance.SaveSlot();
+              }
+              yield return null;
+              if(op.progress < 0.5f)      //로딩  
+              {
+                progressBar.fillAmount = op.progress;
+              }
+              else                        //페이크 로딩
+              {
+                timer += Time.unscaledDeltaTime / 10;
+                progressBar.fillAmount = Mathf.Lerp(0.5f, 1f, timer);
+                if(progressBar.fillAmount >= 1f)    //완료시
+                {
+                  Go.GetComponent<Text>().text = "Touch And Play";
+                  isReady = true;
+                  yield break;
+                }
+              }
+            }
+          }
+        }
+        ``` 
+        </div>
+        </details> 
+
+      - 전처리문을 통해 UnityEditor와 Android를 구분해서 사용
+        - PC는 space바를 Android는 터치를 통해 게임을 시작 
+    2. __Scene을 불러오는 것이 아닌 UI로 화면을 가리고 가져오는 방법 (나는 사용X)__
 > **<h3>Today Dec Story</h3>**
-  - null
-
-
-Combo
-
-|Skill|Index|Increased Type|Default Additional|Upgrade Additional|StartCost|UpgradeCost|Condition|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Default|None|None|None|None|None|None|0 Stage|
-|item1(Outline Punch)|1|Power|+0.1|+0.1|5|pow|10 Stage|
-|item2(Kick)|2|Power|+0.5|+0.5|15|pow|20 Stage|
-|item3(Strite Punch)|3|Critical|+5%(0.05%)|+1%(0.01%)|10|pow|20 Stage|
-|item4|4|BossTime|+0.1|+0.1|20|pow(존나 비싸야해)|10 Stage|
-|item5|5|Gold|+1|+1|20|pow|50 Stage|
+  - 막대 형식을 표현할때 굳이 slider의 사용이 아닌 image를 생성 후 그림과 같이 수정하여 Fill Amount를 조정하여 사용
+    
+    <img src="Capture/After/NewSlider.png" width=300 title="slider 대용">  
+ 
+___
+## __2.15__
+> **<h3>Today Dec Story</h3>**
+  - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
+> **<h3>Today Dec Story</h3>**

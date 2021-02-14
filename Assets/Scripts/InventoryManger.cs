@@ -18,7 +18,7 @@ public class InventoryManger : MonoBehaviour
     private void OnEnable()
     {
         ui = FindObjectOfType<UIManager>();
-        DataManager.Instance.LoadSlot();
+        Json.Instance.LoadSlot();
         ui.SwitchOn();
         for (int i = 1; i <= 5; i++)
         {
@@ -27,49 +27,49 @@ public class InventoryManger : MonoBehaviour
             switch (i)  //사실 배열로 받으면 훨씬 짧다.
             {
                 case 1:
-                    if(DataManager.Instance.slotSave.additionalD_1 == 0)    //초기값 설정
+                    if(Json.Instance.slotSave.additionalD_1 == 0)    //초기값 설정
                     {
-                        DataManager.Instance.slotSave.additionalD_1 = 0.1f;
+                        Json.Instance.slotSave.additionalD_1 = 0.1f;
                     }
-                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_1;
-                    skill.i_level = DataManager.Instance.slotSave.level_1;
-                    skill.i_cost = DataManager.Instance.slotSave.cost_1;
+                    skill.i_additionalD = Json.Instance.slotSave.additionalD_1;
+                    skill.i_level = Json.Instance.slotSave.level_1;
+                    skill.i_cost = Json.Instance.slotSave.cost_1;
                     break;
                 case 2:
-                    if (DataManager.Instance.slotSave.additionalD_2 == 0)
+                    if (Json.Instance.slotSave.additionalD_2 == 0)
                     {
-                        DataManager.Instance.slotSave.additionalD_2 = 0.5f;
+                        Json.Instance.slotSave.additionalD_2 = 0.5f;
                     }
-                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_2;
-                    skill.i_level = DataManager.Instance.slotSave.level_2;
-                    skill.i_cost = DataManager.Instance.slotSave.cost_2;
+                    skill.i_additionalD = Json.Instance.slotSave.additionalD_2;
+                    skill.i_level = Json.Instance.slotSave.level_2;
+                    skill.i_cost = Json.Instance.slotSave.cost_2;
                     break;
                 case 3:
-                    if (DataManager.Instance.slotSave.additionalD_3 == 0)
+                    if (Json.Instance.slotSave.additionalD_3 == 0)
                     {
-                        DataManager.Instance.slotSave.additionalD_3 = 0.05f;
+                        Json.Instance.slotSave.additionalD_3 = 0.05f;
                     }
-                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_3;
-                    skill.i_level = DataManager.Instance.slotSave.level_3;
-                    skill.i_cost = DataManager.Instance.slotSave.cost_3;
+                    skill.i_additionalD = Json.Instance.slotSave.additionalD_3;
+                    skill.i_level = Json.Instance.slotSave.level_3;
+                    skill.i_cost = Json.Instance.slotSave.cost_3;
                     break;
                 case 4:
-                    if (DataManager.Instance.slotSave.additionalD_4 == 0)
+                    if (Json.Instance.slotSave.additionalD_4 == 0)
                     {
-                        DataManager.Instance.slotSave.additionalD_4 = 0.1f;
+                        Json.Instance.slotSave.additionalD_4 = 0.1f;
                     }
-                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_4;
-                    skill.i_level = DataManager.Instance.slotSave.level_4;
-                    skill.i_cost = DataManager.Instance.slotSave.cost_4;
+                    skill.i_additionalD = Json.Instance.slotSave.additionalD_4;
+                    skill.i_level = Json.Instance.slotSave.level_4;
+                    skill.i_cost = Json.Instance.slotSave.cost_4;
                     break;
                 case 5:
-                    if (DataManager.Instance.slotSave.additionalD_5 == 0)
+                    if (Json.Instance.slotSave.additionalD_5 == 0)
                     {
-                        DataManager.Instance.slotSave.additionalD_5 = 1f;
+                        Json.Instance.slotSave.additionalD_5 = 1f;
                     }
-                    skill.i_additionalD = DataManager.Instance.slotSave.additionalD_5;
-                    skill.i_level = DataManager.Instance.slotSave.level_5;
-                    skill.i_cost = DataManager.Instance.slotSave.cost_5;
+                    skill.i_additionalD = Json.Instance.slotSave.additionalD_5;
+                    skill.i_level = Json.Instance.slotSave.level_5;
+                    skill.i_cost = Json.Instance.slotSave.cost_5;
                     break;
                 default:
                     break;
@@ -99,23 +99,23 @@ public class InventoryManger : MonoBehaviour
     }
     public void Load()  //데이터의 로드
     {
-        DataManager.Instance.LoadSlot();    //호출
+        Json.Instance.LoadSlot();    //호출
         for (int i = 0; i < 3; i++)
         {
             switch (i)
             {
                 case 0:
-                    num = DataManager.Instance.slotSave.index_1;
+                    num = Json.Instance.slotSave.index_1;
                     itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
                     itemAddButton.Add();
                     break;
                 case 1:
-                    num = DataManager.Instance.slotSave.index_2;
+                    num = Json.Instance.slotSave.index_2;
                     itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
                     itemAddButton.Add();
                     break;
                 case 2:
-                    num = DataManager.Instance.slotSave.index_3;
+                    num = Json.Instance.slotSave.index_3;
                     itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
                     itemAddButton.Add();
                     break;

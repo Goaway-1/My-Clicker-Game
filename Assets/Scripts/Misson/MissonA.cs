@@ -8,13 +8,13 @@ public class MissonA : Missons   //Click미션!
     {
         get
         {
-            DataManager.Instance.LoadMisson();
-            return DataManager.Instance.playerMisson.count;
+            Json.Instance.LoadMisson();
+            return Json.Instance.playerMisson.count;
         }
         set
         {
-            DataManager.Instance.playerMisson.count = value;    //굳이 이렇게?   추후 수정
-            DataManager.Instance.SaveMisson();
+            Json.Instance.playerMisson.count = value;    //굳이 이렇게?   추후 수정
+            Json.Instance.SaveMisson();
         }
     }
 
@@ -22,30 +22,30 @@ public class MissonA : Missons   //Click미션!
     {
         get
         {
-            DataManager.Instance.LoadMisson();
-            if(DataManager.Instance.playerMisson.Max_count == 0)
+            Json.Instance.LoadMisson();
+            if(Json.Instance.playerMisson.Max_count == 0)
             {
-                DataManager.Instance.playerMisson.Max_count = 10;
+                Json.Instance.playerMisson.Max_count = 10;
             }
-            return DataManager.Instance.playerMisson.Max_count;
+            return Json.Instance.playerMisson.Max_count;
         }
         set
         {
-            DataManager.Instance.playerMisson.Max_count = value;    //굳이 이렇게? 추후 수정
-            DataManager.Instance.SaveMisson();
+            Json.Instance.playerMisson.Max_count = value;    //굳이 이렇게? 추후 수정
+            Json.Instance.SaveMisson();
         }
     }
     public int isfill     //json 저장
     {
         get 
         {
-            DataManager.Instance.LoadMisson();
-            return DataManager.Instance.playerMisson.isfill;
+            Json.Instance.LoadMisson();
+            return Json.Instance.playerMisson.isfill;
         }
         set
         {
-            DataManager.Instance.playerMisson.isfill = value;    //굳이 이렇게? 추후 수정
-            DataManager.Instance.SaveMisson();
+            Json.Instance.playerMisson.isfill = value;    //굳이 이렇게? 추후 수정
+            Json.Instance.SaveMisson();
         }
     }
 
