@@ -49,6 +49,7 @@ public class AttackButton : MonoBehaviour
     {
         if (EnemyManager.Instance.getExist())
         {
+            Json.Instance.LoadSlot();   //추가
             n_power = DataManager.Instance.power;
             strikePer = DataManager.Instance.criticalPer;
 
@@ -75,7 +76,7 @@ public class AttackButton : MonoBehaviour
             sumPower();
 
             //실질적으로 데미지를 입히고 보여주는 곳
-            playerAnimation.AttackAction(count);
+            playerAnimation.AttackAction(inven.slots[count].index);
             EffectManager.Instance.attckShow();
             missonA.A_count++;  //미션 관련
             Enemy.Instance.decreased(n_power); //추후 수정 --> 싱글톤 삭제하자!n 
@@ -121,7 +122,8 @@ public class AttackButton : MonoBehaviour
                     uiManager.currentTime += inven.slots[count].additionalD;
                 }
                 break;
-            default:
+            default:    
+                Debug.Log("기본공격");
                 break;
         }
     }

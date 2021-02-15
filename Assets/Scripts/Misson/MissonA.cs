@@ -86,6 +86,6 @@ public class MissonA : Missons   //Click¹Ì¼Ç!
     }
     public override void UpdateUi()
     {
-        display.text = "Max : " + A_count_max + "\ncount : " + A_count;
+        display.text = "Max : " + A_count_max + "\ncount : " + A_count + "\tReword : " + isfill;
     }
 }

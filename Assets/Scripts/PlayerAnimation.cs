@@ -15,14 +15,15 @@ public class PlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>(); //스스로를 넣는다.
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         RunAction();
     }
 
     public void AttackAction(int num)
     {
-        switch (inven.slots[num].index)
+        Json.Instance.LoadSlot();
+        switch (num)
         {
             case 1:
                 animator.SetInteger("Attack", 1);

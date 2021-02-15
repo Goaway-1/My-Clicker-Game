@@ -5,13 +5,33 @@ using System.IO;
 
 public class InventoryManger : MonoBehaviour
 {
+    private static InventoryManger instance;
+    
+    public static InventoryManger Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<InventoryManger>();
+                if (instance == null)
+                {
+                    GameObject container = new GameObject("InventoryManger");
+                    instance = container.AddComponent<InventoryManger>();
+                }
+            }
+            return instance;
+        }
+    }
+
+
     public List<SlotData> slots = new List<SlotData>();
     private int maxSlot = 3;
     public GameObject slotPrefab;
     public GameObject Panel;    //Panel의 setactive를 사용하기 위함
 
     //로드
-    ItemAddButton itemAddButton;
+    ItemAddButton[] itemAddButton = new ItemAddButton[3];
     UIManager ui;
     private int num;
 
@@ -82,6 +102,10 @@ public class InventoryManger : MonoBehaviour
         GameObject slotPanel = GameObject.Find("Slot_Panel");
         for (int i = 0; i < maxSlot; i++)
         {
+            //추후 3가지의 스킬을 불러와 로드할때 쓴다.
+            itemAddButton[i] = GameObject.Find("Add_item" + (i + 1)).GetComponent<ItemAddButton>();
+
+            //초기값 생성시 사용
             SlotData slot = new SlotData();
             GameObject go = Instantiate(slotPrefab, slotPanel.transform, false);
             go.name = "Slot_" + i;
@@ -106,18 +130,27 @@ public class InventoryManger : MonoBehaviour
             {
                 case 0:
                     num = Json.Instance.slotSave.index_1;
-                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
-                    itemAddButton.Add();
+                    if (num == 0)
+                    {
+                        break;
+                    }
+                    itemAddButton[i].Add();
                     break;
                 case 1:
                     num = Json.Instance.slotSave.index_2;
-                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
-                    itemAddButton.Add();
+                    if(num == 0)
+                    {
+                        break;
+                    }
+                    itemAddButton[i].Add();
                     break;
                 case 2:
                     num = Json.Instance.slotSave.index_3;
-                    itemAddButton = GameObject.Find("Add_item" + num).GetComponent<ItemAddButton>();
-                    itemAddButton.Add();
+                    if (num == 0)
+                    {
+                        break;
+                    }
+                    itemAddButton[i].Add();
                     break;
                 default:
                     break;
@@ -128,7 +161,7 @@ public class InventoryManger : MonoBehaviour
 
 
 [System.Serializable]
-public class SlotData   //저장 안해도 돼 상단 example 생성용
+public class SlotData   //저장 x 상단 example 생성용
 {
     public bool isEmpty;
     public int index;           //고유 인덱스 값
@@ -140,7 +173,7 @@ public class SlotData   //저장 안해도 돼 상단 example 생성용
 }
 
 [System.Serializable]
-public class SlotSave       //이 클래스는 단지 상단에 박아 넣는 용도 --> 아니다 얘를 쓰자
+public class SlotSave       //생성된 것
 {
     public int index_1;
     public int index_2;

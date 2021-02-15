@@ -908,8 +908,9 @@ if (inven.slots[count].additionalD != 0)    //0이 아닐때만 실행
 count++;
 ```
   - 장착된 Combo 삭제 구현(1,2,3번 클릭) 
-    - #### Combo-수정
+    - ### Combo-수정
  - <img src="Capture/DelAdditional.gif" width=350>
+ - ### Item-Del-수정(2.15)
 ```c#
 public class ItemDel : MonoBehaviour  //장착시 생성되는 곳에 들어간다.
 {
@@ -2407,5 +2408,61 @@ ___
 ___
 ## __2.15__
 > **<h3>Today Dec Story</h3>**
+  - 미션 진행 시 획득 가능한 보상의 수 표시 
+  - <img src="Capture/After/MissonReword.gif" width=300 title="미션UI">   
+  - __Skill 장착 해제 시에도 기존 유지 되는 문제 해결__
+    - iventoryManager 싱글톤화 후 ItemDel에서 초기화 진행
+    - [수정전 코드 보기](#Item-Del-수정(2.15))
+      <details>
+      <summary>코드 보기</summary>
+      <div markdown="1">
+
+      ```c#
+      //ItemDel.cs
+      private void FixedUpdate()
+      {
+        if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+        {
+          switch (Input.inputString)  //데이터의 삭제
+          {
+            case "1":
+              Json.Instance.slotSave.index_1 = 0;
+              SReset(0);
+              break;
+            case "2":
+              Json.Instance.slotSave.index_2 = 0;
+              SReset(1);
+              break;
+            case "3":
+              Json.Instance.slotSave.index_3 = 0;
+              SReset(2);
+              break;
+            default:
+              break;
+          }
+          Json.Instance.SaveSlot();
+          Destroy(this.gameObject);
+        }
+      }
+      private void SReset(int i)
+      {
+        InventoryManger.Instance.slots[i].isEmpty = false;
+        InventoryManger.Instance.slots[i].additionalD = 0;
+        InventoryManger.Instance.slots[i].index = 0;
+        InventoryManger.Instance.slots[i].type = null;
+        InventoryManger.Instance.slots[i].level = 0;
+        InventoryManger.Instance.slots[i].cost = 0;
+      }
+      ``` 
+
+    </div>
+    </details>
+  - Find<>함수를 쓰는 부분 수정 (최적화) 
+> **<h3>Today Dec Story</h3>**
+  - 최적화 툴 3가지
+___
+## __2.16__
+> **<h3>Today Dec Story</h3>**
   - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
+  - null
