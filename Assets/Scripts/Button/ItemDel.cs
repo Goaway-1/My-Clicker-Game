@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class ItemDel : MonoBehaviour
 {
-    private void FixedUpdate()
+    public void OnClick()
     {
-        if (Input.inputString == (transform.parent.GetComponent<Slot>().num + 1).ToString())
+        int i = int.Parse(gameObject.transform.parent.name.Substring(gameObject.transform.parent.name.IndexOf("_") + 1,1));
+        switch (i)  //데이터의 삭제
         {
-            switch (Input.inputString)  //데이터의 삭제
-            {
-                case "1":
-                    Json.Instance.slotSave.index_1 = 0;
-                    SReset(0);
-                    break;
-                case "2":
-                    Json.Instance.slotSave.index_2 = 0;
-                    SReset(1);
-                    break;
-                case "3":
-                    Json.Instance.slotSave.index_3 = 0;
-                    SReset(2);
-                    break;
-                default:
-                    break;
-            }
-            Json.Instance.SaveSlot();
-            Destroy(this.gameObject);
+            case 0:
+                Json.Instance.slotSave.index_1 = 0;
+                SReset(i);
+                break;
+            case 1:
+                Json.Instance.slotSave.index_2 = 0;
+                SReset(i);
+                break;
+            case 2:
+                Json.Instance.slotSave.index_3 = 0;
+                SReset(i);
+                break;
+            default:
+                break;
         }
+        Json.Instance.SaveSlot();
+        Destroy(this.gameObject);
     }
     private void SReset(int i)
     {

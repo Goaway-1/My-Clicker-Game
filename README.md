@@ -2413,6 +2413,7 @@ ___
   - __Skill 장착 해제 시에도 기존 유지 되는 문제 해결__
     - iventoryManager 싱글톤화 후 ItemDel에서 초기화 진행
     - [수정전 코드 보기](#Item-Del-수정(2.15))
+    - ### 3차-Item-Del-수정전(2.16)
       <details>
       <summary>코드 보기</summary>
       <div markdown="1">
@@ -2463,6 +2464,64 @@ ___
 ___
 ## __2.16__
 > **<h3>Today Dec Story</h3>**
+  - ItemmButton의 삭제를 위해서 버튼으로 구현
+    - 클릭한 부모의 이름에서 번호를 추출해 삭제 사용 
+    - [이전 코드](#3차-Item-Del-수정전(2.16))
+      <details>
+      <div markdown="1">
+
+      ```c#
+      public void OnClick()
+      {
+        int i = int.Parse(gameObject.transform.parent.name.Substring(gameObject.transform.parent.name.IndexOf("_") + 1,1));
+        switch (i)  //데이터의 삭제
+        {
+          case 0:
+            Json.Instance.slotSave.index_1 = 0;
+            SReset(i);
+            break;
+          case 1:
+            Json.Instance.slotSave.index_2 = 0;
+            SReset(i);
+            break;
+          case 2:
+            Json.Instance.slotSave.index_3 = 0;
+            SReset(i);
+            break;
+          default:
+            break;
+        }
+        Json.Instance.SaveSlot();
+        Destroy(this.gameObject);
+      }
+      ``` 
+
+    </div>
+    </details> 
+  - 스크롤이 진행되지 않는 오류 수정
+  - Master버튼에서 json 파일의 삭제 되지 않는 오류 수정
+> **<h3>Today Dec Story</h3>**
+  - 각종 오브젝트 호출방법
+    ```c#
+    gameObject.transform.parent... //부모 객체 호출
+    gameObject.GetChild(0).gameObject... //0번째 자식 호출
+    gameObject.GetChild(1).gameObject... //1번째 자식 호출
+    ///자식 오브젝트를 배열로 가져와 순차적으로 작업 처리시
+    Transform[] objList = gameObject.GetComponentsInChildren(typeof(Transform));
+
+    foreach( Transform child in objList )
+    {
+      child.gameObject.GetComponent( ....);
+    }
+    ```
+  - Raycast
+    - RaycastHit를 사용하기 위해선 Collider가 필수
+    - UI는 RayCast Target을 활성화 후 사용
+
+___
+## __2.17__
+> **<h3>Today Dec Story</h3>**
+  - 오늘 안에 끝낼 예정. 구글 플레이스토어에 계시 하지 않으며, 공부의 목적으로 개발 했다고 알림
   - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
   - null

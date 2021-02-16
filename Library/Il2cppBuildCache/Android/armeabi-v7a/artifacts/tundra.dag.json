@@ -22,6 +22,7 @@
       "Inputs": [
         "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed",
         "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed/Assembly-CSharp.dll",
+        "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed/LoadingScreen.Misc.dll",
         "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed/Mono.Security.dll",
         "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed/mscorlib.dll",
         "D:/Unity Projects/My Clicker Game/Temp/StagingArea/assets/bin/Data/Managed/System.Configuration.dll",

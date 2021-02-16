@@ -112,8 +112,10 @@ public class UIManager : MonoBehaviour
 
     public void ResetButton()   //PlayerPrefs 데이터를 모두 삭제
     {
-        File.Delete("Assets/playerData.json");
-        File.Delete("Assets/playerDataCost.json");
+        File.Delete(Application.persistentDataPath + "/playerData.json");
+        File.Delete(Application.persistentDataPath + "/playerDataCost.json");
+        File.Delete(Application.persistentDataPath + "/playerMisson.json");
+        File.Delete(Application.persistentDataPath + "/SlotSave.json");
     }
 
     public void maxMoney()  //돈 급수

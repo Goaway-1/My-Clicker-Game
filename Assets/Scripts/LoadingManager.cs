@@ -10,18 +10,21 @@ public class LoadingManager : MonoBehaviour
     [SerializeField]
     string nextScene;
 
-    [SerializeField]
-    Image progressBar;
+    Slider slider;
 
-    GameObject Go;
+    [SerializeField]
+    Text Statetext;
+
+    [SerializeField]
+    Text Percenttext;
     bool isReady = false;
 
     AsyncOperation op;  //로딩 진행 상황
 
     void Start()
     {
-        Go = GameObject.Find("Touch");
-        StartCoroutine(LoadSceneProcess()); 
+        slider = gameObject.GetComponent<Slider>();
+        StartCoroutine(LoadSceneProcess());
     }
 
     private void FixedUpdate()
@@ -57,17 +60,19 @@ public class LoadingManager : MonoBehaviour
                 Json.Instance.SaveSlot();
             }
             yield return null;
-            if(op.progress < 0.5f)      //로딩  
+            if (op.progress < 0.1f)      //로딩  
             {
-                progressBar.fillAmount = op.progress;
+                slider.value = op.progress;
+                Percenttext.text = System.Math.Round((slider.value * 100),0).ToString() + "%";
             }
             else                        //페이크 로딩
             {
-                timer += Time.unscaledDeltaTime / 10;
-                progressBar.fillAmount = Mathf.Lerp(0.5f, 1f, timer);
-                if(progressBar.fillAmount >= 1f)    //완료시
+                timer += Time.unscaledDeltaTime / 5;
+                slider.value = Mathf.Lerp(0.5f, 1f, timer);
+                Percenttext.text = System.Math.Round((slider.value * 100), 0).ToString() + "%";
+                if (slider.value >= 1f)    //완료시
                 {
-                    Go.GetComponent<Text>().text = "Touch And Play";
+                    Statetext.text = "Touch And Play";
                     isReady = true;
                     yield break;
                 }
