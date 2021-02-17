@@ -15,7 +15,7 @@ public class ItemAddButton : MonoBehaviour
     //디스플레이
     public Text display;
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateUI();
     }

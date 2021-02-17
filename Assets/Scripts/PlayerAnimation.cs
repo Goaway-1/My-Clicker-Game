@@ -12,7 +12,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Start()
     {
-        animator = GetComponent<Animator>(); //스스로를 넣는다.
+        animator = GetComponent<Animator>(); //스스로를 넣는다.  
     }
 
     public void FixedUpdate()
@@ -26,19 +26,19 @@ public class PlayerAnimation : MonoBehaviour
         switch (num)
         {
             case 1:
-                animator.SetInteger("Attack", 1);
+                animator.SetInteger("Attack", num);
                 break;
             case 2:
-                animator.SetInteger("Attack", 2);
+                animator.SetInteger("Attack", num);
                 break;
             case 3:
-                animator.SetInteger("Attack", 3);
+                animator.SetInteger("Attack", num);
                 break;
             case 4:
-                animator.SetInteger("Attack", 4);
+                animator.SetInteger("Attack", num);
                 break;
             case 5:
-                animator.SetInteger("Attack", 5);
+                animator.SetInteger("Attack", num);
                 break;
             default:
                 break;
@@ -60,7 +60,7 @@ public class PlayerAnimation : MonoBehaviour
 
     IEnumerator Wait() //강제로 모션 유지 시간 --> 추후 변경예정
     {
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.33f);
         animator.SetInteger("Attack", 0);
     }
 }

@@ -32,7 +32,7 @@ ___
 ## __12.22__
 > **<h3>Today Dev Story</h3>**
  - 클리커게임을 위해 클릭, 돈, 클릭per돈 등을 구현만 해두었다.
- - PlayerPrefabs.SetInt() 와 PlayerPrefabs.GetInt()를 통해서 local에 저장했다. 작은 메모리에서만 사용가능하니 <ins>Json으로 추후 변경해야한다.</ins> 
+ - PlayerPrefabs.SetInt() 와 PlayerPrefabs.GetInt()를 통해서 local에 저장했다. 작은 메모리에서만 사용가능하니 ~~<ins>Json으로 추후 변경해야한다.</ins>~~
  - 오후에는 [수업](https://www.youtube.com/watch?v=5obCdTnlEFo)을 모두 듣고 나만의 것을 따로 만들어 구현할 것이다.
 
 > **<h3>Realization</h3>**
@@ -652,10 +652,10 @@ public class playerData
 ___
 ## __1.10__
 > **<h3>Today Dev Story</h3>**
- - Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. <ins>(추후 수정)</ins>
+ - Json을 적용해 보려했으나 데이터들이 모두 접근자 프로퍼티가 설정되어있어 저장이 되지 않는다. ~~<ins>(추후 수정)</ins>~~
  - 화면 어느곳이던 터치(클릭)시 공격
- - 몬스터 HP, Gold 드랍 -> stage 비례 <ins>(추후 수정)</ins>
- - power,Critical(pow,per) -> level 비례  <ins>(추후 수정)</ins>
+ - 몬스터 HP, Gold 드랍 -> stage 비례 ~~<ins>(추후 수정)</ins>~~
+ - power,Critical(pow,per) -> level 비례  ~~<ins>(추후 수정)</ins>~~
 ```c#
 //몬스터 HP
 private float startHp = 5f; //초기 HP
@@ -2521,7 +2521,21 @@ ___
 ___
 ## __2.17__
 > **<h3>Today Dec Story</h3>**
-  - 오늘 안에 끝낼 예정. 구글 플레이스토어에 계시 하지 않으며, 공부의 목적으로 개발 했다고 알림
+  - __메인화면 스크롤러는 따로 작성__
+    - <img src="Capture/After/Loading2.gif" width=250 title="MainScene"> 
+  - __Enemy Hited 이미지 수정__ 
+    - 애니메이션이 한번 종료되다면 전환
+    - <img src="Capture/After/Hited.gif" width=300 title="EnemyHited">  
+      
+
+      ```c#
+      //애니메이션이 끝나면 애니메이션 종료(순환 촉구)
+      if(ani.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Hited") && ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)    애니메이션
+      {
+        ani.SetBool("Hited", false);
+      }
+      ```
+  - 모든 UGI 수정 (Player...)
   - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
   - null

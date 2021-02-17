@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8361871656679386541}
   - component: {fileID: 7998884412709000213}
   - component: {fileID: 8151254333708967535}
-  - component: {fileID: -4843565739362235627}
+  - component: {fileID: -1925232812061837759}
   m_Layer: 5
   m_Name: Attack_1
   m_TagString: Untagged
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97920be19e130fc47a2f070270c4dfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4843565739362235627
+--- !u!114 &-1925232812061837759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,10 +108,10 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.20445704, g: 1, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

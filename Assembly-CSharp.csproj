@@ -57,44 +57,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Button\AttackButton.cs" />
-    <Compile Include="Assets\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\ObjectPoolingManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\ObjectPoolingManager.cs" />
+    <Compile Include="Assets\Scripts\MainBGScroller.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\Scripts\BGScroller.cs" />
-    <Compile Include="Assets\Scripts\InventoryManger.cs" />
+    <Compile Include="Assets\Scripts\Manager\InventoryManger.cs" />
     <Compile Include="Assets\Scripts\Button\Buttons.cs" />
     <Compile Include="Assets\Scripts\Json.cs" />
     <Compile Include="Assets\Scripts\Misson\MissonB.cs" />
     <Compile Include="Assets\Scripts\Misson\Missons.cs" />
-    <Compile Include="Assets\Scripts\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\EffectManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Button\AutoClickButton.cs" />
     <Compile Include="Assets\Scripts\Effect.cs" />
     <Compile Include="Assets\Scripts\Button\ItemAddButton.cs" />
-    <Compile Include="Assets\Scripts\LoadingManager.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\LoadingManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\Misson\MissonA.cs" />
     <Compile Include="Assets\Scripts\Button\PowerButton.cs" />
     <Compile Include="Assets\Scripts\Button\ItemDel.cs" />
     <Compile Include="Assets\Scripts\Slot.cs" />
-    <Compile Include="Assets\Scripts\DataManager.cs" />
+    <Compile Include="Assets\Scripts\Manager\DataManager.cs" />
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\ReorderableList\Attributes\ReorderableLovattoAttribute.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\Structures\bl_SceneLoaderInfo.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Runtime\Main\bl_SceneLoader.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\Global\bl_SceneLoaderUtils.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\ReorderableList\ReorderableArray.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Runtime\Utils\bl_ButtonSceneLoad.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\Enum\LoadingType.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Runtime\Main\bl_SceneLoaderManager.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Runtime\Utils\bl_TriggerLoad.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Internal\Enum\bl_SceneLoaderSkip.cs" />
-    <Compile Include="Assets\Loading Screen\Content\Scripts\Runtime\UI\bl_LoadingScreenUI.cs" />
-    <Compile Include="Assets\Loading Screen\Example\Script\bl_LoadingScreenExample.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\Loading Screen\ReadMe.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Unity\2020.2.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -307,9 +295,6 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\Unity\2020.2.0f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>Library\ScriptAssemblies\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.5\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -748,10 +733,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="LoadingScreen.Misc.csproj">
-      <Project>{DB33C201-4D03-6661-0EA4-79C024C74828}</Project>
-      <Name>LoadingScreen.Misc</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

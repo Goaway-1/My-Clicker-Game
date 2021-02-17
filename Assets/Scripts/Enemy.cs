@@ -32,14 +32,18 @@ public class Enemy : MonoBehaviour
 
     private Vector3 spawnPos = new Vector3(0,1.7f,-1f);  //도착 포지션 (추후 수정)
 
+    //Hit Animation
+    Animator ani;
+
     public void OnEnable()
     {
+        ani = GetComponent<Animator>();
         maxHP = EnemyManager.Instance.defineHp();
         currentHP = maxHP;
         Debug.Log("HP : " + maxHP);
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (this.transform.position != spawnPos)
         {
@@ -51,6 +55,12 @@ public class Enemy : MonoBehaviour
             ifdead();
         }
         showHp();
+
+        //애니메이션이 끝나면 애니메이션 종료(순환 촉구)
+        if(ani.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Hited") && ani.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)    //애니메이션
+        {
+            ani.SetBool("Hited", false);
+        }
     }
 
     public void Move()
@@ -60,6 +70,7 @@ public class Enemy : MonoBehaviour
 
     public void decreased(float power) //체력 감소
     {
+        ani.SetBool("Hited", true);
         currentHP -= power;
     }
     
@@ -74,13 +85,11 @@ public class Enemy : MonoBehaviour
         DataManager.Instance.Hp = maxHP;
         DataManager.Instance.fixHp += 5;    //Hp 증가
         Destroy(this.gameObject);
-        //ObjectPoolingManager.instance.EInsertQueue(gameObject); //오브젝트풀링수정 
     }
     public void bossNotDead()   //보스가 죽지 않았을때의 판전
     {
         EnemyManager.Instance.setExist(false);
         Destroy(this.gameObject);
-        //ObjectPoolingManager.instance.EInsertQueue(gameObject);  //오브젝트풀링수정
     }
     //UI관련@@@@@
     public void showHp()

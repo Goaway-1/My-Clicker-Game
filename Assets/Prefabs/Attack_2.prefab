@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3383341227560856636}
   - component: {fileID: 2036733076877404757}
   - component: {fileID: -475238424466077734}
-  - component: {fileID: -3391047619883350946}
+  - component: {fileID: 2560784134907584468}
   m_Layer: 5
   m_Name: Attack_2
   m_TagString: Untagged
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97920be19e130fc47a2f070270c4dfa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3391047619883350946
+--- !u!114 &2560784134907584468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}

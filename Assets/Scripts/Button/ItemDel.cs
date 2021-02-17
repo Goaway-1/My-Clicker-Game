@@ -6,7 +6,7 @@ public class ItemDel : MonoBehaviour
 {
     public void OnClick()
     {
-        int i = int.Parse(gameObject.transform.parent.name.Substring(gameObject.transform.parent.name.IndexOf("_") + 1,1));
+        int i = int.Parse(gameObject.transform.parent.name.Substring(gameObject.transform.parent.name.IndexOf("_") + 1, 1));
         switch (i)  //데이터의 삭제
         {
             case 0:

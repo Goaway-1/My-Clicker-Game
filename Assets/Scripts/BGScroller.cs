@@ -21,7 +21,7 @@ public class BGScroller : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (EnemyManager.Instance.isMove)  //isMove가 true일때만 배경을 움직인다.
         {
