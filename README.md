@@ -2536,6 +2536,15 @@ ___
       }
       ```
   - 모든 UGI 수정 (Player...)
+> **<h3>Today Dec Story</h3>**
+  - null
+___
+## __2.18__
+> **<h3>Today Dec Story</h3>**
+  - DefaultIcon, SplashImage 수정
+  - 시작화면과 아이콘 생성 및 적용
+    - 등록이 목표가 아니기 때문에 간단히 작성
+    - <img src="Capture/After/SplashScreen.gif" width=250 title="Splash"> 
   - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
   - null

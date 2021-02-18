@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
 
     public void StageDisplay() //stage를 화면 상에 출력한다.
     {
-        stageDisplay.text = "\tStage : " + DataManager.Instance.stage;
+        stageDisplay.text = "Stage : " + DataManager.Instance.stage;
         currentDisplay.text = (int)currentTime + "초";
     }
     public void GoldDisplay() //골드를 화면 상에 출력한다.
