@@ -8,13 +8,12 @@ public class CriticalPerButton : Buttons
     {
         upgradeName = "CriticalPer";
 
-        startState = 1f; //시작크리티컬
-        startCurrentCost = 1;
+        startCurrentCost = 20;
 
         //업글 제곱
         costPow = 1.02f;
         UpcostPow = 1.39f;
-        currentCost = 1;
+        currentCost = 20;
 
         DataManager.Instance.LoadC_Per_Button(this);
         UpdateUI();
@@ -35,12 +34,11 @@ public class CriticalPerButton : Buttons
 
     public override void PurchaseUpgrade() //퍼센트
     {
-        //if구문->돈빼고(자동저장)
-        if (DataManager.Instance.gold >= currentCost)
+        if (DataManager.Instance.gold >= currentCost && DataManager.Instance.criticalPer <= 70)
         {
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
-            DataManager.Instance.increasedCriticalPer(startState, costPow, level);
+            DataManager.Instance.increasedCriticalPer();
             level++;
             UpdateItem();
             UpdateUI();

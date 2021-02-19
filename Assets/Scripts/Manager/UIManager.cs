@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
 
     //Menu
     public Animator M_Ani;
-    public Text M_text;
     private bool M_isshow = false;
+    public GameObject M_image;
 
     //Menu ÀüÈ¯
     public GameObject UpgradeP;
@@ -100,13 +100,13 @@ public class UIManager : MonoBehaviour
         {
             M_isshow = true;
             M_Ani.SetBool("isShow", true);
-            M_text.text = "Hide";
+            M_image.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
         else
         {
             M_isshow = false;
             M_Ani.SetBool("isShow", false);
-            M_text.text = "Show";
+            M_image.transform.rotation = Quaternion.Euler(0, 0, -90);
         }
     }
 

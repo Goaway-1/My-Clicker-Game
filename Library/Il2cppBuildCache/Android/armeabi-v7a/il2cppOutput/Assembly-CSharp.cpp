@@ -6947,8 +6947,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Rect_set_x_m1147A05B5046E1D4427E8EC99B9D
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Camera_set_rect_m556222CD5D4975EF672DC33D979611405A173F79 (Camera_tC44E094BAB53AFC8A014C6F9CFCE11F4FC38006C * __this, Rect_t7D9187DB6339DBA5741C09B6CCEF2F54F1966878  ___value0, const RuntimeMethod* method);
 // System.Void DataManager::LoadC_Per_Button(CriticalPerButton)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_LoadC_Per_Button_mF14EFD57DEB25637ACB6B65046635C983400A34F (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, CriticalPerButton_tAAC3FB45A32039A6F4B9F66A987FF863430F92A4 * ___criticalPerButton0, const RuntimeMethod* method);
-// System.Void DataManager::increasedCriticalPer(System.Single,System.Single,System.Int32)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_increasedCriticalPer_mB086AF2890ADB87914CD640006072F8D0D343D7A (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___startPer0, float ___costPow1, int32_t ___level2, const RuntimeMethod* method);
+// System.Void DataManager::increasedCriticalPer()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_increasedCriticalPer_m0C5E8AA798684C66871CCAEEDDBDEF8BE27FD5CC (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, const RuntimeMethod* method);
 // System.Void DataManager::SaveC_Per_Button(CriticalPerButton)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_SaveC_Per_Button_m29069639AD5BEFC08607677BA0A9B772BF30D148 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, CriticalPerButton_tAAC3FB45A32039A6F4B9F66A987FF863430F92A4 * ___criticalPerButton0, const RuntimeMethod* method);
 // System.Boolean UnityEngine.Object::op_Equality(UnityEngine.Object,UnityEngine.Object)
@@ -6975,10 +6975,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Json_LoadCost_m8B57EE086ABBD8E382F73930C
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Json_LoadMisson_m189C2491F9E617DD7E1EBBA73D4F7C02C4F63519 (Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * __this, const RuntimeMethod* method);
 // System.Void Json::SaveCost()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Json_SaveCost_m415836EAA260A13084BB78C61F5B68DBAE2391A6 (Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * __this, const RuntimeMethod* method);
-// System.Single DataManager::get_criticalPow()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float DataManager_get_criticalPow_mAB6E6E574BE7399E11C24F87A461F90F0C6616A1 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, const RuntimeMethod* method);
-// System.Void DataManager::set_criticalPow(System.Single)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_set_criticalPow_m92464DF6EB258B2360FD51DBD30206B6217A3673 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___value0, const RuntimeMethod* method);
 // System.Void DataManager::set_criticalPer(System.Single)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_set_criticalPer_mD94024385F5A162041B987ADC97520414BE6CE15 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___value0, const RuntimeMethod* method);
 // System.Int32 DataManager::get_stage()
@@ -8885,16 +8881,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CriticalPerButton_Start_mC71B93F79CC2BEA
 	{
 		// upgradeName = "CriticalPer";
 		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_upgradeName_4(_stringLiteralCF6F4F13399823721BA971DF1FFF35DC40E1EDE8);
-		// startState = 1f; 
-		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_startState_11((1.0f));
-		// startCurrentCost = 1;
-		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_startCurrentCost_8(1);
+		// startCurrentCost = 20;
+		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_startCurrentCost_8(((int32_t)20));
 		// costPow = 1.02f;
 		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_costPow_10((1.01999998f));
 		// UpcostPow = 1.39f;
 		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_UpcostPow_9((1.38999999f));
-		// currentCost = 1;
-		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_currentCost_7(1);
+		// currentCost = 20;
+		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_currentCost_7(((int32_t)20));
 		// DataManager.Instance.LoadC_Per_Button(this);
 		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_0;
 		L_0 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
@@ -8949,57 +8943,77 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CriticalPerButton_Update_m9D347B415365A4
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void CriticalPerButton_PurchaseUpgrade_mA4F5CCD4B69AED06EE0E6C930C70E0C855F904D3 (CriticalPerButton_tAAC3FB45A32039A6F4B9F66A987FF863430F92A4 * __this, const RuntimeMethod* method)
 {
 	bool V_0 = false;
+	int32_t G_B3_0 = 0;
 	{
-		// if (DataManager.Instance.gold >= currentCost)
+		// if (DataManager.Instance.gold >= currentCost && DataManager.Instance.criticalPer <= 70)
 		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_0;
 		L_0 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
 		NullCheck(L_0);
 		int32_t L_1;
 		L_1 = DataManager_get_gold_m5CC54ECA6DF5FFC98A758826CC5530349A6380C5(L_0, /*hidden argument*/NULL);
 		int32_t L_2 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_currentCost_7();
-		V_0 = (bool)((((int32_t)((((int32_t)L_1) < ((int32_t)L_2))? 1 : 0)) == ((int32_t)0))? 1 : 0);
-		bool L_3 = V_0;
-		if (!L_3)
+		if ((((int32_t)L_1) < ((int32_t)L_2)))
 		{
-			goto IL_0080;
+			goto IL_0029;
+		}
+	}
+	{
+		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_3;
+		L_3 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
+		NullCheck(L_3);
+		float L_4;
+		L_4 = DataManager_get_criticalPer_m79D1B6E7F647E0E12105E8791D5BDED5DEA9520F(L_3, /*hidden argument*/NULL);
+		G_B3_0 = ((((int32_t)((!(((float)L_4) <= ((float)(70.0f))))? 1 : 0)) == ((int32_t)0))? 1 : 0);
+		goto IL_002a;
+	}
+
+IL_0029:
+	{
+		G_B3_0 = 0;
+	}
+
+IL_002a:
+	{
+		V_0 = (bool)G_B3_0;
+		bool L_5 = V_0;
+		if (!L_5)
+		{
+			goto IL_0082;
 		}
 	}
 	{
 		// isPurchased = true;
 		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_isPurchased_17((bool)1);
 		// DataManager.Instance.gold -= currentCost;
-		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_4;
-		L_4 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
-		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_5 = L_4;
-		NullCheck(L_5);
-		int32_t L_6;
-		L_6 = DataManager_get_gold_m5CC54ECA6DF5FFC98A758826CC5530349A6380C5(L_5, /*hidden argument*/NULL);
-		int32_t L_7 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_currentCost_7();
-		NullCheck(L_5);
-		DataManager_set_gold_m12B41519DE7778FEE67466AC869FB3FC9D4A2ADD(L_5, ((int32_t)il2cpp_codegen_subtract((int32_t)L_6, (int32_t)L_7)), /*hidden argument*/NULL);
-		// DataManager.Instance.increasedCriticalPer(startState, costPow, level);
-		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_8;
-		L_8 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
-		float L_9 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_startState_11();
-		float L_10 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_costPow_10();
-		int32_t L_11 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_level_6();
-		NullCheck(L_8);
-		DataManager_increasedCriticalPer_mB086AF2890ADB87914CD640006072F8D0D343D7A(L_8, L_9, L_10, L_11, /*hidden argument*/NULL);
+		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_6;
+		L_6 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
+		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_7 = L_6;
+		NullCheck(L_7);
+		int32_t L_8;
+		L_8 = DataManager_get_gold_m5CC54ECA6DF5FFC98A758826CC5530349A6380C5(L_7, /*hidden argument*/NULL);
+		int32_t L_9 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_currentCost_7();
+		NullCheck(L_7);
+		DataManager_set_gold_m12B41519DE7778FEE67466AC869FB3FC9D4A2ADD(L_7, ((int32_t)il2cpp_codegen_subtract((int32_t)L_8, (int32_t)L_9)), /*hidden argument*/NULL);
+		// DataManager.Instance.increasedCriticalPer();
+		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_10;
+		L_10 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
+		NullCheck(L_10);
+		DataManager_increasedCriticalPer_m0C5E8AA798684C66871CCAEEDDBDEF8BE27FD5CC(L_10, /*hidden argument*/NULL);
 		// level++;
-		int32_t L_12 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_level_6();
-		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_level_6(((int32_t)il2cpp_codegen_add((int32_t)L_12, (int32_t)1)));
+		int32_t L_11 = ((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->get_level_6();
+		((Buttons_t56DF91E0BC6E1237717461D2564AFA4C911F1F24 *)__this)->set_level_6(((int32_t)il2cpp_codegen_add((int32_t)L_11, (int32_t)1)));
 		// UpdateItem();
 		VirtActionInvoker0::Invoke(5 /* System.Void Buttons::UpdateItem() */, __this);
 		// UpdateUI();
 		VirtActionInvoker0::Invoke(6 /* System.Void Buttons::UpdateUI() */, __this);
 		// DataManager.Instance.SaveC_Per_Button(this);
-		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_13;
-		L_13 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
-		NullCheck(L_13);
-		DataManager_SaveC_Per_Button_m29069639AD5BEFC08607677BA0A9B772BF30D148(L_13, __this, /*hidden argument*/NULL);
+		DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * L_12;
+		L_12 = DataManager_get_Instance_m60FD3513B4DE974253500679042283D3598213D9(/*hidden argument*/NULL);
+		NullCheck(L_12);
+		DataManager_SaveC_Per_Button_m29069639AD5BEFC08607677BA0A9B772BF30D148(L_12, __this, /*hidden argument*/NULL);
 	}
 
-IL_0080:
+IL_0082:
 	{
 		// }
 		return;
@@ -9850,64 +9864,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_set_criticalPer_mD94024385F5
 		return;
 	}
 }
-// System.Single DataManager::get_criticalPow()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float DataManager_get_criticalPow_mAB6E6E574BE7399E11C24F87A461F90F0C6616A1 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, const RuntimeMethod* method)
-{
-	float V_0 = 0.0f;
-	{
-		// Json.Instance.Load();
-		Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * L_0;
-		L_0 = Json_get_Instance_mCC095FA5A36C16C104FC8018A3452E4FD1FBE4F0(/*hidden argument*/NULL);
-		NullCheck(L_0);
-		Json_Load_m4848660F2580A22FDACA72DF24F3E30422DDF014(L_0, /*hidden argument*/NULL);
-		// return Json.Instance.playerData.criticalPow;
-		Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * L_1;
-		L_1 = Json_get_Instance_mCC095FA5A36C16C104FC8018A3452E4FD1FBE4F0(/*hidden argument*/NULL);
-		NullCheck(L_1);
-		PlayerData_t8CF0E5D9EE572FFF7E0B41DA391376CF0AB8EBB5 * L_2 = L_1->get_playerData_5();
-		NullCheck(L_2);
-		float L_3 = L_2->get_criticalPow_8();
-		V_0 = L_3;
-		goto IL_001e;
-	}
-
-IL_001e:
-	{
-		// }
-		float L_4 = V_0;
-		return L_4;
-	}
-}
-// System.Void DataManager::set_criticalPow(System.Single)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_set_criticalPow_m92464DF6EB258B2360FD51DBD30206B6217A3673 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___value0, const RuntimeMethod* method)
-{
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Math_tA269614262430118C9FC5C4D9EF4F61C812568F0_il2cpp_TypeInfo_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	{
-		// Json.Instance.playerData.criticalPow = (float)System.Math.Round(value, 2);
-		Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * L_0;
-		L_0 = Json_get_Instance_mCC095FA5A36C16C104FC8018A3452E4FD1FBE4F0(/*hidden argument*/NULL);
-		NullCheck(L_0);
-		PlayerData_t8CF0E5D9EE572FFF7E0B41DA391376CF0AB8EBB5 * L_1 = L_0->get_playerData_5();
-		float L_2 = ___value0;
-		IL2CPP_RUNTIME_CLASS_INIT(Math_tA269614262430118C9FC5C4D9EF4F61C812568F0_il2cpp_TypeInfo_var);
-		double L_3;
-		L_3 = Math_Round_m394EEE2C796B3A1578E65037E0D57B3D6F9B1C70(((double)((double)L_2)), 2, /*hidden argument*/NULL);
-		NullCheck(L_1);
-		L_1->set_criticalPow_8(((float)((float)L_3)));
-		// Json.Instance.Save();
-		Json_tF9F16409886D3CDEFFBF126940A1C18A9C20F5F3 * L_4;
-		L_4 = Json_get_Instance_mCC095FA5A36C16C104FC8018A3452E4FD1FBE4F0(/*hidden argument*/NULL);
-		NullCheck(L_4);
-		Json_Save_mEB7ECE415C1CC24DCB21478494ED45C0DF21A98C(L_4, /*hidden argument*/NULL);
-		// }
-		return;
-	}
-}
 // System.Int32 DataManager::get_stage()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t DataManager_get_stage_m28BFCC0FBEC37AD7CAEFF2AF39437E0CBC6E9005 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, const RuntimeMethod* method)
 {
@@ -10078,36 +10034,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_SaveC_Per_Button_m29069639AD
 		return;
 	}
 }
-// System.Void DataManager::increasedCritical(System.Single,System.Single,System.Int32)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_increasedCritical_mB0FE90D5EDF248492781917BCF2960068E7D4058 (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___startPow0, float ___costPow1, int32_t ___level2, const RuntimeMethod* method)
+// System.Void DataManager::increasedCriticalPer()
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_increasedCriticalPer_m0C5E8AA798684C66871CCAEEDDBDEF8BE27FD5CC (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, const RuntimeMethod* method)
 {
 	{
-		// criticalPow += startPow * Mathf.Pow(costPow, level);
-		float L_0;
-		L_0 = DataManager_get_criticalPow_mAB6E6E574BE7399E11C24F87A461F90F0C6616A1(__this, /*hidden argument*/NULL);
-		float L_1 = ___startPow0;
-		float L_2 = ___costPow1;
-		int32_t L_3 = ___level2;
-		float L_4;
-		L_4 = powf(L_2, ((float)((float)L_3)));
-		DataManager_set_criticalPow_m92464DF6EB258B2360FD51DBD30206B6217A3673(__this, ((float)il2cpp_codegen_add((float)L_0, (float)((float)il2cpp_codegen_multiply((float)L_1, (float)L_4)))), /*hidden argument*/NULL);
-		// }
-		return;
-	}
-}
-// System.Void DataManager::increasedCriticalPer(System.Single,System.Single,System.Int32)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void DataManager_increasedCriticalPer_mB086AF2890ADB87914CD640006072F8D0D343D7A (DataManager_t01518B3D49E16D1E80F0C7C9F0533427905EC1E2 * __this, float ___startPer0, float ___costPow1, int32_t ___level2, const RuntimeMethod* method)
-{
-	{
-		// criticalPer += startPer * Mathf.Pow(costPow, level);
+		// criticalPer += 0.25f;
 		float L_0;
 		L_0 = DataManager_get_criticalPer_m79D1B6E7F647E0E12105E8791D5BDED5DEA9520F(__this, /*hidden argument*/NULL);
-		float L_1 = ___startPer0;
-		float L_2 = ___costPow1;
-		int32_t L_3 = ___level2;
-		float L_4;
-		L_4 = powf(L_2, ((float)((float)L_3)));
-		DataManager_set_criticalPer_mD94024385F5A162041B987ADC97520414BE6CE15(__this, ((float)il2cpp_codegen_add((float)L_0, (float)((float)il2cpp_codegen_multiply((float)L_1, (float)L_4)))), /*hidden argument*/NULL);
+		DataManager_set_criticalPer_mD94024385F5A162041B987ADC97520414BE6CE15(__this, ((float)il2cpp_codegen_add((float)L_0, (float)(0.25f))), /*hidden argument*/NULL);
 		// }
 		return;
 	}

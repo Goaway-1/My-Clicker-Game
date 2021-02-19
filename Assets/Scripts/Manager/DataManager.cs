@@ -156,20 +156,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
             Json.Instance.Save();
         }
     }
-    [HideInInspector]
-    public float criticalPow //치명타배수
-    {
-        get
-        {
-            Json.Instance.Load();
-            return Json.Instance.playerData.criticalPow;
-        }
-        set
-        {
-            Json.Instance.playerData.criticalPow = (float)System.Math.Round(value, 2);
-            Json.Instance.Save();
-        }
-    }
+
     [HideInInspector]
     public int stage
     {
@@ -212,13 +199,9 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         Json.Instance.SaveCost();
     }
 
-    public void increasedCritical (float startPow , float costPow, int level) //CriticalPow 증가(수정)
-    { 
-        criticalPow += startPow * Mathf.Pow(costPow, level);
-    }
-    public void increasedCriticalPer(float startPer, float costPow, int level) //CriticalPer 증가(수정)
+    public void increasedCriticalPer() //CriticalPer 증가(수정)
     {
-        criticalPer += startPer * Mathf.Pow(costPow, level);
+        criticalPer += 0.25f;
     }
     //Critical 관련@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
