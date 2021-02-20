@@ -83,10 +83,6 @@
     <Compile Include="Assets\Scripts\Button\CriticalPerButton.cs" />
   </ItemGroup>
   <ItemGroup>
-     <None Include="Assets\SimplePixelUI\fonts\Font2\license.txt" />
-     <None Include="Assets\SimplePixelUI\fonts\Font1\license.txt" />
-     <None Include="Assets\SimplePixelUI\fonts\Font1\readme.txt" />
-     <None Include="Assets\SimplePixelUI\fonts\Font2\readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Unity\2020.2.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

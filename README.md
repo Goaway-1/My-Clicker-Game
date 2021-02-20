@@ -2545,8 +2545,36 @@ ___
   - 시작화면과 아이콘 생성 및 적용
     - 등록이 목표가 아니기 때문에 간단히 작성
     - <img src="Capture/After/SplashScreen.gif" width=250 title="Splash"> 
-  - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 사운드,이미지, 부활(0.12버전에서 할 예정)
 > **<h3>Today Dec Story</h3>**
   - null
-
-- ui수정
+___
+## __2.19__
+> **<h3>Today Dec Story</h3>**
+  - GUI수정 
+> **<h3>Today Dec Story</h3>**
+  - null
+___
+## __2.20__
+> **<h3>Today Dec Story</h3>**
+  - GUI수정, 밸런스확인
+  - 작은 오류 수정
+> **<h3>Today Dec Story</h3>**
+  - null
+___
+## __2.21__
+> **<h3>Today Dec Story</h3>**
+  - 사운드 개선
+    - 공격시, 몬스터 사망시 ,배경X
+  - UI 추가
+    - Mute
+  - 게임설명
+    - 캡쳐, ReadMeFile 작성  
+> **<h3>Today Dec Story</h3>**
+  - null
+___
+# 개선점
+  - 업그레이드 비용의 밸런스
+  - 애니메이션의 최적화
+  - Json배열 사용법
+  - NGUI의 개선 
+  - 스킬다양화(밸런스), json의 배열, 몬스터 오브젝트 풀링, 부활(0.12버전에서 할 예정)

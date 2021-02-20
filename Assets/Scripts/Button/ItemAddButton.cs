@@ -48,7 +48,7 @@ public class ItemAddButton : MonoBehaviour
                 }
                 Instantiate(slotItem, InventoryManger.Instance.slots[i].slotObj.transform, false);
                 InventoryManger.Instance.slots[i].isEmpty = false;
-                InventoryManger.Instance.slots[i].additionalD = i_additionalD;
+                InventoryManger.Instance.slots[i].additionalD = (float)System.Math.Round(i_additionalD,2);
                 InventoryManger.Instance.slots[i].index = i_index;
                 InventoryManger.Instance.slots[i].type = i_type;
                 InventoryManger.Instance.slots[i].level = i_level;

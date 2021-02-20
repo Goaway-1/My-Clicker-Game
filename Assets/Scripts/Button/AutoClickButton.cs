@@ -53,7 +53,8 @@ public class AutoClickButton : Buttons
     }
     public override void UpdateItem()
     {
-        currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
+        //currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
+        currentCost += startCurrentCost + 5 * level;
     }
     public override void UpdateUI()
     {

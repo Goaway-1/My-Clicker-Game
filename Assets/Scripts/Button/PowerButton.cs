@@ -14,7 +14,6 @@ public class PowerButton : Buttons
 
         //시작 속성
         startState = 1f; 
-        startCurrentCost = 1;   //필요없는데...
 
         //업글 제곱
         UpcostPow = 1.39f;

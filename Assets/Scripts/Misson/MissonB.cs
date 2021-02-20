@@ -73,6 +73,6 @@ public class MissonB : Missons  //Stage¹Ì¼Ç!
     }
     public override void UpdateUi()
     {
-        display.text = "Max : " + stage_max + "\nStage : " + DataManager.Instance.stage + "\tReword : " + isfill;
+        display.text = "Objective : " + stage_max + "\nCurrentStage : " + DataManager.Instance.stage + "\tReward : " + isfill;
     }
 }

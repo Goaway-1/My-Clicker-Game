@@ -34,7 +34,7 @@ public class CriticalPerButton : Buttons
 
     public override void PurchaseUpgrade() //ÆÛ¼¾Æ®
     {
-        if (DataManager.Instance.gold >= currentCost && DataManager.Instance.criticalPer <= 70)
+        if (DataManager.Instance.gold >= currentCost && DataManager.Instance.criticalPer < 30)
         {
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
@@ -48,7 +48,8 @@ public class CriticalPerButton : Buttons
 
     public override void UpdateItem()
     {
-        currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
+        //currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
+        currentCost += startCurrentCost + 2 * level;
     }
 
     public override void UpdateUI()

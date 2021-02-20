@@ -101,8 +101,7 @@ public class DataManager : MonoBehaviour //끌어다 쓰는 느낌
         }
         set
         {
-            Json.Instance.playerData.AutoC = value;
-            float b = (float)System.Math.Round(value, 2);   //소수점 2자리로 고정
+            Json.Instance.playerData.AutoC = (float)System.Math.Round(value, 2);
             Json.Instance.Save();
         }
     }

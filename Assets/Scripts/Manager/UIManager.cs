@@ -100,13 +100,13 @@ public class UIManager : MonoBehaviour
         {
             M_isshow = true;
             M_Ani.SetBool("isShow", true);
-            M_image.transform.rotation = Quaternion.Euler(0, 0, 90);
+            M_image.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else
         {
             M_isshow = false;
             M_Ani.SetBool("isShow", false);
-            M_image.transform.rotation = Quaternion.Euler(0, 0, -90);
+            M_image.transform.rotation = Quaternion.Euler(0, 0, 180);
         }
     }
 
