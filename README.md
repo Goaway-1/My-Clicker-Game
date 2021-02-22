@@ -2563,14 +2563,45 @@ ___
 ___
 ## __2.21__
 > **<h3>Today Dec Story</h3>**
-  - 사운드 개선
-    - 공격시, 몬스터 사망시 ,배경X
+  - null
+> **<h3>Today Dec Story</h3>**
+  - null 
+___
+## __2.22__
+> **<h3>Today Dec Story</h3>**
   - UI 추가
-    - Mute
-  - 게임설명
-    - 캡쳐, ReadMeFile 작성  
+    - Sound Mute(PlayerPref사용)
+      ```c#
+      bool isMuted;
+      Animator ani;
+
+      private void Start()
+      {
+        ani = gameObject.GetComponent<Animator>();
+        isMuted = PlayerPrefs.GetInt("Muted") == 1;     //bool 값이기 때문에
+        ani.SetBool("isOn", !isMuted);                  //Animator추가
+        AudioListener.pause = isMuted;
+      }
+
+      public void MutePressed()   //클릭시
+      {
+        isMuted = !isMuted;
+        AudioListener.pause = isMuted;
+        ani.SetBool("isOn", !isMuted);
+        PlayerPrefs.SetInt("Muted", isMuted ? 1 : 0);
+      }
+      ``` 
 > **<h3>Today Dec Story</h3>**
   - null
+___
+## __2.23__
+> **<h3>Today Dec Story</h3>**
+  - 사운드 개선
+    - 공격시, 몬스터 사망시 ,배경X
+  - 게임설명
+    - 캡쳐, ReadMeFile 작성 
+> **<h3>Today Dec Story</h3>**
+  - null 
 ___
 # 개선점
   - 업그레이드 비용의 밸런스
