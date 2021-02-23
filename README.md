@@ -1,4 +1,97 @@
-<link rel="stylesheet" type="text/css" href="C.css">
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+.slide {
+  height: 700px;
+  width: 300px;
+  overflow: hidden;
+  position: relative;
+}
+.slide li {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: 1s;
+}
+.slide li:nth-child(1) {
+  background: #000000;
+}
+.slide li:nth-child(2) {
+  background: #000000;
+}
+.slide li:nth-child(3) {
+  background: #000000;
+}
+.slide li:nth-child(4) {
+  background: #000000;
+}
+.slide li:nth-child(5) {
+  background: #000000;
+}
+.slide li:nth-child(6) {
+  background: #000000;
+}
+.slide li:nth-child(7) {
+  background: #000000;
+}
+.slide li:nth-child(8) {
+  background: #000000;
+}
+.slide input {
+  display: none;
+}
+.slide .bullet {
+  position: absolute;
+  bottom: 180px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+}
+.slide .bullet label {
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  border: 2px solid #666;
+  display: inline-block;
+  background: #fff;
+  font-size: 0;
+  transition: 0.5s;
+  cursor: pointer;
+}
+/* 슬라이드 조작 */
+#pos1:checked ~ ul li:nth-child(1),
+#pos2:checked ~ ul li:nth-child(2),
+#pos3:checked ~ ul li:nth-child(3),
+#pos4:checked ~ ul li:nth-child(4),
+#pos5:checked ~ ul li:nth-child(5),
+#pos6:checked ~ ul li:nth-child(6),
+#pos7:checked ~ ul li:nth-child(7),
+#pos8:checked ~ ul li:nth-child(8) {
+  opacity: 1;
+}
+/* bullet 조작 */
+#pos1:checked ~ .bullet label:nth-child(1),
+#pos2:checked ~ .bullet label:nth-child(2),
+#pos3:checked ~ .bullet label:nth-child(3),
+#pos4:checked ~ .bullet label:nth-child(4),
+#pos5:checked ~ .bullet label:nth-child(5),
+#pos6:checked ~ .bullet label:nth-child(6),
+#pos7:checked ~ .bullet label:nth-child(7),
+#pos8:checked ~ .bullet label:nth-child(8) {
+  background: #666;
+}
+
+</style>
 
 # Clicker Game
 > 목차
@@ -20,7 +113,7 @@ ___
 |제작기간| 20년12월22일 ~ 21년02월23일 (56일)|
 |초기목표|단순한 클릭게임이지만 액션의 화려함과 다양한 공격모션 구현으로 인한 뻔한 클리커게임 벗어나는 것이 목표, 하지만 원하는데로 이루어지지 않았다.|
 |에셋|모든 에셋들은 Unity Asset Store에서 사용 (상업적으로 사용하지 않음)|
-|자세한 제작과정|[DevRecord 파일 확인](www.google.co.kr)|
+|자세한 제작과정|[DevRecord 파일 확인](https://github.com/Goaway-1/My-Clicker-Game/blob/main/DevRecord.md)|
 |다운로드 링크|[구글 드라이브](https://drive.google.com/file/d/1wtfZB9dNxa4Bv-HKaRZXgeAvQvcxIDal/view?usp=sharing) // 플레이스토어에 등록X (저작권 관련)|
 ___
 > <a name="test">게임화면</a>
