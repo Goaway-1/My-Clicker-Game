@@ -10,9 +10,14 @@ public class PlayerAnimation : MonoBehaviour
     public Animator animator;
     public InventoryManger inven;       //추후 싱글톤 & ItemAddButton과 동시에
 
+    //사운드
+    AudioSource sound;
+    bool isOnce = true;
+
     public void Start()
     {
         animator = GetComponent<Animator>(); //스스로를 넣는다.  
+        sound = GetComponent<AudioSource>();
     }
 
     public void FixedUpdate()
@@ -50,10 +55,17 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (!EnemyManager.Instance.isMove) //안친다.
         {
+            sound.Stop();
             animator.SetBool("Run", false);
+            isOnce = true;
         }
         else
         {
+            if (isOnce)
+            {
+                sound.Play();
+                isOnce = false;
+            }
             animator.SetBool("Run", true);
         }
     }

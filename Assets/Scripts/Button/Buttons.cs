@@ -18,6 +18,9 @@ public abstract class Buttons : MonoBehaviour
     public float costPow;       //State 강화 pow
     public float startState;    //현재 state
 
+    //사운드
+    protected AudioSource sound;
+
     public CanvasGroup canvasGroup;                 //Alpha값을 조정하기 위한 그룹
     public Slider slider;
     public Color upgradeAbleColor = Color.blue;     //업그레이할때 변함
@@ -25,7 +28,13 @@ public abstract class Buttons : MonoBehaviour
     public Image colorImage;
     public bool isPurchased = false;               //아이템 구매여부
 
+    private void Awake()
+    {
+        sound = GameObject.Find("ItemButtonAudio").GetComponent<AudioSource>();
+    }
+
     public abstract void PurchaseUpgrade();
     public abstract void UpdateItem();
     public abstract void UpdateUI();
+
 }

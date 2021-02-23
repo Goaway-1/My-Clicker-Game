@@ -23,6 +23,7 @@ ScriptsOnlyBuild:
     - PlayerAnimation
     - PowerButton
     - Slot
+    - SoundManager
     - UIManager
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -92,6 +93,8 @@ ScriptsOnlyBuild:
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -172,6 +175,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -243,11 +250,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4516}
     - Class: 114
-      Script: {instanceID: 4614}
+      Script: {instanceID: 4518}
     - Class: 114
-      Script: {instanceID: 4870}
+      Script: {instanceID: 4616}
     - Class: 114
-      Script: {instanceID: 4984}
+      Script: {instanceID: 4872}
+    - Class: 114
+      Script: {instanceID: 4986}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -373,7 +382,7 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
-      Hash: 65389ea6d15f606136e8eaebf93e623d
+      Hash: 37a6fdab2d6c435de68e723d5351ba4c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AttackButton
@@ -751,7 +760,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: d7869ac597877b4938f82c462784706b
+      Hash: 9d3fba2450c25be7a65b09424f5afadd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ItemAddButton
@@ -823,7 +832,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
-      Hash: dcb88db8742b0dee0e6322067a7fd6a6
+      Hash: 634b2bed59fb7f15f487d5bf3424af0b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager
@@ -857,6 +866,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PowerButton
+  - hash:
+      serializedVersion: 2
+      Hash: 4641c5520d897c9e67f8d124e7d30a8c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundManager
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f

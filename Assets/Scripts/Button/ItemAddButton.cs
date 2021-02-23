@@ -15,6 +15,9 @@ public class ItemAddButton : MonoBehaviour
     //디스플레이
     public Text display;
 
+    //소리
+    public AudioSource sound;
+
     private void FixedUpdate()
     {
         UpdateUI();
@@ -77,6 +80,7 @@ public class ItemAddButton : MonoBehaviour
     {
         if(DataManager.Instance.gold > i_cost)
         {
+            sound.Play();
             switch (int.Parse(gameObject.name.Substring(gameObject.name.IndexOf("m") + 1)))
             {
                 case 1: //power

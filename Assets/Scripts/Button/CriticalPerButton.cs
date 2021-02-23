@@ -36,6 +36,7 @@ public class CriticalPerButton : Buttons
     {
         if (DataManager.Instance.gold >= currentCost && DataManager.Instance.criticalPer < 30)
         {
+            sound.Play();
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
             DataManager.Instance.increasedCriticalPer();
@@ -48,7 +49,6 @@ public class CriticalPerButton : Buttons
 
     public override void UpdateItem()
     {
-        //currentCost = startCurrentCost * (int)Mathf.Pow(UpcostPow, level);
         currentCost += startCurrentCost + 2 * level;
     }
 

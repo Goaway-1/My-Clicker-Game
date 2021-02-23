@@ -87,7 +87,6 @@ public class EnemyManager : MonoBehaviour
             isMove = true;  //배경 움직여라
             curTime = 0;
             Instantiate(enemys[randomEnemy()], startPos, quaternion);
-            //GameObject t_object = ObjectPoolingManager.instance.EGetQueue(); //오브젝트풀링수정
         }
     }
     public int randomEnemy() //랜덤번호 지정

@@ -31,7 +31,7 @@ public class PowerButton : Buttons
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateUI();
     }
@@ -41,6 +41,7 @@ public class PowerButton : Buttons
         //if구문 -> 돈빼고(자동저장)
         if (DataManager.Instance.gold >= currentCost)
         {
+            sound.Play();
             isPurchased = true;
             DataManager.Instance.gold -= currentCost;
             DataManager.Instance.power += costPow;  //수정

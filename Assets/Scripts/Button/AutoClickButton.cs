@@ -42,6 +42,7 @@ public class AutoClickButton : Buttons
         //if구문->돈빼고(자동저장)
         if (DataManager.Instance.gold >= currentCost)
         {
+            sound.Play();
             isPurchased = true;     //투명도 조절위함
             DataManager.Instance.gold -= currentCost;
             DataManager.Instance.AutoC -= costPow;    //감소
