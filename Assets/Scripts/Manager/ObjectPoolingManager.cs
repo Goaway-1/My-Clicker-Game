@@ -34,11 +34,4 @@ public class ObjectPoolingManager : MonoBehaviour
         t_object.SetActive(true);
         return t_object;
     }
-
-    //public GameObject EGetQueue()    //풀에서 객체를 불러와 사용하는 함수
-    //{
-    //    GameObject t_object = E_queue.Dequeue();
-    //    t_object.SetActive(true);
-    //    return t_object;
-    //}
 }
