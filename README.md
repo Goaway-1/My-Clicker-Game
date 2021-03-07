@@ -20,11 +20,16 @@ ___
 |다운로드 링크|[구글 드라이브](https://drive.google.com/file/d/1wtfZB9dNxa4Bv-HKaRZXgeAvQvcxIDal/view?usp=sharing) // 플레이스토어에 등록X (저작권 관련)|
 ___
 > ## 게임화면
-|이미지 & 설명||||||||
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|<img src="Capture/Explain/1.jpg" title="LoadingScene" width="100%">|<img src="Capture/Explain/2.jpg" title="MainScene" width="100%">|<img src="Capture/Explain/3.jpg" title="BeforeUpgradeScene" width="100%" style="display:block;">|<img src="Capture/Explain/4.jpg" title="AfterUpgradeScene" width="100%" style="display:block;">|<img src="Capture/Explain/5.jpg" title="ComboScene" width="100%" style="display:block;">|<img src="Capture/Explain/6.jpg" title="MissonScene" width="100%" style="display:block;">|<img src="Capture/Explain/7.jpg" title="MaterScene" width="100%" style="display:block;">|<img src="Capture/Explain/Playing.gif" title="PlayingScene" width="1450" style="display:block;">|
-|- 메인화면이며 json 파일의 로딩과 페이크로딩을 사용하여 진행했다.|- 로딩이 모두 끝난후의 화면으로 본격적으로 게임을 즐길수 있는 화면이다. <br>- 단순히 화면을 클릭하면 몬스터를 공격하는 방식이다.<br>- 단점 : 초기에는 공격모션이 지정되어 있지 않아 모션이 나오지 않는다. Combo창에 가서 모션을 지정해 주어야한다.|- 기본 공격력, 크리티컬 확률, 자동 클릭 3가지를 업그레이드 할 수 있는 UI이다.|- 업그레이드 가능 : 녹색, 업그레이드 불가 : 빨간색<br>- 오른쪽 상단은 오디오의 뮤트,언뮤트이다.|- 공격모션을 추가하고 업그레이드 할 수 있는 UI<br>- 공격모션의 순서에 따라 숨겨진 추가 데미지 존재|- Misson을 진행하고 그에 대한 보상을 받을 수 있는 UI<br>- 클릭 횟수와 스테이지별 보상이 존재하며, 한번에 받을 수 있는 기능은 없다.|- Master UI는 실험할때 사용하는 창이다. <br>- 게임머니를 추가할때 Increased_Money 버튼을, 몬스터를 죽일때는 Kill_Enemy를, 데이터의 초기화를 원하는 경우에는 JsonData_Reset 버튼을 사용한다.<br>- Kill_Enemy버튼은 오류가 발생할 수 있으니 되도록 사용하지 않는것이 좋다.|- 플레이화면|
-
+|이미지 & 설명||
+|:--:|:--:|
+|<img src="Capture/Explain/1.jpg" title="LoadingScene" width="200">|- 메인화면이며 json 파일의 로딩과 페이크로딩을 사용하여 진행했다.|
+|<img src="Capture/Explain/2.jpg" title="MainScene" width="200">|- 로딩이 모두 끝난후의 화면으로 본격적으로 게임을 즐길수 있는 화면이다. <br>- 단순히 화면을 클릭하면 몬스터를 공격하는 방식이다.<br>- 단점 : 초기에는 공격모션이 지정되어 있지 않아 모션이 나오지 않는다. Combo창에 가서 모션을 지정해 주어야한다.|
+|<img src="Capture/Explain/3.jpg" title="BeforeUpgradeScene" width="200" style="display:block;">|- 기본 공격력, 크리티컬 확률, 자동 클릭 3가지를 업그레이드 할 수 있는 UI이다.|
+|<img src="Capture/Explain/4.jpg" title="AfterUpgradeScene" width="200" style="display:block;">|- 업그레이드 가능 : 녹색, 업그레이드 불가 : 빨간색<br>- 오른쪽 상단은 오디오의 뮤트,언뮤트이다.|
+|<img src="Capture/Explain/5.jpg" title="ComboScene" width="200" style="display:block;">|- 공격모션을 추가하고 업그레이드 할 수 있는 UI<br>- 공격모션의 순서에 따라 숨겨진 추가 데미지 존재|
+|<img src="Capture/Explain/6.jpg" title="MissonScene" width="200" style="display:block;">|- Misson을 진행하고 그에 대한 보상을 받을 수 있는 UI<br>- 클릭 횟수와 스테이지별 보상이 존재하며, 한번에 받을 수 있는 기능은 없다.|
+|<img src="Capture/Explain/7.jpg" title="MaterScene" width="200" style="display:block;">|- Master UI는 실험할때 사용하는 창이다. <br>- 게임머니를 추가할때 Increased_Money 버튼을, 몬스터를 죽일때는 Kill_Enemy를, 데이터의 초기화를 원하는 경우에는 JsonData_Reset 버튼을 사용한다.<br>- Kill_Enemy버튼은 오류가 발생할 수 있으니 되도록 사용하지 않는것이 좋다.|
+|<img src="Capture/Explain/Playing.gif" title="PlayingScene" width="200" style="display:block;">|- 플레이화면|
 ___
 > ## 사용한 기술 및 배운점
   - 오브젝트 폴링
